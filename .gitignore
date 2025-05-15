@@ -1,6 +1,6 @@
 # Build output
 dist/
-/dist/  # Some people use this too, either is fine
+/dist/ # Some people use this too, either is fine
 
 # Dependencies
 node_modules/
