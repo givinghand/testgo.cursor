@@ -2,9 +2,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { CheckCircle, XCircle, Clock, ChevronRight, ChevronLeft } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Clock, ChevronRight, ListChecks } from "lucide-react";
 
 export function TestInProgress({
   testData,
@@ -12,154 +11,122 @@ export function TestInProgress({
   currentQuestionIndex,
   timeLeft,
   formatTime,
-  progress,
   selectedAnswers,
   handleAnswerSelect,
-  goToPreviousQuestion,
   goToNextQuestion,
-  showExplanation,
-  setShowExplanation,
-  setCurrentQuestionIndex
+  setCurrentQuestionIndex,
+  isQuestionListOpen,
+  setIsQuestionListOpen,
+  examId,
+  subjectId,
+  topicId
 }) {
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{testData.title}</h1>
-        <p className="text-gray-600 mb-4">{testData.description}</p>
-        
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-          <div className="flex items-center">
-            <div className="bg-primary/10 text-primary font-medium rounded-full px-4 py-1 flex items-center">
-              <Clock className="w-4 h-4 mr-1" />
-              {formatTime(timeLeft)}
-            </div>
-          </div>
-          
-          <div className="w-full md:w-1/2">
-            <div className="flex justify-between text-sm mb-1">
-              <span>İlerleme</span>
-              <span>{currentQuestionIndex + 1} / {testData.questions.length}</span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
+    <div className="container mx-auto px-2 py-4 md:px-4 md:py-6 flex flex-col h-[calc(100vh-8rem)]">
+      <header className="flex justify-between items-center mb-4 p-3 bg-card rounded-lg shadow-sm">
+        <div>
+          <p className="text-xs sm:text-sm font-semibold text-primary">{examId?.toUpperCase()} / {subjectId?.toUpperCase()}</p>
+          <h1 className="text-base sm:text-lg md:text-xl font-bold text-foreground truncate max-w-[200px] sm:max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
+            {topicId?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+          </h1>
         </div>
-      </div>
+        <div className="flex items-center px-2 py-1 sm:px-3 sm:py-1.5 bg-destructive/10 text-destructive font-bold rounded-md text-sm sm:text-lg">
+          <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
+          {formatTime(timeLeft)}
+        </div>
+      </header>
 
-      <motion.div
-        key={currentQuestionIndex}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -20 }}
-        transition={{ duration: 0.3 }}
-      >
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-start">
-              <span className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">
-                {currentQuestionIndex + 1}
-              </span>
-              <span>{currentQuestion.text}</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {currentQuestion.options.map((option) => (
-                <div
-                  key={option.id}
-                  className={`p-4 rounded-lg border cursor-pointer transition-all ${
-                    selectedAnswers[currentQuestion.id] === option.id
-                      ? "border-primary bg-primary/5"
-                      : "border-gray-200 hover:border-primary/50 hover:bg-gray-50"
+      <main className="flex-grow overflow-y-auto p-1 flex flex-col">
+        <motion.div
+          key={currentQuestionIndex}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.25 }}
+          className="bg-card p-3 sm:p-4 md:p-6 rounded-lg shadow-md flex-grow flex flex-col"
+        >
+          <div className="flex items-start mb-3 sm:mb-4">
+            <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-base sm:text-lg font-bold mr-2 sm:mr-3 shadow">
+              {currentQuestionIndex + 1}
+            </div>
+            <p className="text-sm sm:text-base md:text-lg font-medium text-foreground flex-grow pt-0.5 sm:pt-1">{currentQuestion.text}</p>
+          </div>
+
+          {currentQuestion.image && (
+            <div className="mb-3 sm:mb-4 rounded-md overflow-hidden max-h-48 sm:max-h-64 flex justify-center items-center bg-muted">
+              <img-replace src={currentQuestion.image} alt={`Soru ${currentQuestionIndex + 1} için görsel`} class="object-contain max-h-full max-w-full" />
+            </div>
+          )}
+
+          <div className="space-y-2 sm:space-y-3 mt-auto">
+            {currentQuestion.options.map((option) => (
+              <Button
+                key={option.id}
+                variant={selectedAnswers[currentQuestion.id] === option.id ? "default" : "outline"}
+                className={`w-full justify-start text-left h-auto py-2.5 px-3 sm:py-3 sm:px-4 text-xs sm:text-sm transition-all duration-200 ease-in-out transform hover:scale-[1.01]
+                  ${selectedAnswers[currentQuestion.id] === option.id 
+                    ? 'bg-primary text-primary-foreground ring-2 ring-primary ring-offset-1 shadow-md' 
+                    : 'bg-card hover:bg-primary/5 hover:border-primary text-foreground border-border'
                   }`}
-                  onClick={() => handleAnswerSelect(currentQuestion.id, option.id)}
+                onClick={() => handleAnswerSelect(currentQuestion.id, option.id)}
+              >
+                <span className={`mr-2 sm:mr-3 font-bold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full border-2 text-xs sm:text-sm
+                  ${selectedAnswers[currentQuestion.id] === option.id 
+                    ? 'border-primary-foreground bg-primary-foreground text-primary' 
+                    : 'border-primary text-primary'
+                  }`}>
+                  {option.id}
+                </span>
+                <span className="flex-grow">{option.text}</span>
+              </Button>
+            ))}
+          </div>
+        </motion.div>
+      </main>
+
+      <footer className="mt-auto pt-3 sm:pt-4 flex justify-between items-center p-2 sm:p-3 bg-card rounded-lg shadow-sm">
+        <Dialog open={isQuestionListOpen} onOpenChange={setIsQuestionListOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="text-primary border-primary hover:bg-primary/10 text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1.5 h-auto">
+              <ListChecks className="mr-1.5 h-4 w-4 sm:h-5 sm:w-5" />
+              Sorular ({currentQuestionIndex + 1}/{testData.questions.length})
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-xs md:max-w-sm p-0">
+            <DialogHeader className="p-3 sm:p-4 border-b">
+              <DialogTitle className="text-primary text-base sm:text-lg">Soru Listesi</DialogTitle>
+            </DialogHeader>
+            <div className="p-3 sm:p-4 grid grid-cols-4 sm:grid-cols-5 gap-1.5 sm:gap-2 max-h-[50vh] sm:max-h-[60vh] overflow-y-auto">
+              {testData.questions.map((q, index) => (
+                <Button
+                  key={q.id}
+                  variant={index === currentQuestionIndex ? "default" : selectedAnswers[q.id] ? "secondary" : "outline"}
+                  size="icon"
+                  className={`h-8 w-8 sm:h-9 sm:w-9 text-xs sm:text-sm font-semibold rounded-md transition-all
+                    ${index === currentQuestionIndex ? 'bg-primary text-primary-foreground' : 
+                      selectedAnswers[q.id] ? 'bg-secondary text-secondary-foreground' : 
+                      'border-border hover:bg-muted'}`}
+                  onClick={() => {
+                    setCurrentQuestionIndex(index);
+                    setIsQuestionListOpen(false);
+                  }}
                 >
-                  <div className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 border ${
-                      selectedAnswers[currentQuestion.id] === option.id
-                        ? "border-primary bg-primary text-white"
-                        : "border-gray-300"
-                    }`}>
-                      {option.id}
-                    </div>
-                    <span>{option.text}</span>
-                  </div>
-                </div>
+                  {index + 1}
+                </Button>
               ))}
             </div>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button 
-              variant="outline" 
-              onClick={goToPreviousQuestion}
-              disabled={currentQuestionIndex === 0}
-            >
-              <ChevronLeft className="mr-2 h-4 w-4" /> Önceki Soru
-            </Button>
-            
-            <div className="flex gap-2">
-              {selectedAnswers[currentQuestion.id] && (
-                <Button 
-                  variant="outline" 
-                  onClick={() => setShowExplanation(!showExplanation)}
-                >
-                  {showExplanation ? "Açıklamayı Gizle" : "Açıklamayı Göster"}
-                </Button>
-              )}
-              
-              <Button onClick={goToNextQuestion}>
-                {currentQuestionIndex === testData.questions.length - 1 ? "Testi Bitir" : "Sonraki Soru"}
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
+          </DialogContent>
+        </Dialog>
         
-        {showExplanation && selectedAnswers[currentQuestion.id] && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Açıklama</CardTitle>
-                <CardDescription>
-                  {selectedAnswers[currentQuestion.id] === currentQuestion.correctAnswer ? (
-                    <span className="flex items-center text-green-600">
-                      <CheckCircle className="mr-2 h-5 w-5" /> Doğru cevap!
-                    </span>
-                  ) : (
-                    <span className="flex items-center text-red-600">
-                      <XCircle className="mr-2 h-5 w-5" /> Yanlış cevap! Doğru cevap: {currentQuestion.correctAnswer}
-                    </span>
-                  )}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>{currentQuestion.explanation}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </motion.div>
-      
-      <div className="mt-8 grid grid-cols-5 sm:grid-cols-10 gap-2">
-        {testData.questions.map((question, index) => (
-          <div
-            key={question.id}
-            className={`w-full aspect-square rounded-md flex items-center justify-center cursor-pointer text-sm font-medium transition-all ${
-              index === currentQuestionIndex
-                ? "bg-primary text-white"
-                : selectedAnswers[question.id]
-                ? "bg-primary/20 text-primary"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-            onClick={() => setCurrentQuestionIndex(index)}
-          >
-            {index + 1}
-          </div>
-        ))}
-      </div>
+        <Button 
+          onClick={goToNextQuestion} 
+          className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 h-auto"
+          disabled={!selectedAnswers[currentQuestion.id] && currentQuestionIndex !== testData.questions.length -1 }
+        >
+          {currentQuestionIndex === testData.questions.length - 1 ? "Testi Bitir" : "Sonraki Soru"}
+          <ChevronRight className="ml-1.5 h-4 w-4 sm:h-5 sm:w-5" />
+        </Button>
+      </footer>
     </div>
   );
 }

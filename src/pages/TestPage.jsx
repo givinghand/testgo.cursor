@@ -1,146 +1,65 @@
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle, XCircle, Clock, AlertCircle, ChevronRight, ChevronLeft } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { TestInProgress } from "@/components/test/TestInProgress";
 import { TestResults } from "@/components/test/TestResults";
+import { HelpCircle } from "lucide-react";
 
-const testData = {
-  title: "Matematik - Fonksiyonlar",
-  description: "Bu test fonksiyonlar konusundaki bilgilerinizi ölçmektedir.",
-  questions: [
-    {
-      id: 1,
-      text: "f(x) = 2x + 3 ve g(x) = x² - 1 fonksiyonları için (f∘g)(2) değeri nedir?",
-      options: [
-        { id: "A", text: "7" },
-        { id: "B", text: "9" },
-        { id: "C", text: "11" },
-        { id: "D", text: "13" },
-        { id: "E", text: "15" }
-      ],
-      correctAnswer: "B",
-      explanation: "g(2) = 2² - 1 = 3, f(g(2)) = f(3) = 2(3) + 3 = 9"
-    },
-    {
-      id: 2,
-      text: "f(x) = |x - 2| fonksiyonunun grafiği aşağıdakilerden hangisidir?",
-      options: [
-        { id: "A", text: "V şeklinde, tepe noktası (2,0)" },
-        { id: "B", text: "V şeklinde, tepe noktası (0,2)" },
-        { id: "C", text: "Doğru, y = x - 2" },
-        { id: "D", text: "Doğru, y = 2 - x" },
-        { id: "E", text: "Parabol, tepe noktası (2,0)" }
-      ],
-      correctAnswer: "A",
-      explanation: "|x - 2| fonksiyonu x = 2 noktasında minimum değer olan 0'ı alır ve bu noktadan uzaklaştıkça değeri artar. Bu da V şeklinde, tepe noktası (2,0) olan bir grafiktir."
-    },
-    {
-      id: 3,
-      text: "f(x) = x³ - 3x² + 2x fonksiyonunun x = 2 noktasındaki türevi nedir?",
-      options: [
-        { id: "A", text: "0" },
-        { id: "B", text: "2" },
-        { id: "C", text: "4" },
-        { id: "D", text: "6" },
-        { id: "E", text: "8" }
-      ],
-      correctAnswer: "C",
-      explanation: "f'(x) = 3x² - 6x + 2, f'(2) = 3(2)² - 6(2) + 2 = 12 - 12 + 2 = 2"
-    },
-    {
-      id: 4,
-      text: "f(x) = 2ˣ ve g(x) = log₂x fonksiyonları için f(g(8)) değeri nedir?",
-      options: [
-        { id: "A", text: "3" },
-        { id: "B", text: "4" },
-        { id: "C", text: "8" },
-        { id: "D", text: "16" },
-        { id: "E", text: "32" }
-      ],
-      correctAnswer: "C",
-      explanation: "g(8) = log₂8 = 3, f(g(8)) = f(3) = 2³ = 8"
-    },
-    {
-      id: 5,
-      text: "f(x) = x² - 4x + 3 fonksiyonunun minimum değeri nedir?",
-      options: [
-        { id: "A", text: "-1" },
-        { id: "B", text: "0" },
-        { id: "C", text: "1" },
-        { id: "D", text: "2" },
-        { id: "E", text: "3" }
-      ],
-      correctAnswer: "A",
-      explanation: "f(x) = x² - 4x + 3 = (x - 2)² - 1, minimum değer x = 2 noktasında alınır ve değeri -1'dir."
+const generateTestData = (examId, subjectId, topicId) => {
+  const questions = [];
+  const totalQuestions = 10;
+  const imageFrequency = 3; 
+
+  for (let i = 1; i <= totalQuestions; i++) {
+    const questionText = `${topicId.replace(/-/g, ' ')} konusu ile ilgili ${i}. örnek soru. Bu soru ${subjectId} dersi kapsamındadır. ${examId} sınavına hazırlık için önemlidir. Cevabınız nedir?`;
+    const options = [
+      { id: "A", text: `Seçenek A - Soru ${i}` },
+      { id: "B", text: `Seçenek B - Soru ${i}` },
+      { id: "C", text: `Seçenek C - Soru ${i}` },
+      { id: "D", text: `Seçenek D - Soru ${i}` },
+    ];
+    const correctAnswer = options[Math.floor(Math.random() * 4)].id;
+    const explanation = `${i}. sorunun detaylı açıklaması burada yer alacak. Doğru cevap ${correctAnswer} çünkü... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
+    
+    let questionImage = null;
+    if (i % imageFrequency === 0) {
+      const imageKeywords = `${topicId.split('-')[0]},${subjectId},education,study,question${i}`;
+      questionImage = `https://source.unsplash.com/300x200/?${imageKeywords}`;
     }
-  ]
+
+    questions.push({
+      id: i,
+      text: questionText,
+      image: questionImage,
+      options: options,
+      correctAnswer: correctAnswer,
+      explanation: explanation
+    });
+  }
+  return {
+    title: `${subjectId.toUpperCase()} - ${topicId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}`,
+    description: `Bu test ${topicId.replace(/-/g, ' ')} konusundaki bilgilerinizi ölçmektedir. ${examId.toUpperCase()} sınavına yönelik hazırlanmıştır.`,
+    questions: questions,
+    totalTime: 15 * 60, 
+  };
 };
 
+
 export function TestPage() {
+  const { examId, subjectId, topicId } = useParams();
+  const [testData, setTestData] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [testCompleted, setTestCompleted] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 dakika (saniye cinsinden)
+  const [timeLeft, setTimeLeft] = useState(0); 
   const { toast } = useToast();
+  const [isQuestionListOpen, setIsQuestionListOpen] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
 
-  const currentQuestion = testData.questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / testData.questions.length) * 100;
-  
-  useEffect(() => {
-    if (!testCompleted && timeLeft > 0) {
-      const timer = setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && !testCompleted) {
-      finishTest();
-      toast({
-        title: "Süre Doldu!",
-        description: "Test süresi doldu. Sonuçlarınız hesaplanıyor.",
-        variant: "destructive",
-      });
-    }
-  }, [timeLeft, testCompleted, toast]);
-
-  const handleAnswerSelect = (questionId, answerId) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
-      [questionId]: answerId
-    });
-  };
-
-  const goToNextQuestion = () => {
-    if (currentQuestionIndex < testData.questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setShowExplanation(false);
-    } else {
-      finishTest();
-    }
-  };
-
-  const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setShowExplanation(false);
-    }
-  };
-
-  const finishTest = () => {
-    setTestCompleted(true);
-    toast({
-      title: "Test Tamamlandı!",
-      description: "Sonuçlarınız hesaplandı. Detaylı analizi inceleyebilirsiniz.",
-    });
-  };
-
-  const calculateScore = () => {
+  const calculateScore = useCallback(() => {
+    if (!testData) return 0;
     let correctCount = 0;
     testData.questions.forEach(question => {
       if (selectedAnswers[question.id] === question.correctAnswer) {
@@ -148,39 +67,109 @@ export function TestPage() {
       }
     });
     return correctCount;
+  }, [testData, selectedAnswers]);
+
+  const finishTest = useCallback(() => {
+    setEndTime(Date.now());
+    setTestCompleted(true);
+    toast({
+      title: "Test Tamamlandı!",
+      description: "Sonuçlarınız hesaplandı. Detaylı analizi inceleyebilirsiniz.",
+    });
+  }, [toast]);
+
+  useEffect(() => {
+    if (examId && subjectId && topicId) {
+      const newTestData = generateTestData(examId, subjectId, topicId);
+      setTestData(newTestData);
+      setSelectedAnswers({});
+      setCurrentQuestionIndex(0);
+      setTestCompleted(false);
+      setTimeLeft(newTestData.totalTime);
+      setStartTime(Date.now());
+      setEndTime(null);
+    }
+  }, [examId, subjectId, topicId]);
+  
+  useEffect(() => {
+    if (!testCompleted && timeLeft > 0 && testData && startTime) {
+      const timer = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0 && !testCompleted && testData && startTime) {
+      finishTest();
+      toast({
+        title: "Süre Doldu!",
+        description: "Test süresi doldu. Sonuçlarınız hesaplanıyor.",
+        variant: "destructive",
+      });
+    }
+  }, [timeLeft, testCompleted, toast, testData, finishTest, startTime]);
+
+  if (!testData) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center flex flex-col items-center justify-center min-h-[calc(100vh-10rem)]">
+        <HelpCircle className="mx-auto h-16 w-16 text-primary mb-6 animate-pulse" />
+        <h1 className="text-3xl font-bold text-foreground mb-3">Test Yükleniyor...</h1>
+        <p className="text-lg text-muted-foreground">Lütfen bekleyin, sizin için soruları hazırlıyoruz.</p>
+      </div>
+    );
+  }
+
+  const currentQuestion = testData.questions[currentQuestionIndex];
+
+  const handleAnswerSelect = (questionId, answerId) => {
+    setSelectedAnswers(prevAnswers => ({
+      ...prevAnswers,
+      [questionId]: answerId
+    }));
+  };
+
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < testData.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      finishTest();
+    }
   };
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  if (testCompleted) {
+    const timeTaken = endTime && startTime ? Math.floor((endTime - startTime) / 1000) : testData.totalTime - timeLeft;
+    return (
+      <TestResults 
+        testData={testData} 
+        selectedAnswers={selectedAnswers} 
+        calculateScore={calculateScore}
+        timeLeft={timeLeft}
+        totalTime={testData.totalTime}
+        timeTaken={timeTaken}
+      />
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      {!testCompleted ? (
-        <TestInProgress
-          testData={testData}
-          currentQuestion={currentQuestion}
-          currentQuestionIndex={currentQuestionIndex}
-          timeLeft={timeLeft}
-          formatTime={formatTime}
-          progress={progress}
-          selectedAnswers={selectedAnswers}
-          handleAnswerSelect={handleAnswerSelect}
-          goToPreviousQuestion={goToPreviousQuestion}
-          goToNextQuestion={goToNextQuestion}
-          showExplanation={showExplanation}
-          setShowExplanation={setShowExplanation}
-          setCurrentQuestionIndex={setCurrentQuestionIndex}
-        />
-      ) : (
-        <TestResults
-          testData={testData}
-          selectedAnswers={selectedAnswers}
-          calculateScore={calculateScore}
-        />
-      )}
-    </div>
+    <TestInProgress
+      testData={testData}
+      currentQuestion={currentQuestion}
+      currentQuestionIndex={currentQuestionIndex}
+      timeLeft={timeLeft}
+      formatTime={formatTime}
+      selectedAnswers={selectedAnswers}
+      handleAnswerSelect={handleAnswerSelect}
+      goToNextQuestion={goToNextQuestion}
+      setCurrentQuestionIndex={setCurrentQuestionIndex}
+      isQuestionListOpen={isQuestionListOpen}
+      setIsQuestionListOpen={setIsQuestionListOpen}
+      examId={examId}
+      subjectId={subjectId}
+      topicId={topicId}
+    />
   );
 }

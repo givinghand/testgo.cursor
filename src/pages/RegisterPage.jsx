@@ -1,15 +1,9 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -28,12 +22,8 @@ export function RegisterPage() {
             <Link to="/" className="inline-block mb-4">
               <TestTube2 className="h-12 w-12 text-primary mx-auto" />
             </Link>
-            <CardTitle className="text-3xl font-bold">
-              TESTGO'ya Üye Ol
-            </CardTitle>
-            <CardDescription>
-              Gelişim yolculuğuna ilk adımını at!
-            </CardDescription>
+            <CardTitle className="text-3xl font-bold">TESGO'ya Üye Ol</CardTitle>
+            <CardDescription>Gelişim yolculuğuna ilk adımını at!</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -48,11 +38,7 @@ export function RegisterPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="tcKimlik">TC Kimlik Numarası</Label>
-              <Input
-                id="tcKimlik"
-                type="text"
-                placeholder="TC Kimlik Numaranız"
-              />
+              <Input id="tcKimlik" type="text" placeholder="TC Kimlik Numaranız" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">E-posta Adresi</Label>
@@ -60,40 +46,16 @@ export function RegisterPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Şifre</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Şifreniz (en az 8 karakter)"
-              />
+              <Input id="password" type="password" placeholder="Şifreniz (en az 8 karakter)" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">Şifre Tekrar</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder="Şifrenizi tekrar girin"
-              />
+              <Input id="confirmPassword" type="password" placeholder="Şifrenizi tekrar girin" />
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="terms" />
-              <Label
-                htmlFor="terms"
-                className="text-sm font-normal text-muted-foreground"
-              >
-                <Link
-                  to="/kullanim-kosullari"
-                  className="text-primary hover:underline"
-                >
-                  Kullanım Koşulları
-                </Link>
-                'nı ve{" "}
-                <Link
-                  to="/kvkk-gizlilik"
-                  className="text-primary hover:underline"
-                >
-                  Gizlilik Politikası
-                </Link>
-                'nı okudum, kabul ediyorum.
+              <Label htmlFor="terms" className="text-sm font-normal text-muted-foreground">
+                <Link to="/kullanim-kosullari" className="text-primary hover:underline">Kullanım Koşulları</Link>'nı ve <Link to="/kvkk-gizlilik" className="text-primary hover:underline">Gizlilik Politikası</Link>'nı okudum, kabul ediyorum.
               </Label>
             </div>
           </CardContent>
@@ -101,10 +63,7 @@ export function RegisterPage() {
             <Button className="w-full text-lg py-3">Üye Ol</Button>
             <p className="text-center text-sm text-muted-foreground">
               Zaten bir hesabın var mı?{" "}
-              <Link
-                to="/giris"
-                className="font-semibold text-primary hover:underline"
-              >
+              <Link to="/giris" className="font-semibold text-primary hover:underline">
                 Giriş Yap
               </Link>
             </p>

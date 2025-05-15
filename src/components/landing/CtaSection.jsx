@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,7 +8,7 @@ import { fadeIn } from "@/utils/animations.jsx";
 
 export function CtaSection() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-green-600 text-primary-foreground">
+    <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-[hsl(var(--secondary))] text-primary-foreground">
       <div className="container mx-auto px-6 text-center">
         <motion.div
           variants={fadeIn}
@@ -17,19 +18,14 @@ export function CtaSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-3xl mx-auto"
         >
-          <Rocket className="h-16 w-16 mx-auto mb-6 text-green-200" />
+          <Rocket className="h-16 w-16 mx-auto mb-6 text-[hsl(var(--accent))]" />
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 tracking-tight">
             Bugün Gelişimini Başlat!
           </h2>
           <p className="text-lg md:text-xl mb-10 opacity-90 max-w-xl mx-auto">
-            Daha fazla bekleme. TESTGO ile potansiyelini keşfet, hedeflerine
-            ulaş ve başarıya giden yolda ilk adımını at.
+            Daha fazla bekleme. <span className="font-bold text-white">TEST</span><span className="font-bold text-[hsl(var(--accent))]">GO</span> ile potansiyelini keşfet, hedeflerine ulaş ve başarıya giden yolda ilk adımını at.
           </p>
-          <Button
-            size="lg"
-            asChild
-            className="bg-background text-primary hover:bg-background/90 shadow-lg transform hover:scale-105 transition-transform duration-300 group px-10 py-3 text-lg font-bold"
-          >
+          <Button size="lg" asChild className="bg-background text-primary hover:bg-slate-100 shadow-lg transform hover:scale-105 transition-transform duration-300 group px-10 py-3 text-lg font-bold">
             <Link to="/test-coz">
               Hemen Test Çöz
               <Rocket className="ml-2.5 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />

@@ -5,48 +5,54 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%; /* Koyu Gri */
-    --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
+    --background: 0 0% 100%; /* White */
+    --foreground: 210 10% 23%; /* Dark Blue-Gray */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 10% 23%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
-    --primary: 142.1 70.6% 45.3%; /* Yeşil */
-    --primary-foreground: 355.7 100% 97.3%; /* Çok Açık Yeşil/Beyaz */
-    --secondary: 142.1 60% 92.2%; /* Açık Yeşil */
-    --secondary-foreground: 142.1 70.6% 35.3%; /* Koyu Yeşil */
-    --muted: 210 40% 96.1%; /* Açık Gri */
-    --muted-foreground: 215 20.2% 65.1%; /* Orta Gri */
-    --accent: 142.1 60% 92.2%; /* Açık Yeşil */
-    --accent-foreground: 142.1 70.6% 35.3%; /* Koyu Yeşil */
-    --destructive: 0 84.2% 60.2%; /* Kırmızı */
-    --destructive-foreground: 0 0% 98%; /* Çok Açık Kırmızı/Beyaz */
-    --border: 214.3 31.8% 91.4%; /* Gri */
-    --input: 214.3 31.8% 91.4%; /* Gri */
-    --ring: 142.1 70.6% 45.3%; /* Yeşil */
+    --popover-foreground: 210 10% 23%;
+    --primary: 181 49% 44%; /* Verdigris (#38A3A5) */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 152 54% 57%; /* Emerald (#57CC99) */
+    --secondary-foreground: 152 54% 15%; /* Darker Emerald for text */
+    --muted: 180 20% 96%; /* Very Light Cyan/Gray */
+    --muted-foreground: 180 10% 45%; /* Medium Cyan/Gray */
+    --accent: 138 78% 71%; /* Light Green (#80ED99) */
+    --accent-foreground: 138 60% 25%; /* Darker Light Green for text */
+    --destructive: 339 65% 44%; /* Tyrian Purple (#661432) - adjusted lightness */
+    --destructive-foreground: 0 0% 100%; /* White */
+    --border: 180 20% 88%; /* Light Cyan/Gray Border */
+    --input: 180 20% 88%;
+    --ring: 181 49% 44%; /* Verdigris */
     --radius: 0.5rem;
+
+    --brand-purple: 339 65% 24%;
+    --brand-teal: 181 49% 44%;
+    --brand-white: 0 0% 100%;
+    --brand-emerald: 152 54% 57%;
+    --brand-light-green: 138 78% 71%;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 142.1 70.6% 45.3%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 142.1 60% 15.2%; /* Koyu Yeşil (Dark mode için) */
-    --secondary-foreground: 0 0% 95%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 142.1 60% 15.2%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 142.1 70.6% 45.3%;
+    --background: 200 15% 12%; /* Very Dark Blue */
+    --foreground: 180 10% 85%; /* Light Cyan/Gray text */
+    --card: 200 15% 16%; /* Slightly lighter dark blue */
+    --card-foreground: 180 10% 85%;
+    --popover: 200 15% 10%;
+    --popover-foreground: 180 10% 85%;
+    --primary: 181 49% 50%; /* Verdigris, slightly lighter for dark mode */
+    --primary-foreground: 0 0% 100%; 
+    --secondary: 152 54% 50%; /* Emerald, slightly lighter for dark mode */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 200 15% 25%; /* Darker Muted */
+    --muted-foreground: 180 10% 60%; /* Lighter Muted Foreground */
+    --accent: 138 78% 65%; /* Light Green, slightly toned down for dark mode */
+    --accent-foreground: 138 60% 20%;
+    --destructive: 339 65% 55%; /* Tyrian Purple, slightly lighter for dark mode */
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 15% 25%;
+    --input: 200 15% 25%;
+    --ring: 181 49% 50%;
   }
 }
 
@@ -61,12 +67,12 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Nunito', sans-serif;
-    font-weight: 700; /* Nunito'nun bold ağırlığı */
+    font-weight: 700; 
   }
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary) / 0.5) 100%);
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--secondary) / 0.7) 50%, hsl(var(--accent) / 0.5) 100%);
 }
 
 .card-hover {
@@ -75,7 +81,7 @@
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px hsl(var(--primary) / 0.4);
+  box-shadow: 0 10px 25px -5px hsl(var(--primary) / 0.2);
 }
 
 .animate-float {
@@ -87,7 +93,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px); /* Daha yumuşak bir animasyon için azaltıldı */
+    transform: translateY(-8px); 
   }
   100% {
     transform: translateY(0px);
@@ -95,12 +101,12 @@
 }
 
 .glass-effect {
-  background: hsla(var(--background), 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid hsla(var(--border), 0.3);
+  background: hsla(var(--background) / 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid hsla(var(--border) / 0.2);
 }
 
 .progress-gradient {
-  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.7));
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
 }

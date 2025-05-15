@@ -1,13 +1,7 @@
+
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Star, TrendingUp } from "lucide-react";
 import { fadeIn, staggerContainer } from "@/utils/animations.jsx";
@@ -29,7 +23,7 @@ const plans = [
   },
   {
     name: "Premium Plan",
-    price: "29.99₺",
+    price: "99.90₺",
     period: "/aylık",
     features: [
       "Sınırsız test çözme",
@@ -49,7 +43,7 @@ const plans = [
 
 export function PricingSection() {
   return (
-    <section className="py-16 md:py-24 bg-secondary/30">
+    <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           className="text-center mb-12 md:mb-16"
@@ -58,12 +52,9 @@ export function PricingSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
-            Üyelik Seçenekleri
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">Üyelik Seçenekleri</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            İhtiyaçlarınıza en uygun planı seçin ve TESTGO'nun tüm
-            avantajlarından yararlanın.
+            İhtiyaçlarınıza en uygun planı seçin ve <span className="text-primary font-bold">TEST</span><span className="text-[hsl(var(--secondary))] font-bold">GO</span>'nun tüm avantajlarından yararlanın.
           </p>
         </motion.div>
 
@@ -76,70 +67,32 @@ export function PricingSection() {
         >
           {plans.map((plan, index) => (
             <motion.div key={index} variants={fadeIn} className="flex">
-              <Card
-                className={`w-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl overflow-hidden ${
-                  plan.popular
-                    ? "border-2 border-primary relative ring-4 ring-primary/20 bg-card"
-                    : "border-border bg-card"
-                }`}
-              >
+              <Card className={`w-full flex flex-col shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl overflow-hidden card-hover ${plan.popular ? 'border-2 border-primary relative ring-4 ring-primary/20 bg-card' : 'border-border bg-card'}`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-md flex items-center">
-                    <Star className="h-4 w-4 mr-1.5 fill-yellow-300 text-yellow-300" />{" "}
-                    Popüler
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-secondary text-primary-foreground px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg flex items-center z-10">
+                    <Star className="h-4 w-4 mr-1.5 fill-yellow-300 text-yellow-400" /> Popüler
                   </div>
                 )}
                 <CardHeader className="text-center pt-10 p-6">
-                  <CardTitle
-                    className={`text-2xl font-bold ${
-                      plan.popular ? "text-primary" : "text-foreground"
-                    }`}
-                  >
-                    {plan.name}
-                  </CardTitle>
+                  <CardTitle className={`text-2xl font-bold ${plan.popular ? 'text-primary' : 'text-foreground'}`}>{plan.name}</CardTitle>
                   <div className="flex items-baseline justify-center my-4">
-                    <span
-                      className={`text-4xl font-extrabold ${
-                        plan.popular ? "text-primary" : "text-foreground"
-                      }`}
-                    >
-                      {plan.price}
-                    </span>
-                    <span className="text-muted-foreground ml-1">
-                      {plan.period}
-                    </span>
+                    <span className={`text-4xl font-extrabold ${plan.popular ? 'text-primary' : 'text-foreground'}`}>{plan.price}</span>
+                    <span className="text-muted-foreground ml-1">{plan.period}</span>
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow p-6">
                   <ul className="space-y-3">
                     {plan.features.map((feature, fIndex) => (
                       <li key={fIndex} className="flex items-start">
-                        <Check
-                          className={`h-5 w-5 mr-2 mt-0.5 flex-shrink-0 ${
-                            plan.popular ? "text-primary" : "text-green-500"
-                          }`}
-                        />
-                        <span className="text-muted-foreground text-sm">
-                          {feature}
-                        </span>
+                        <Check className={`h-5 w-5 mr-2 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-primary' : 'text-[hsl(var(--secondary))]'}`} />
+                        <span className="text-muted-foreground text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
                 <CardFooter className="mt-auto p-6">
-                  <Button
-                    asChild
-                    size="lg"
-                    className={`w-full text-base font-semibold ${
-                      plan.popular
-                        ? ""
-                        : "bg-foreground/80 hover:bg-foreground/90 text-background"
-                    }`}
-                    variant={plan.variant}
-                  >
-                    <a href={plan.link}>
-                      {plan.cta} <TrendingUp className="ml-2 h-5 w-5" />
-                    </a>
+                  <Button asChild size="lg" className={`w-full text-base font-semibold ${plan.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-secondary hover:bg-secondary/90 text-secondary-foreground'}`} variant={plan.variant === "outline" && !plan.popular ? "secondary" : plan.variant}>
+                    <a href={plan.link}>{plan.cta} <TrendingUp className="ml-2 h-5 w-5"/></a>
                   </Button>
                 </CardFooter>
               </Card>
