@@ -1,0 +1,106 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%; /* Koyu Gri */
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 142.1 70.6% 45.3%; /* Yeşil */
+    --primary-foreground: 355.7 100% 97.3%; /* Çok Açık Yeşil/Beyaz */
+    --secondary: 142.1 60% 92.2%; /* Açık Yeşil */
+    --secondary-foreground: 142.1 70.6% 35.3%; /* Koyu Yeşil */
+    --muted: 210 40% 96.1%; /* Açık Gri */
+    --muted-foreground: 215 20.2% 65.1%; /* Orta Gri */
+    --accent: 142.1 60% 92.2%; /* Açık Yeşil */
+    --accent-foreground: 142.1 70.6% 35.3%; /* Koyu Yeşil */
+    --destructive: 0 84.2% 60.2%; /* Kırmızı */
+    --destructive-foreground: 0 0% 98%; /* Çok Açık Kırmızı/Beyaz */
+    --border: 214.3 31.8% 91.4%; /* Gri */
+    --input: 214.3 31.8% 91.4%; /* Gri */
+    --ring: 142.1 70.6% 45.3%; /* Yeşil */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 142.1 60% 15.2%; /* Koyu Yeşil (Dark mode için) */
+    --secondary-foreground: 0 0% 95%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 142.1 60% 15.2%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.1 70.6% 45.3%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Nunito', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; /* Nunito'nun bold ağırlığı */
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary) / 0.5) 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px hsl(var(--primary) / 0.4);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px); /* Daha yumuşak bir animasyon için azaltıldı */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.glass-effect {
+  background: hsla(var(--background), 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsla(var(--border), 0.3);
+}
+
+.progress-gradient {
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.7));
+}
