@@ -1,3 +1,4 @@
+// vite.config.js
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
@@ -168,10 +169,10 @@ const addTransformIndexHtml = {
 	},
 };
 
-console.warn = () => {};
+console.warn = () => {}; // This disables console.warn, you might want to keep it or remove this line if you need warnings.
 
-const logger = createLogger()
-const loggerError = logger.error
+const logger = createLogger();
+const loggerError = logger.error;
 
 logger.error = (msg, options) => {
 	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) {
@@ -179,11 +180,12 @@ logger.error = (msg, options) => {
 	}
 
 	loggerError(msg, options);
-}
+};
 
 export default defineConfig({
 	customLogger: logger,
 	plugins: [react(), addTransformIndexHtml],
+	base: '/testgo.site/', // <<< --- THIS IS THE ADDED/CRUCIAL LINE
 	server: {
 		cors: true,
 		headers: {
@@ -197,4 +199,7 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	build: { // It's good practice to also explicitly define outDir if you haven't.
+		outDir: 'dist',
+	}
 });
