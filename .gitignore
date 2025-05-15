@@ -1,0 +1,17 @@
+# Build output
+dist/
+/dist/  # Some people use this too, either is fine
+
+# Dependencies
+node_modules/
+
+# IDE & OS specific
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env*.local
+.env*.development
+.env*.production
