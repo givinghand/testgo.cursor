@@ -144,38 +144,29 @@
 
 
 
-/* ====== GLOBAL COLOR DEFINITIONS (Keep these for --primary and --border) ====== */
+/* ====== GLOBAL COLOR DEFINITIONS ====== */
 :root {
-  /* --- Primary Color for Hover Effect (Example: Blue) --- */
+  --anthracite-front: #36454F;
+  --anthracite-side: #2A3439;
+  --anthracite-top: #4A5D67;
   --primary-h: 210;
   --primary-s: 90%;
   --primary-l: 55%;
   --primary: var(--primary-h), var(--primary-s), var(--primary-l);
-
-  /* --- Border Color Variable (Example) --- */
   --border-h: 210;
   --border-s: 10%;
-  --border-l: 40%; /* Darker for visibility on anthracite */
+  --border-l: 40%;
   --border: var(--border-h), var(--border-s), var(--border-l);
-
-  /*
-    NOTE: We are TEMPORARILY not relying on these anthracite variables below
-    to debug the color issue. They are hardcoded further down.
-    Once fixed, you can revert to using these variables.
-    --anthracite-top: #5E7683;
-    --anthracite-front: #36454F;
-    --anthracite-side: #2A3439;
-  */
 }
 
 /* ====== CUBE ANIMATION STYLES ====== */
 
-@keyframes animateElementHoverHue {
+@keyframes animateContainerHue {
   0% {
-    filter: hue-rotate(0deg) drop-shadow(0 0 20px hsl(var(--primary)));
+    filter: hue-rotate(0deg);
   }
   100% {
-    filter: hue-rotate(360deg) drop-shadow(0 0 20px hsl(var(--primary)));
+    filter: hue-rotate(360deg);
   }
 }
 
@@ -184,10 +175,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 350px;
-  transform: skewY(-15deg);
+  min-height: 350px; /* You can adjust this if needed based on the new size */
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  top: -80px; /* Optional: For vertical positioning like example */
+  transform: skewY(-20deg); /* Matches example */
   overflow: visible;
-  padding: 40px 0;
+  padding: 40px 0; /* Keep or adjust as needed for your section layout */
+  animation: animateContainerHue 10s linear infinite;
 }
 
 .cube-animation-section-container .cube-wrapper {
@@ -197,37 +191,40 @@
 
 .cube-animation-section-container .cube-wrapper:nth-child(2) {
   z-index: 1;
-  transform: translate(-45px, -45px) scale(0.85);
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  translate: -60px -60px; /* Matches example (removed scale) */
 }
 .cube-animation-section-container .cube-wrapper:nth-child(3) {
   z-index: 3;
-  transform: translate(45px, 45px) scale(0.95);
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  translate: 60px 60px; /* Matches example (removed scale) */
 }
 
 .cube-animation-section-container .cube-group {
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  transform: translate(calc(-50px * var(--x)), calc(-45px * var(--y)));
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  gap: 30px; /* Matches example */
+  translate: calc(-70px * var(--x)) calc(-60px * var(--y)); /* Matches example */
 }
 
 .cube-animation-section-container .cube-element {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  /* HARDCODED ANTHRACITE for debugging */
-  background: #36454F; /* Mid-tone Anthracite (Front Face) */
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  width: 50px;  /* Matches example */
+  height: 50px; /* Matches example */
+  background: var(--anthracite-front);
   z-index: calc(1 * var(--i));
-  transition: background 0.5s;
+  transition: background 0.2s, filter 0.2s;
   box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15);
 }
 
 .cube-animation-section-container .cube-element:hover {
   background: hsl(var(--primary));
-  animation: animateElementHoverHue 3s linear infinite;
-  transition: background 0s;
+  filter: drop-shadow(0 0 25px hsl(var(--primary)));
+  transition: background 0s, filter 0s;
 }
 
 .cube-animation-section-container .cube-element:hover::before,
@@ -239,29 +236,29 @@
 .cube-animation-section-container .cube-element::before { /* Side Face */
   content: "";
   position: absolute;
-  left: -30px;
-  width: 30px;
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  left: -40px; /* Matches example */
+  width: 40px;  /* Matches example */
   height: 100%;
-  /* HARDCODED DARKER ANTHRACITE for debugging */
-  background: #2A3439; /* Darker Anthracite (Side Face) */
+  background: var(--anthracite-side);
   transform-origin: right;
-  transform: skewY(45deg);
-  transition: background 0.5s;
+  transform: skewY(45deg); /* Matches example */
+  transition: background 0.2s;
   border-right: 1px solid hsl(var(--border) / 0.2);
 }
 
 .cube-animation-section-container .cube-element::after { /* Top Face */
   content: "";
   position: absolute;
-  top: -30px;
-  left: 0px;
+  /* ADJUSTMENTS BASED ON EXAMPLE */
+  top: -40px; /* Matches example */
+  left: 0px; /* Matches example */
   width: 100%;
-  height: 30px;
-  /* HARDCODED LIGHTER ANTHRACITE for debugging */
-  background: #4A5D67; /* Lighter Anthracite (Top Face) */
+  height: 40px; /* Matches example */
+  background: var(--anthracite-top);
   transform-origin: bottom;
-  transform: skewX(45deg);
-  transition: background 0.5s;
+  transform: skewX(45deg); /* Matches example */
+  transition: background 0.2s;
   border-bottom: 1px solid hsl(var(--border) / 0.2);
 }
 
