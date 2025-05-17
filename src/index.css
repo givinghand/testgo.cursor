@@ -416,7 +416,7 @@
   right: 5px;
   bottom: 5px;
   z-index: 2;
-  background: hsl(var(--card) / 0.9); /* Use theme card color */
+  background: hsl(var(--card) / 0.6); /* Use theme card color */
   backdrop-filter: blur(10px); /* Softer blur */
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
