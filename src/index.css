@@ -340,7 +340,7 @@
 .testimonial-card-hover-effect .title { font-size: 0.875rem; opacity: 0.9; }
 
 
-/* === New CSS for Gradient Glow Effect (Revised for Visibility and Wave Motion) === */
+/* === Updated CSS for Gradient "Wave" Effect === */
 .blob-card::before {
   content: "";
   position: absolute;
@@ -358,31 +358,26 @@
     hsl(157, 100%, 68%)  /* Bright Green */
   );
   
-  /* Make background larger for more dynamic movement */
-  background-size: 300% 300%; /* Increased size for more sweep in animation */
+  /* Adjust background size for wave effect. 250% gives a good sweep. */
+  background-size: 250% 250%; 
   
-  opacity: 0.45; /* Increased opacity for better visibility. Adjust between 0.3-0.6 as needed. */
-  filter: blur(25px); /* Slightly reduced blur to make colors pop a bit more, while still soft. */
+  opacity: 0.5; /* Increased opacity for more visible waves. Adjust as needed (0.4-0.6). */
+  filter: blur(20px); /* Slightly reduced blur for more defined, yet soft, waves. */
   
-  /* New animation for a more visible "wave" or "sweep" like motion */
-  animation: wave-glow 8s ease-in-out infinite;
+  /* New animation for a flowing wave effect */
+  animation: gradient-wave-animation 8s linear infinite;
 }
 
-@keyframes wave-glow {
+/* Keyframes for the gradient wave animation */
+@keyframes gradient-wave-animation {
   0% {
-    background-position: 0% 50%; /* Start left-center */
-  }
-  25% {
-    background-position: 50% 0%; /* Move to top-center */
-  }
-  50% {
-    background-position: 100% 50%; /* Move to right-center */
-  }
-  75% {
-    background-position: 50% 100%; /* Move to bottom-center */
+    background-position: 0% 0%; /* Start with the top-left of the oversized gradient */
   }
   100% {
-    background-position: 0% 50%; /* Return to start, completing a cycle */
+    background-position: 100% 100%; /* Sweep to the bottom-right of the oversized gradient.
+                                       This creates a diagonal sweep. The animation will jump
+                                       back to 0% at the start of the next iteration, creating
+                                       a continuous flow of waves. */
   }
 }
 
