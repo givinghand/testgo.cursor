@@ -449,7 +449,7 @@
   right: 5px;
   bottom: 5px;
   z-index: 2;
-  background: hsl(var(--card) / 0.6); /* Use theme card color -- THIS LINE IS KEPT AS IS */
+  background: hsl(var(--card) / 0.45); /* Use theme card color -- THIS LINE IS KEPT AS IS */
   backdrop-filter: blur(10px); /* Softer blur */
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
