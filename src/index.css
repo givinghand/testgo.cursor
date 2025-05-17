@@ -381,40 +381,42 @@
   }
 }
 
-/* === New CSS for Side Glowing Effect === */
+/* === Modified CSS for Cycling Gradient Glow Around the Card === */
 .blob-card::after {
   content: "";
   position: absolute;
-  inset: 0; /* Equivalent to top: 0; left: 0; right: 0; bottom: 0; */
-  border-radius: inherit; /* Match the card's border-radius */
-  z-index: 0; /* Same level as ::before, ::after renders on top of ::before due to source order.
+  inset: 0; /* Fills the .blob-card */
+  border-radius: inherit; /* Matches card's rounding */
+  z-index: 0; /* Same level as ::before; ::after renders on top of ::before due to source order.
                  Still behind .blob-animated (z-index:1) and .blob-card-bg (z-index:2) */
   pointer-events: none; /* Ensure it doesn't interfere with interactions */
 
-  /* Create a gradient that's colored on the sides and transparent in the middle */
+  /* The gradient for the cycling glow. Using the same blue/green theme. */
   background: linear-gradient(
-    to right, 
-    hsla(211, 100%, 62%, 0.5), /* Blue glow on the left, 0.5 alpha for subtlety */
-    transparent 35%,           /* Fade to transparent by 35% from left */
-    transparent 65%,           /* Start fading back in from 65% (transparent middle) */
-    hsla(157, 100%, 68%, 0.5)   /* Green glow on the right, 0.5 alpha */
+    45deg, /* Diagonal gradient gives a nice visual sweep as it moves */
+    hsl(211, 100%, 62%), /* Bright Blue */
+    hsl(157, 100%, 68%), /* Bright Green */
+    hsl(211, 100%, 62%)  /* Blue again to help with seamless color looping */
   );
-  background-size: 100% 100%; /* Gradient covers the entire pseudo-element */
   
-  filter: blur(30px); /* Apply a strong blur to create the soft glow effect */
-  opacity: 0; /* Start with opacity 0, animation will bring it in */
+  /* Make the background much larger than the element to allow for sweeping animation */
+  background-size: 300% 300%; /* Oversized background for the glow effect */
   
-  /* Animation for a calm pulsing glow on the sides */
-  animation: side-glow-pulse 6s ease-in-out infinite alternate;
+  opacity: 0.6; /* Overall opacity of the glowing layer. Adjust 0.4-0.8 for intensity. */
+  filter: blur(35px); /* Adjust blur for desired softness/spread of the glow.
+                         The overflow:hidden on .blob-card will clip this. */
+  
+  /* Animation for the glow to cycle around */
+  animation: cycling-glow-around 6s linear infinite; /* "Normal speed" animation */
 }
 
-@keyframes side-glow-pulse {
-  0% {
-    opacity: 0.6; /* Dimmer state of the glow */
-  }
-  100% {
-    opacity: 0.9; /* Brighter state of the glow */
-  }
+/* Keyframes for the cycling gradient glow animation */
+@keyframes cycling-glow-around {
+  0%   { background-position: 0% 0%; }     /* Start top-left */
+  25%  { background-position: 100% 0%; }   /* Move to top-right */
+  50%  { background-position: 100% 100%; } /* Move to bottom-right */
+  75%  { background-position: 0% 100%; }   /* Move to bottom-left */
+  100% { background-position: 0% 0%; }     /* Return to start for a continuous loop */
 }
 
 /* === Your Existing CSS (Unchanged) === */
@@ -426,7 +428,7 @@
   min-height: 250px; /* Minimum height */
   border-radius: 14px;
   z-index: 1; 
-  overflow: hidden; /* Crucial for containing the blurred pseudo-element */
+  overflow: hidden; /* Crucial for containing the blurred pseudo-elements and their animations */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -447,7 +449,7 @@
   right: 5px;
   bottom: 5px;
   z-index: 2;
-  background: hsl(var(--card) / 0.9); /* Use theme card color */
+  background: hsl(var(--card) / 0.6); /* Use theme card color -- THIS LINE IS KEPT AS IS */
   backdrop-filter: blur(10px); /* Softer blur */
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
