@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -20,6 +20,16 @@ import { ContactPage } from "@/pages/ContactPage";
 import { FaqPage } from "@/pages/FaqPage";
 import { Toaster } from "@/components/ui/toaster";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function AppContent() {
   const location = useLocation();
   const showFooter = location.pathname === "/";
@@ -27,6 +37,7 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+      <ScrollToTop />
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -36,6 +47,8 @@ function AppContent() {
           <Route path="/blog/:postId" element={<BlogPostPage />} />
           <Route path="/test-coz" element={<TestSelectionPage />} />
           <Route path="/test-coz/:examId/:subjectId/:topicId" element={<TestPage />} />
+          {/* Route for practice exams (denemeler) */}
+          <Route path="/deneme/:examId/:subjectId?/:topicId?" element={<TestPage />} />
           <Route path="/konu-calis" element={<StudyTopicsPage />} />
           <Route path="/konu-calis/:examId/:subjectId/:topicId" element={<TopicDetailPage />} />
           <Route path="/durumum" element={<UserStatusPage />} />

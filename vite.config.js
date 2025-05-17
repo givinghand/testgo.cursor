@@ -179,7 +179,7 @@ logger.error = (msg, options) => {
 	}
 
 	loggerError(msg, options);
-} 
+}
 
 export default defineConfig({
 	customLogger: logger,
