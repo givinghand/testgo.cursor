@@ -217,7 +217,7 @@
   height: 50px; /* Matches example */
   background: var(--anthracite-front);
   z-index: calc(1 * var(--i));
-  transition: background 0.2s, filter 0.2s;
+  transition: background 0.6s, filter 0.6s;
   box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15);
 }
 
@@ -243,8 +243,8 @@
   background: var(--anthracite-side);
   transform-origin: right;
   transform: skewY(45deg); /* Matches example */
-  transition: background 0.2s;
-  border-right: 1px solid hsl(var(--border) / 0.2);
+  transition: background 0.6s;
+  border-right: 1px solid hsl(var(--border) / 0.6);
 }
 
 .cube-animation-section-container .cube-element::after { /* Top Face */
@@ -258,8 +258,8 @@
   background: var(--anthracite-top);
   transform-origin: bottom;
   transform: skewX(45deg); /* Matches example */
-  transition: background 0.2s;
-  border-bottom: 1px solid hsl(var(--border) / 0.2);
+  transition: background 0.6s;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
 }
 
 
