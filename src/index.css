@@ -340,44 +340,68 @@
 .testimonial-card-hover-effect .title { font-size: 0.875rem; opacity: 0.9; }
 
 
-/* === Updated CSS for Gradient "Wave" Effect === */
+/* === New CSS for Multiple Moving Waves (like the reference image) === */
 .blob-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit; /* Inherits the 14px from .blob-card */
-  z-index: 0; /* Positioned behind .blob-animated and .blob-card-bg */
+  inset: 0; /* Equivalent to top: 0; right: 0; bottom: 0; left: 0; */
+  border-radius: inherit; /* Match the card's border-radius */
+  z-index: 0; /* Positioned behind .blob-animated (z-index:1) and .blob-card-bg (z-index:2) */
+  overflow: hidden; /* Crucial: clips the oversized gradient waves */
+
+  /* Define colors for the waves, inspired by your reference image */
+  --wave-color-darker: hsla(248, 40%, 35%, 0.6);  /* A deeper indigo/purple */
+  --wave-color-brighter: hsla(260, 60%, 55%, 0.7); /* A brighter purple */
+
+  /*
+    We use multiple radial gradients as background images to create the layered waves.
+    Each radial gradient is a large ellipse, positioned off-center to create a curved band.
+    The color stops (e.g., 25% to 65%) define the thickness and softness of the wave band.
+  */
+  background-image:
+    /* Wave 1 (typically the upper, darker wave) */
+    radial-gradient(ellipse 160% 75% at 50% -25%, var(--wave-color-darker) 25%, transparent 65%),
+    /* Wave 2 (typically the lower, brighter wave) */
+    radial-gradient(ellipse 160% 75% at 50% 125%, var(--wave-color-brighter) 25%, transparent 65%);
+
+  background-repeat: no-repeat;
   
-  /* Gradient using colors inspired by your initially provided image */
-  background: linear-gradient(
-    135deg, 
-    hsl(211, 100%, 62%), /* Bright Blue */
-    hsl(157, 100%, 68%)  /* Bright Green */
-  );
-  
-  /* Adjust background size for wave effect. 250% gives a good sweep. */
-  background-size: 250% 250%; 
-  
-  opacity: 0.5; /* Increased opacity for more visible waves. Adjust as needed (0.4-0.6). */
-  filter: blur(20px); /* Slightly reduced blur for more defined, yet soft, waves. */
-  
-  /* New animation for a flowing wave effect */
-  animation: gradient-wave-animation 8s linear infinite;
+  /*
+    Each background layer (wave) is made significantly wider than the card.
+    This allows the curved portion of the large ellipse to sweep across the card.
+    The height is set to 100% of the card's height.
+  */
+  background-size: 
+    280% 100%, /* Wave 1: 2.8x card width, 1x card height */
+    300% 100%; /* Wave 2: 3.0x card width, 1x card height (slight variation for a natural look) */
+
+  /* Animation to move the waves horizontally, making them appear to flow from left to right */
+  animation: flowing-image-waves 12s linear infinite;
 }
 
-/* Keyframes for the gradient wave animation */
-@keyframes gradient-wave-animation {
+@keyframes flowing-image-waves {
   0% {
-    background-position: 0% 0%; /* Start with the top-left of the oversized gradient */
+    /* 
+      Initial position: The left edge of each oversized background wave is at the card's left edge.
+      Because background-position percentages are relative to (container_size - background_size),
+      0% means the background's 0,0 point aligns with the container's 0,0 point.
+    */
+    background-position:
+      0% 0%,  /* Wave 1 */
+      5% 0%;  /* Wave 2 starts slightly offset for a more dynamic effect */
   }
   100% {
-    background-position: 100% 100%; /* Sweep to the bottom-right of the oversized gradient.
-                                       This creates a diagonal sweep. The animation will jump
-                                       back to 0% at the start of the next iteration, creating
-                                       a continuous flow of waves. */
+    /*
+      Final position: The background waves have shifted leftwards.
+      Since the background is wider than the card, shifting it left makes the *content* of the wave
+      appear to move rightwards across the card.
+      A shift of -100% moves it left by (background_width - container_width).
+      For a 280% wide background, a -180% shift moves its right edge to the card's right edge.
+      For a 300% wide background, a -200% shift moves its right edge to the card's right edge.
+    */
+    background-position:
+      -180% 0%, /* Wave 1 (280% - 100% = 180%) */
+      -195% 0%; /* Wave 2 (300% - 100% = 200%, adjusted for initial offset) */
   }
 }
 
@@ -390,7 +414,7 @@
   min-height: 250px; /* Minimum height */
   border-radius: 14px;
   z-index: 1; 
-  overflow: hidden; /* Crucial for containing the blurred pseudo-element */
+  overflow: hidden; /* Crucial for containing the ::before pseudo-element's content */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -411,7 +435,7 @@
   right: 5px;
   bottom: 5px;
   z-index: 2;
-  background: hsl(var(--card) / 0.6); /* Use theme card color */
+  background: hsl(var(--card) / 0.9); /* Use theme card color */
   backdrop-filter: blur(10px); /* Softer blur */
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
