@@ -156,13 +156,42 @@
   }
 }
 
-/* Original @keyframes animateCubes is now unused for default state */
-/*
-@keyframes animateCubes {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+/* ====== GLOBAL COLOR DEFINITIONS ====== */
+:groot {
+  /* --- Anthracite Shades for 3D Cubes --- */
+  /* Adjust these hex codes to your preferred anthracite shades */
+  --anthracite-top: #5E7683;    /* Lightest shade for top face */
+  --anthracite-front: #36454F;  /* Medium shade for front/main face */
+  --anthracite-side: #2A3439;   /* Darkest shade for side face */
+
+  /* --- Primary Color for Hover Effect (Example: Blue) --- */
+  /* Replace with your desired HSL values */
+  --primary-h: 210;          /* Hue */
+  --primary-s: 90%;          /* Saturation */
+  --primary-l: 55%;          /* Lightness (adjust for good visibility against dark cube) */
+  --primary: var(--primary-h), var(--primary-s), var(--primary-l); /* Combines HSL for use */
+
+  /* --- Border Color Variable (Example) --- */
+  /* Used for the subtle borders on cube faces */
+  --border-h: 210;
+  --border-s: 10%;
+  --border-l: 40%; /* Make border slightly visible on dark anthracite */
+  --border: var(--border-h), var(--border-s), var(--border-l);
 }
-*/
+
+/* ====== CUBE ANIMATION STYLES ====== */
+
+/* Define the animation specifically for the hover effect */
+@keyframes animateCubeHoverHue {
+  0% {
+    /* Hue-rotate starts at 0deg (affecting the hsl(var(--primary)) base) */
+    /* The drop-shadow color also gets hue-rotated */
+    filter: hue-rotate(0deg) drop-shadow(0 0 20px hsl(var(--primary)));
+  }
+  100% {
+    filter: hue-rotate(360deg) drop-shadow(0 0 20px hsl(var(--primary)));
+  }
+}
 
 .cube-animation-section-container {
   position: relative;
@@ -172,7 +201,7 @@
   min-height: 350px;
   transform: skewY(-15deg);
   /* No global animation here for static default color */
-  overflow: visible;
+  overflow: visible; /* Ensure this is intended, parent section may have overflow:hidden */
   padding: 40px 0;
 }
 
@@ -203,13 +232,11 @@
   display: inline-block;
   width: 40px;
   height: 40px;
-  background: var(--anthracite-gray); /* Default static color */
+  background: var(--anthracite-front); /* Default: Front face color */
   z-index: calc(1 * var(--i));
-  /* Transition for background and filter when hover ends */
-  /* The animation property itself cannot be smoothly transitioned in this way,
-     so the hue cycling will stop abruptly when hover ends. */
-  transition: background 0.5s; /* Only background transitions back smoothly */
-  box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15);
+  /* Transition for background when hover ends */
+  transition: background 0.5s;
+  box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15); /* Subtle shadow on the element itself */
   /* No filter or animation by default */
 }
 
@@ -219,45 +246,38 @@
   /* Apply the hue-rotate animation */
   animation: animateCubeHoverHue 3s linear infinite; /* Adjust duration as needed */
   /* No separate filter here, it's handled by the animation */
-  /* No transition for background on hover start to make it immediate for the animation */
-  transition: background 0s;
-
-
-  /* Pseudo-elements will also adopt the primary color as their base */
-  /* If you want them to also hue-rotate, they would need their own animation or
-     the hue-rotate would need to be on a parent wrapper of the span and its pseudo-elements,
-     which complicates the current structure. For now, they'll just be the primary color.
-     To make them hue-rotate, you could add the 'animation' property here too, but
-     their 'background' would also be the target of hue-rotate. */
+  transition: background 0s; /* Instant change to primary color on hover start */
 }
 
 .cube-animation-section-container .cube-element:hover::before,
 .cube-animation-section-container .cube-element:hover::after {
   background: hsl(var(--primary)); /* Pseudo-elements adopt primary color on hover */
   transition: background 0s; /* Instant change */
+  /* The ::before and ::after borders will also turn to primary color on hover
+     if their border color uses hsl(var(--primary)). If not, they remain. */
 }
 
-.cube-animation-section-container .cube-element::before {
+.cube-animation-section-container .cube-element::before { /* Side Face */
   content: "";
   position: absolute;
   left: -30px;
   width: 30px;
   height: 100%;
-  background: var(--anthracite-gray-light); /* Default static color */
+  background: var(--anthracite-side); /* Default: Side face color (darkest) */
   transform-origin: right;
   transform: skewY(45deg);
   transition: background 0.5s; /* Transition for background when hover ends */
   border-right: 1px solid hsl(var(--border) / 0.2);
 }
 
-.cube-animation-section-container .cube-element::after {
+.cube-animation-section-container .cube-element::after { /* Top Face */
   content: "";
   position: absolute;
   top: -30px;
   left: 0px;
   width: 100%;
   height: 30px;
-  background: var(--anthracite-gray-lighter); /* Default static color */
+  background: var(--anthracite-top); /* Default: Top face color (lightest) */
   transform-origin: bottom;
   transform: skewX(45deg);
   transition: background 0.5s; /* Transition for background when hover ends */
