@@ -263,81 +263,190 @@
 }
 
 
-/* Testimonial Card Hover Effect */
-.testimonial-card-hover-effect {
-  position: relative;
-  width: 100%; 
-  max-width: 300px; 
-  min-height: 280px; 
-  background: hsl(var(--card)); 
+/* Define some CSS variables for theming, similar to your original setup */
+:root {
+  --card: 0 0% 100%; /* White */
+  --card-foreground: 0 0% 3.9%; /* Almost black */
+  --muted-foreground: 0 0% 45.1%; /* Gray */
+  --primary: 222.2 47.4% 11.2%; /* Example primary color (dark blue) */
+  --primary-foreground: 0 0% 98%; /* Light color for text on primary */
+}
+
+/* Body style for context if needed, matching video background */
+body {
+  background-color: #e8e8e8; /* Light gray background from video */
   display: flex;
-  flex-direction: column; 
-  align-items: center;
   justify-content: center;
-  font-size: 1rem; 
-  font-weight: bold;
+  align-items: center;
+  min-height: 100vh;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+.testimonial-card {
+  position: relative;
+  width: 20em; /* Approx 320px if 1em=16px, adjust as needed */
+  font-size: 1rem; /* Base for em units */
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
   border-radius: 15px;
   cursor: pointer;
-  overflow: hidden; 
-  padding: 1.5rem; 
-  box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
-  transition: all 0.3s ease-in-out;
+  overflow: hidden; /* Crucial for the expanding effect and hiding overflow */
+  padding: 1.5em;
+  /* Shadow from the example video/code */
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  transition: height 0.4s ease-in-out;
+  height: 11em; /* Initial height, adjust to fit initial content well */
 }
 
-.testimonial-card-hover-effect::before,
-.testimonial-card-hover-effect::after {
+.testimonial-card .avatar {
   position: absolute;
-  content: "";
-  width: 20%;
-  height: 20%;
-  background-color: hsl(var(--primary) / 0.8); 
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-  z-index: 1; 
+  width: 4.375em; /* 70px */
+  height: 4.375em; /* 70px */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid hsl(var(--card)); /* Optional: border like in original testimonial example */
+  
+  /* Initial position: top right of the card's_padding_box */
+  top: 1.5em; 
+  right: 1.5em; 
+  transition: all 0.4s ease-in-out;
+  z-index: 5; /* Above text content initially if there's any overlap risk */
 }
 
-.testimonial-card-hover-effect::before { top: 0; right: 0; border-radius: 0 15px 0 100%; }
-.testimonial-card-hover-effect::after { bottom: 0; left: 0; border-radius: 0 100% 0 15px; }
-
-.testimonial-card-hover-effect:hover::before,
-.testimonial-card-hover-effect:hover::after {
-  width: 100%;
-  height: 100%;
-  border-radius: 15px; 
-}
-
-.testimonial-card-hover-effect:hover::after {
-  background-color: hsl(var(--primary)); 
-}
-
-.testimonial-card-hover-effect .testimonial-content-front,
-.testimonial-card-hover-effect .testimonial-content-back {
+.card-text-column {
   position: relative;
-  z-index: 2; 
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* Create space for the absolutely positioned avatar on the right */
+  padding-right: calc(4.375em + 1em); /* avatar width + gap */
+  transition: transform 0.4s ease-in-out, padding-right 0.4s ease-in-out, text-align 0.1s ease-in-out;
+  z-index: 1; /* Below avatar if it overlaps */
+}
+
+.testimonial-card .reviewer-name {
+  font-weight: bold;
+  font-size: 1.1em; /* From example styling */
+  color: hsl(var(--card-foreground));
+  margin-bottom: 0.5em;
+  /* No specific transition here, will inherit from parent or be static */
+}
+.testimonial-card .reviewer-name .reviewer-handle {
+  font-weight: normal;
+  font-size: 0.8em;
+  color: hsl(var(--muted-foreground));
+  display: block; /* Or inline with adjusted margin */
+  margin-top: 0.2em;
+}
+
+.testimonial-card .review-text {
+  font-size: 0.8em; /* Slightly smaller for potentially longer reviews */
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+  /* Ensure text doesn't become too long in initial state */
+  max-height: 4.5em; /* 3 lines: 0.8em * 1.5 * 3 */
+  overflow: hidden; /* Hides extra text in collapsed state */
+  text-overflow: ellipsis; /* Optional: indicates more text */
+  /* Forcing fixed lines might require JS or more complex CSS for pure ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  transition: max-height 0.4s ease-in-out; /* Smoothly reveal full text */
+}
+
+/* Stars and Details: Initially hidden, positioned for expanded view */
+.testimonial-card .review-stars,
+.testimonial-card .reviewer-details {
+  position: absolute; /* Relative to .testimonial-card */
+  left: 1.5em; 
+  right: 1.5em;
   text-align: center;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.testimonial-card-hover-effect .testimonial-content-back {
   opacity: 0;
-  position: absolute; 
-  top: 0;
-  left: 0;
-  color: hsl(var(--primary-foreground)); 
+  transform: translateY(15px); /* Start slightly lower for upward reveal animation */
+  transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s; /* Delay reveal slightly */
+  color: hsl(var(--card-foreground));
+  z-index: 1; /* Below avatar if it animates over */
 }
 
-.testimonial-card-hover-effect:hover .testimonial-content-front { opacity: 0; }
-.testimonial-card-hover-effect:hover .testimonial-content-back { opacity: 1; }
-.testimonial-card-hover-effect .stars { display: flex; margin-bottom: 0.75rem; }
-.testimonial-card-hover-effect .quote { font-style: italic; font-size: 0.875rem; line-height: 1.5; color: hsl(var(--muted-foreground)); margin-bottom: 1rem; }
-.testimonial-card-hover-effect .avatar { width: 5rem; height: 5rem; margin-bottom: 0.75rem; border: 3px solid hsl(var(--primary-foreground)); }
-.testimonial-card-hover-effect .name { font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem; }
-.testimonial-card-hover-effect .title { font-size: 0.875rem; opacity: 0.9; }
+.testimonial-card .review-stars {
+  font-size: 1.3em;
+  color: #f8b400; /* Gold color for stars */
+  /* Approximate top position in expanded state, will be adjusted */
+  top: 14.5em; 
+}
+.testimonial-card .review-stars span {
+  margin: 0 0.1em;
+}
+
+.testimonial-card .reviewer-details {
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: hsl(var(--muted-foreground));
+  /* Approximate top position in expanded state */
+  top: 16.5em; 
+}
+
+/* HOVER STATES */
+.testimonial-card:hover {
+  height: 23em; /* Expanded height from example */
+}
+
+.testimonial-card:hover .avatar {
+  width: 6.25em; /* 100px */
+  height: 6.25em; /* 100px */
+  top: 1.5em; /* Position from the top of the card */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%) rotateX(360deg); /* Centering and 3D flip animation */
+  z-index: 10; /* Ensure avatar is on top during animation */
+}
+
+.testimonial-card:hover .card-text-column {
+  padding-right: 0; /* Allow text content to use full width */
+  text-align: center; /* Center the text content within this column */
+  /* 
+    Calculate translateY:
+    Avatar position: top 1.5em, height 6.25em. Bottom edge of avatar = 1.5 + 6.25 = 7.75em.
+    Desired space below avatar: 1em. So text column should start at 7.75 + 1 = 8.75em from card top.
+    Card-text-column's initial top is effectively 0 within card's padding (1.5em from card edge).
+    So it needs to move down by 8.75em from where its content starts (i.e. card padding edge).
+  */
+  transform: translateY(7.25em); /* (8.75em desired_top_of_content - 1.5em_initial_padding_offset) */
+}
+
+.testimonial-card:hover .reviewer-name {
+  /* Text-align is handled by parent .card-text-column:hover */
+  margin-bottom: 0.75em; /* Adjust spacing in expanded view */
+}
+
+.testimonial-card:hover .review-text {
+  /* Reveal full text */
+  max-height: 10em; /* Allow more lines */
+  -webkit-line-clamp: unset; /* Remove line clamping */
+  overflow: visible;
+}
+
+.testimonial-card:hover .review-stars,
+.testimonial-card:hover .reviewer-details {
+  opacity: 1;
+  transform: translateY(0); /* Move to final position */
+}
+
+/* Fine-tune top positions for stars/details for the expanded state */
+/*
+  After .card-text-column moves down by 7.25em:
+  Its content (name, text) starts effectively at 1.5em (card padding) + 7.25em = 8.75em from card top.
+  Name: height ~1.1em (for name) + ~0.6em (for handle) + 0.75em margin-bottom = ~2.45em. Ends around 8.75 + 2.45 = 11.2em.
+  Review text: (e.g., 4 lines * 0.8em * 1.5 line-height) = ~4.8em. Ends around 11.2 + 4.8 = 16em.
+  Space before stars: 0.75em. Stars start at 16 + 0.75 = 16.75em.
+*/
+.testimonial-card:hover .review-stars {
+  top: 16.25em; /* Adjusted based on estimated content flow */
+}
+/*
+  Stars height ~1.3em. Space before details: 0.5em. Details start at 16.75 + 1.3 + 0.5 = 18.55em.
+*/
+.testimonial-card:hover .reviewer-details {
+  top: 18.3em; /* Adjusted */
+}
+
 
 
 /* === Updated CSS for Gradient "Wave" Effect (Your Existing Code - Unchanged) === */

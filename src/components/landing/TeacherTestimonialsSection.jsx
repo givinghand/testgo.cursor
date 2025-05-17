@@ -28,7 +28,7 @@ const teacherTestimonials = [
     experience: "LGS Hazırlık Uzmanı",
     image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWFsZSUyMHRlYWNoZXJ8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "LGS'ye hazırlanan öğrencilerim için TESTGO denemeleri vazgeçilmez oldu. Gerçek sınav formatına yakınlığı ve detaylı soru çözümleri, öğrencilerin eksiklerini kapatmasında büyük rol oynuyor.",
-    rating: 4,
+    rating: 5,
   },
 ];
 

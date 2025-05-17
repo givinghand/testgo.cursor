@@ -15,7 +15,7 @@ const oldMethodPoints = [
 
 const testgoPoints = [
   { solution: "Gerçek zamanlı geri bildirim", benefit: "Anında öğrenme ve hataları düzeltme" },
-  { solution: "Kişisel başarımlarla motivasyon", benefit: "Öğrenmeyi oyunlaştırma ve keyifli hale getirme" },
+  { solution: "Kişisel kazanımlarla motivasyon", benefit: "Öğrenmeyi oyunlaştırma ve keyifli hale getirme" },
   { solution: "Anlık sıralamalar ve öneriler", benefit: "Rekabet duygusu ve kişiye özel gelişim yolu" },
   { solution: "Detaylı analizlerle gelişim takibi", benefit: "Güçlü ve zayıf yönleri net görme" },
   { solution: "Geniş ve güncel soru bankası", benefit: "Her seviyeye uygun, sınav odaklı pratik" },
