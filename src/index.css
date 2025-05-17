@@ -340,7 +340,7 @@
 .testimonial-card-hover-effect .title { font-size: 0.875rem; opacity: 0.9; }
 
 
-/* === New CSS for Gradient Glow Effect === */
+/* === New CSS for Gradient Glow Effect (Revised for Visibility and Wave Motion) === */
 .blob-card::before {
   content: "";
   position: absolute;
@@ -349,34 +349,40 @@
   right: 0;
   bottom: 0;
   border-radius: inherit; /* Inherits the 14px from .blob-card */
-  z-index: 0; /* Positioned behind .blob-animated (z-index: 1) and .blob-card-bg (z-index: 2) */
+  z-index: 0; /* Positioned behind .blob-animated and .blob-card-bg */
   
-  /* Gradient using colors inspired by your provided image */
+  /* Gradient using colors inspired by your initially provided image */
   background: linear-gradient(
     135deg, 
     hsl(211, 100%, 62%), /* Bright Blue */
     hsl(157, 100%, 68%)  /* Bright Green */
   );
   
-  /* Make background larger than element for smooth panning animation */
-  background-size: 250% 250%; 
+  /* Make background larger for more dynamic movement */
+  background-size: 300% 300%; /* Increased size for more sweep in animation */
   
-  opacity: 0.15; /* Adjust for desired subtlety (0.1 to 0.3 is usually good) */
-  filter: blur(30px); /* Creates the soft "glow" effect. Adjust blur radius as needed. */
+  opacity: 0.45; /* Increased opacity for better visibility. Adjust between 0.3-0.6 as needed. */
+  filter: blur(25px); /* Slightly reduced blur to make colors pop a bit more, while still soft. */
   
-  /* Animation for calm movement */
-  animation: subtle-gradient-pan 15s linear infinite;
+  /* New animation for a more visible "wave" or "sweep" like motion */
+  animation: wave-glow 8s ease-in-out infinite;
 }
 
-@keyframes subtle-gradient-pan {
+@keyframes wave-glow {
   0% {
-    background-position: 0% 0%;
+    background-position: 0% 50%; /* Start left-center */
+  }
+  25% {
+    background-position: 50% 0%; /* Move to top-center */
   }
   50% {
-    background-position: 100% 100%;
+    background-position: 100% 50%; /* Move to right-center */
+  }
+  75% {
+    background-position: 50% 100%; /* Move to bottom-center */
   }
   100% {
-    background-position: 0% 0%;
+    background-position: 0% 50%; /* Return to start, completing a cycle */
   }
 }
 
@@ -388,8 +394,8 @@
   height: 100%; /* Fill container */
   min-height: 250px; /* Minimum height */
   border-radius: 14px;
-  z-index: 1; /* Lower z-index to allow content on top */
-  overflow: hidden;
+  z-index: 1; 
+  overflow: hidden; /* Crucial for containing the blurred pseudo-element */
   display: flex;
   flex-direction: column;
   align-items: center;
