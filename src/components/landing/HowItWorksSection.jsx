@@ -61,7 +61,7 @@ export function HowItWorksSection() {
               <div className="blob-card h-full w-full">
                 <div className="blob-animated"></div>
                 <div className="blob-card-bg"></div>
-                <div className="blob-card-content flex flex-col items-center text-center">
+                <div className="blob-card-content flex flex-col items-center text-center h-full">
                   <CardHeader className="items-center p-6 pb-3">
                     <div className="p-5 bg-primary/10 rounded-full mb-5 inline-flex">
                       {step.icon}
@@ -75,11 +75,6 @@ export function HowItWorksSection() {
                   </CardContent>
                 </div>
               </div>
-              {index < steps.length - 1 && (
-                <div className="hidden lg:flex items-center justify-center mt-8 w-full">
-                  <ArrowRight className="h-8 w-8 text-primary/50" />
-                </div>
-              )}
             </motion.div>
           ))}
         </motion.div>
