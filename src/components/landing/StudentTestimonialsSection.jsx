@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -34,36 +33,41 @@ const studentTestimonials = [
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div className="testimonial-card-hover-effect">
-      <div className="testimonial-content-front">
-        <div className="stars">
-          {Array(5).fill(0).map((_, i) => (
-            <Star
-              key={i}
-              className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300'}`}
-            />
-          ))}
-        </div>
-        <p className="quote">"{testimonial.quote.substring(0, 100)}{testimonial.quote.length > 100 ? "..." : ""}"</p>
-        <span className="text-xs text-primary mt-auto">Detaylar için üzerine gelin</span>
+    <div className="testimonial-card-scratch">
+      <Avatar className="reviewer-avatar-scratch">
+        <AvatarImage src={testimonial.image} alt={testimonial.name} />
+        <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+      </Avatar>
+
+      <div className="card-content-wrapper-scratch">
+        <h3 className="reviewer-name-scratch">{testimonial.name}</h3>
+        <p className="review-text-scratch">{testimonial.quote}</p>
       </div>
-      <div className="testimonial-content-back">
-        <Avatar className="avatar">
-          <AvatarImage src={testimonial.image} alt={testimonial.name} />
-          <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-        </Avatar>
-        <p className="name">{testimonial.name}</p>
-        <p className="title">{testimonial.exam} Sınavına Hazırlanıyor</p>
-        <p className="title text-xs mt-1">{testimonial.title}</p>
+
+      <div className="review-stars-scratch">
+        {Array(5).fill(0).map((_, i) => (
+          <Star
+            key={i}
+            className={`inline-block w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300'}`}
+          />
+        ))}
+      </div>
+
+      {/* Reviewer Details: Appear on hover, positioned absolutely */}
+      <div className="reviewer-details-scratch">
+        {/* Using the structure from your original testimonial-content-back */}
+        <p className="text-sm font-semibold">{testimonial.exam} Sınavı</p> {/* Made exam slightly more prominent */}
+        <p className="text-xs mt-1">{testimonial.title}</p>
+        {/* You can add more details here if needed */}
+        {/* e.g., <p className="text-xs mt-1">Dersi: Matematik</p> */}
       </div>
     </div>
   );
 };
 
-
 export function StudentTestimonialsSection() {
   return (
-    <section className="py-16 md:py-24 bg-card">
+    <section className="py-16 md:py-24 bg-background"> {/* Assuming bg-background is your desired page/section background */}
       <div className="container mx-auto px-6">
         <motion.div
           className="text-center mb-12 md:mb-16"
@@ -73,21 +77,23 @@ export function StudentTestimonialsSection() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <UserGraduate className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">Öğrencilerimiz <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span> Hakkında Ne Diyor?</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
+            Öğrencilerimiz <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span> Hakkında Ne Diyor?
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Binlerce öğrencimizin başarı hikayelerinden ve deneyimlerinden bazıları.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch" // items-stretch helps if cards have different heights
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
           {studentTestimonials.map((testimonial, index) => (
-            <motion.div key={index} variants={fadeIn} className="flex">
+            <motion.div key={index} variants={fadeIn} className="flex"> {/* flex ensures items in grid stretch if needed */}
                <TestimonialCard testimonial={testimonial} />
             </motion.div>
           ))}
