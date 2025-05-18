@@ -263,20 +263,19 @@
 }
 
 
+
 /* 
   ==========================================================================
   SPINNING GRADIENT BORDER ADDITIONS
   ==========================================================================
 */
 
-/* Register the custom property for smooth animation */
 @property --border-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-/* Keyframes for the spinning border animation */
 @keyframes spin-around-border {
   to {
     --border-angle: 360deg;
@@ -301,42 +300,40 @@
   justify-content: center;
   font-size: 1rem; 
   font-weight: bold;
-  border-radius: 15px;
+  border-radius: 15px; /* Matches the glow example's rounding */
   cursor: pointer;
-  overflow: hidden;
+  overflow: visible; /* Important: Allow box-shadow (glow) to extend outside */
   padding: 1.5rem; 
-  box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+  /* Original box-shadow for depth, we'll add another for glow */
+  box-shadow: 
+    0 4px 6px hsla(0, 0%, 0%, 0.1), /* Original shadow for depth */
+    /* Glow effect shadow - adjust color, blur, and spread as needed */
+    0 0 20px 5px hsla(35, 100%, 60%, 0.5), /* Orangey-yellow glow (Hue 35, Sat 100%, Light 60%, Alpha 0.5) */
+    0 0 30px 10px hsla(45, 100%, 55%, 0.3); /* Softer, wider yellow glow (Hue 45, Sat 100%, Light 55%, Alpha 0.3) */
   transition: all 0.3s ease-in-out;
 
   /* === Updated for spinning gradient border with glow and width adjustments === */
-  --border-line-thickness: 3px; /* Slightly thicker line to make glow more apparent */
+  --border-line-thickness: 4px; /* Thickness of the spinning line itself */
   
-  /* Colors for the line and its glow */
-  --spinning-border-core-color: hsl(0, 100%, 55%); /* Bright Red - core of the line */
-  --spinning-border-glow-color: hsla(0, 100%, 55%, 0.4); /* Red with opacity for the glow */
+  /* Gradient colors for the spinning line */
+  --line-color-start: hsl(25, 100%, 55%); /* Vibrant Orange */
+  --line-color-end: hsl(45, 100%, 50%);   /* Gold/Yellow */
   
-  /* Segment lengths */
-  --spinning-border-core-segment-length: 20deg;  /* Width of the solid core line */
-  --spinning-border-glow-taper-length: 15deg;  /* Width of each glow taper on the sides of the core line */
-  
-  /* Calculated total visual width of the colored segment (core + 2 tapers) */
-  --total-visual-segment-length: calc(var(--spinning-border-core-segment-length) + (2 * var(--spinning-border-glow-taper-length)));
+  /* How long the colored segment of the line is */
+  --line-segment-length: 100deg; /* Making the line segment significantly longer */
   
   border: var(--border-line-thickness) solid transparent;
   border-image-slice: 1;
   border-image-source: conic-gradient(
     from var(--border-angle),
-    /* Glow -> Core -> Glow segment */
-    var(--spinning-border-glow-color) 0deg,                                                                         /* Start of first glow taper */
-    var(--spinning-border-core-color) var(--spinning-border-glow-taper-length),                                     /* End of first glow taper, start of core */
-    var(--spinning-border-core-color) calc(var(--spinning-border-glow-taper-length) + var(--spinning-border-core-segment-length)), /* End of core, start of second glow taper */
-    var(--spinning-border-glow-color) var(--total-visual-segment-length),                                             /* End of second glow taper */
-    /* Remainder is transparent */
-    transparent var(--total-visual-segment-length),                                                                 /* Transition to transparent */
-    transparent 360deg                                                                                              /* Rest of the circle is transparent */
+    transparent 0deg,                                       /* Start transparent */
+    var(--line-color-start) 0deg,                           /* Start of colored segment (Orange) */
+    var(--line-color-end) var(--line-segment-length),       /* End of colored segment (Yellow/Gold) */
+    transparent var(--line-segment-length),                 /* Transition to transparent */
+    transparent 360deg                                      /* Rest of the circle is transparent */
   );
-  /* Slower animation */
-  animation: spin-around-border 6s linear infinite; 
+  /* Slower animation, adjust as needed */
+  animation: spin-around-border 8s linear infinite; 
   /* === End of updated styles for spinning border === */
 }
 
@@ -436,6 +433,7 @@
   font-size: 0.875rem; 
   opacity: 0.9; 
 }
+
 
 
 /* === Updated CSS for Gradient "Wave" Effect (Your Existing Code - Unchanged) === */
