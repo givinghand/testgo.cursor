@@ -2,13 +2,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { TestInProgress } from "@/components/test/TestInProgress";
 import { TestResults } from "@/components/test/TestResults";
 import { TestLoadingScreen } from "@/components/test/TestLoadingScreen";
+import { TestHeader } from "@/components/test/TestHeader";
+import { QuestionDisplay } from "@/components/test/QuestionDisplay";
+import { QuestionNavigation } from "@/components/test/QuestionNavigation";
 import { generateTestData } from "@/lib/testUtils";
 
 export function TestPage() {
-  const { examId, subjectId, topicId } = useParams();
+  const { examId, subExamId, subjectId, topicId } = useParams();
   const location = useLocation();
   const isPracticeTest = location.pathname.includes("/deneme/");
 
@@ -23,7 +25,7 @@ export function TestPage() {
   const [endTime, setEndTime] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadingDuration = 7000; // 7 seconds
+  const loadingDuration = 7000; 
 
   const calculateScore = useCallback(() => {
     if (!testData) return 0;
@@ -45,11 +47,12 @@ export function TestPage() {
     setIsLoading(true);
     const loadingTimer = setTimeout(() => {
       const currentExamId = isPracticeTest ? (examId || 'genel-deneme') : examId;
+      const currentSubExamId = isPracticeTest ? (subExamId || null) : subExamId;
       const currentSubjectId = isPracticeTest ? (subjectId || 'karma') : subjectId;
       const currentTopicId = isPracticeTest ? (topicId || 'genel') : topicId;
 
       if (currentExamId && currentSubjectId && currentTopicId) {
-        const newTestData = generateTestData(currentExamId, currentSubjectId, currentTopicId, isPracticeTest);
+        const newTestData = generateTestData(currentExamId, currentSubExamId, currentSubjectId, currentTopicId, isPracticeTest);
         setTestData(newTestData);
         setSelectedAnswers({});
         setCurrentQuestionIndex(0);
@@ -62,7 +65,7 @@ export function TestPage() {
     }, loadingDuration);
 
     return () => clearTimeout(loadingTimer);
-  }, [examId, subjectId, topicId, isPracticeTest]);
+  }, [examId, subExamId, subjectId, topicId, isPracticeTest]);
   
   useEffect(() => {
     if (!isLoading && !testCompleted && timeLeft > 0 && testData && startTime) {
@@ -129,21 +132,34 @@ export function TestPage() {
   }
 
   return (
-    <TestInProgress
-      testData={testData}
-      currentQuestion={currentQuestion}
-      currentQuestionIndex={currentQuestionIndex}
-      timeLeft={timeLeft}
-      formatTime={formatTime}
-      selectedAnswers={selectedAnswers}
-      handleAnswerSelect={handleAnswerSelect}
-      goToNextQuestion={goToNextQuestion}
-      setCurrentQuestionIndex={setCurrentQuestionIndex}
-      isQuestionListOpen={isQuestionListOpen}
-      setIsQuestionListOpen={setIsQuestionListOpen}
-      examId={examId || (isPracticeTest ? 'genel-deneme' : '')}
-      subjectId={subjectId || (isPracticeTest ? 'karma' : '')}
-      topicId={topicId || (isPracticeTest ? 'genel' : '')}
-    />
+    <div className="container mx-auto px-2 py-4 md:px-4 md:py-6 flex flex-col h-[calc(100vh-8rem)]">
+      <TestHeader
+        examId={examId}
+        subExamId={subExamId}
+        subjectId={subjectId}
+        topicId={topicId}
+        timeLeft={timeLeft}
+        formatTime={formatTime}
+        isPracticeTest={isPracticeTest}
+      />
+      <main className="flex-grow overflow-y-auto p-1 flex flex-col">
+        <QuestionDisplay
+          currentQuestion={currentQuestion}
+          currentQuestionIndex={currentQuestionIndex}
+          selectedAnswers={selectedAnswers}
+          handleAnswerSelect={handleAnswerSelect}
+        />
+      </main>
+      <QuestionNavigation
+        testData={testData}
+        currentQuestion={currentQuestion}
+        currentQuestionIndex={currentQuestionIndex}
+        selectedAnswers={selectedAnswers}
+        goToNextQuestion={goToNextQuestion}
+        setCurrentQuestionIndex={setCurrentQuestionIndex}
+        isQuestionListOpen={isQuestionListOpen}
+        setIsQuestionListOpen={setIsQuestionListOpen}
+      />
+    </div>
   );
 }

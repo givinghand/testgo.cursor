@@ -9,6 +9,7 @@ import { RegisterPage } from "@/pages/RegisterPage";
 import { TestSelectionPage } from "@/pages/TestSelectionPage";
 import { StudyTopicsPage } from "@/pages/StudyTopicsPage";
 import { TopicDetailPage } from "@/pages/TopicDetailPage";
+import { TopicsListPage } from "@/pages/TopicsListPage"; 
 import { BlogPage } from "@/pages/BlogPage";
 import { BlogPostPage } from "@/pages/BlogPostPage";
 import { UserStatusPage } from "@/pages/UserStatusPage";
@@ -45,12 +46,19 @@ function AppContent() {
           <Route path="/uye-ol" element={<RegisterPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:postId" element={<BlogPostPage />} />
+          
           <Route path="/test-coz" element={<TestSelectionPage />} />
+          <Route path="/konular/:examId/:subjectId" element={<TopicsListPage />} />
+          <Route path="/konular/:examId/:subExamId/:subjectId" element={<TopicsListPage />} />
           <Route path="/test-coz/:examId/:subjectId/:topicId" element={<TestPage />} />
-          {/* Route for practice exams (denemeler) */}
+          <Route path="/test-coz/:examId/:subExamId/:subjectId/:topicId" element={<TestPage />} />
+
           <Route path="/deneme/:examId/:subjectId?/:topicId?" element={<TestPage />} />
+          
           <Route path="/konu-calis" element={<StudyTopicsPage />} />
           <Route path="/konu-calis/:examId/:subjectId/:topicId" element={<TopicDetailPage />} />
+          <Route path="/konu-calis/:examId/:subExamId/:subjectId/:topicId" element={<TopicDetailPage />} />
+          
           <Route path="/durumum" element={<UserStatusPage />} />
           <Route path="/denemeler" element={<ExamPage />} />
           <Route path="/hakkimizda" element={<AboutPage />} />
