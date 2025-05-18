@@ -294,32 +294,29 @@
   max-width: 300px; 
   min-height: 280px; 
   background: hsl(var(--card)); 
+  /* Ensures the background does not go under the border area, making border-image more distinct */
+  background-clip: padding-box; 
   display: flex;
   flex-direction: column; 
   align-items: center;
   justify-content: center;
   font-size: 1rem; 
   font-weight: bold;
-  border-radius: 15px;
+  border-radius: 15px; 
   cursor: pointer;
   overflow: visible; /* Allow box-shadow (glow) to extend outside */
   padding: 1.5rem; 
-  /* Updated box-shadow for new glow colors */
   box-shadow: 
     0 4px 6px hsla(0, 0%, 0%, 0.1), /* Original shadow for depth */
-    /* Glow effect shadow - Blue to Green theme */
-    0 0 20px 5px hsla(200, 100%, 60%, 0.5), /* Brighter Blue glow (Hue 200, Sat 100%, Light 60%, Alpha 0.5) */
-    0 0 30px 10px hsla(140, 80%, 70%, 0.3);  /* Softer, wider Green glow (Hue 140, Sat 80%, Light 70%, Alpha 0.3) */
+    0 0 20px 5px hsla(200, 100%, 60%, 0.5), /* Brighter Blue glow */
+    0 0 30px 10px hsla(140, 80%, 70%, 0.3);  /* Softer, wider Green glow */
   transition: all 0.3s ease-in-out;
- 
-  /* === Updated for spinning gradient border with new color palette === */
+
+  /* === Spinning gradient border with Blue-to-Green palette === */
   --border-line-thickness: 4px;
-  
-  /* Gradient colors for the spinning line (Blue to Green) */
   --line-color-start: hsl(200, 100%, 50%); /* Vibrant Azure/Cyan-Blue */
   --line-color-end: hsl(140, 80%, 60%);   /* Bright Minty/Yellowish-Green */
-  
-  --line-segment-length: 100deg; /* Length of the colored segment */
+  --line-segment-length: 100deg;
   
   border: var(--border-line-thickness) solid transparent;
   border-image-slice: 1;
@@ -331,8 +328,8 @@
     transparent var(--line-segment-length),
     transparent 360deg
   );
-  animation: spin-around-border 8s linear infinite; /* Kept the slower animation */
-  /* === End of updated styles for spinning border === */
+  animation: spin-around-border 8s linear infinite;
+  /* === End of styles for spinning border === */
 }
 
 /* Original ::before and ::after for the card's hover fill effect */
