@@ -39,7 +39,7 @@ export function HowItWorksSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">3 Adımda <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">4 Adımda <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span></h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Basit adımlarla nasıl çalıştığımızı keşfedin ve öğrenme potansiyelinizi en üst düzeye çıkarın.
           </p>
