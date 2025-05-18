@@ -61,10 +61,6 @@ export function Navbar() {
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center space-x-2">
-          <motion.div whileHover={{ rotate: [0, 10, -10, 0], scale: 1.1 }}>
-            <img-replace src="/logo.svg" alt="TESTGO Logo" className="h-10 w-10" /> 
-            A colorful geometric logo representing progress and learning
-          </motion.div>
           <span className="text-2xl font-extrabold tracking-tight text-foreground">
              <span className="text-primary">TEST</span><span className="text-secondary">GO</span>
           </span>
