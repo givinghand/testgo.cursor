@@ -311,7 +311,7 @@
     0 0 20px 5px hsla(200, 100%, 60%, 0.5), /* Brighter Blue glow (Hue 200, Sat 100%, Light 60%, Alpha 0.5) */
     0 0 30px 10px hsla(140, 80%, 70%, 0.3);  /* Softer, wider Green glow (Hue 140, Sat 80%, Light 70%, Alpha 0.3) */
   transition: all 0.3s ease-in-out;
-
+ 
   /* === Updated for spinning gradient border with new color palette === */
   --border-line-thickness: 4px;
   
