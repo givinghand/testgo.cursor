@@ -341,7 +341,7 @@
     transparent var(--line-segment-length),                   /* Transition to transparent */
     transparent 360deg                                        /* Rest of the circle is transparent */
   );
-  animation: spin-around-border 8s linear infinite; /* Kept the slower animation */
+  animation: spin-around-border 5s linear infinite; /* Kept the slower animation */
   /* === End of styles for spinning border === */
 }
 
