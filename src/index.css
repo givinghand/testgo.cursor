@@ -300,40 +300,38 @@
   justify-content: center;
   font-size: 1rem; 
   font-weight: bold;
-  border-radius: 15px; /* Matches the glow example's rounding */
+  border-radius: 15px;
   cursor: pointer;
-  overflow: visible; /* Important: Allow box-shadow (glow) to extend outside */
+  overflow: visible; /* Allow box-shadow (glow) to extend outside */
   padding: 1.5rem; 
-  /* Original box-shadow for depth, we'll add another for glow */
+  /* Updated box-shadow for new glow colors */
   box-shadow: 
     0 4px 6px hsla(0, 0%, 0%, 0.1), /* Original shadow for depth */
-    /* Glow effect shadow - adjust color, blur, and spread as needed */
-    0 0 20px 5px hsla(35, 100%, 60%, 0.5), /* Orangey-yellow glow (Hue 35, Sat 100%, Light 60%, Alpha 0.5) */
-    0 0 30px 10px hsla(45, 100%, 55%, 0.3); /* Softer, wider yellow glow (Hue 45, Sat 100%, Light 55%, Alpha 0.3) */
+    /* Glow effect shadow - Blue to Green theme */
+    0 0 20px 5px hsla(200, 100%, 60%, 0.5), /* Brighter Blue glow (Hue 200, Sat 100%, Light 60%, Alpha 0.5) */
+    0 0 30px 10px hsla(140, 80%, 70%, 0.3);  /* Softer, wider Green glow (Hue 140, Sat 80%, Light 70%, Alpha 0.3) */
   transition: all 0.3s ease-in-out;
 
-  /* === Updated for spinning gradient border with glow and width adjustments === */
-  --border-line-thickness: 4px; /* Thickness of the spinning line itself */
+  /* === Updated for spinning gradient border with new color palette === */
+  --border-line-thickness: 4px;
   
-  /* Gradient colors for the spinning line */
-  --line-color-start: hsl(25, 100%, 55%); /* Vibrant Orange */
-  --line-color-end: hsl(45, 100%, 50%);   /* Gold/Yellow */
+  /* Gradient colors for the spinning line (Blue to Green) */
+  --line-color-start: hsl(200, 100%, 50%); /* Vibrant Azure/Cyan-Blue */
+  --line-color-end: hsl(140, 80%, 60%);   /* Bright Minty/Yellowish-Green */
   
-  /* How long the colored segment of the line is */
-  --line-segment-length: 100deg; /* Making the line segment significantly longer */
+  --line-segment-length: 100deg; /* Length of the colored segment */
   
   border: var(--border-line-thickness) solid transparent;
   border-image-slice: 1;
   border-image-source: conic-gradient(
     from var(--border-angle),
-    transparent 0deg,                                       /* Start transparent */
-    var(--line-color-start) 0deg,                           /* Start of colored segment (Orange) */
-    var(--line-color-end) var(--line-segment-length),       /* End of colored segment (Yellow/Gold) */
-    transparent var(--line-segment-length),                 /* Transition to transparent */
-    transparent 360deg                                      /* Rest of the circle is transparent */
+    transparent 0deg,
+    var(--line-color-start) 0deg,
+    var(--line-color-end) var(--line-segment-length),
+    transparent var(--line-segment-length),
+    transparent 360deg
   );
-  /* Slower animation, adjust as needed */
-  animation: spin-around-border 8s linear infinite; 
+  animation: spin-around-border 8s linear infinite; /* Kept the slower animation */
   /* === End of updated styles for spinning border === */
 }
 
