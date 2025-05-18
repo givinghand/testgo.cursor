@@ -285,7 +285,7 @@
 
 /* 
   ==========================================================================
-  ORIGINAL TESTIMONIAL CARD STYLES WITH INTEGRATED SPINNING BORDER
+  ORIGINAL TESTIMONIAL CARD STYLES WITH INTEGRATED SPINNING BORDER (UPDATED)
   ==========================================================================
 */
 
@@ -303,28 +303,41 @@
   font-weight: bold;
   border-radius: 15px;
   cursor: pointer;
-  overflow: hidden; /* Good practice, helps contain pseudo-elements if they ever exceed bounds */
+  overflow: hidden;
   padding: 1.5rem; 
   box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
-  transition: all 0.3s ease-in-out; /* Existing transition for other hover effects */
+  transition: all 0.3s ease-in-out;
 
-  /* === Added for spinning gradient border === */
-  --border-line-thickness: 2px; /* Control the thickness of the spinning line */
-  --spinning-border-color: hsl(157, 100%, 68%); /* Bright Red, like the video example. Change to your theme variable e.g., hsl(var(--destructive)) */
-  --spinning-border-segment-length: 25deg; /* Controls how long the colored segment is, adjust as needed */
+  /* === Updated for spinning gradient border with glow and width adjustments === */
+  --border-line-thickness: 3px; /* Slightly thicker line to make glow more apparent */
   
-  border: var(--border-line-thickness) solid transparent; /* Define border area for the image */
-  border-image-slice: 1; /* Use the entire border image area */
+  /* Colors for the line and its glow */
+  --spinning-border-core-color: hsl(0, 100%, 55%); /* Bright Red - core of the line */
+  --spinning-border-glow-color: hsla(0, 100%, 55%, 0.4); /* Red with opacity for the glow */
+  
+  /* Segment lengths */
+  --spinning-border-core-segment-length: 20deg;  /* Width of the solid core line */
+  --spinning-border-glow-taper-length: 15deg;  /* Width of each glow taper on the sides of the core line */
+  
+  /* Calculated total visual width of the colored segment (core + 2 tapers) */
+  --total-visual-segment-length: calc(var(--spinning-border-core-segment-length) + (2 * var(--spinning-border-glow-taper-length)));
+  
+  border: var(--border-line-thickness) solid transparent;
+  border-image-slice: 1;
   border-image-source: conic-gradient(
     from var(--border-angle),
-    transparent 0deg, /* Start transparent */
-    var(--spinning-border-color) 0deg, /* Start of colored segment (immediately after transparent if segment is at 0deg) */
-    var(--spinning-border-color) var(--spinning-border-segment-length), /* End of colored segment */
-    transparent var(--spinning-border-segment-length), /* Start of transparency after segment */
-    transparent 360deg /* Rest is transparent */
+    /* Glow -> Core -> Glow segment */
+    var(--spinning-border-glow-color) 0deg,                                                                         /* Start of first glow taper */
+    var(--spinning-border-core-color) var(--spinning-border-glow-taper-length),                                     /* End of first glow taper, start of core */
+    var(--spinning-border-core-color) calc(var(--spinning-border-glow-taper-length) + var(--spinning-border-core-segment-length)), /* End of core, start of second glow taper */
+    var(--spinning-border-glow-color) var(--total-visual-segment-length),                                             /* End of second glow taper */
+    /* Remainder is transparent */
+    transparent var(--total-visual-segment-length),                                                                 /* Transition to transparent */
+    transparent 360deg                                                                                              /* Rest of the circle is transparent */
   );
-  animation: spin-around-border 3s linear infinite; /* Adjust duration for speed (e.g., 2s for faster, 5s for slower) */
-  /* === End of added styles for spinning border === */
+  /* Slower animation */
+  animation: spin-around-border 6s linear infinite; 
+  /* === End of updated styles for spinning border === */
 }
 
 /* Original ::before and ::after for the card's hover fill effect */
@@ -336,7 +349,7 @@
   height: 20%;
   background-color: hsl(var(--primary) / 0.8); 
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-  z-index: 1; /* Behind content but above base card background if needed */
+  z-index: 1; 
 }
 
 .testimonial-card-hover-effect::before { 
@@ -367,7 +380,7 @@
 .testimonial-card-hover-effect .testimonial-content-front,
 .testimonial-card-hover-effect .testimonial-content-back {
   position: relative;
-  z-index: 2; /* Ensures content is above the ::before/::after fill and the spinning border */
+  z-index: 2; 
   width: 100%;
   height: 100%;
   display: flex;
@@ -410,9 +423,9 @@
   width: 5rem; 
   height: 5rem; 
   margin-bottom: 0.75rem; 
-  border: 3px solid hsl(var(--primary-foreground)); /* This border is for the avatar image itself */
-  border-radius: 50%; /* Ensure avatar is round if not already by component */
-  object-fit: cover; /* Ensure avatar image covers the area well */
+  border: 3px solid hsl(var(--primary-foreground));
+  border-radius: 50%;
+  object-fit: cover;
 }
 .testimonial-card-hover-effect .name { 
   font-weight: 600; 
@@ -423,6 +436,7 @@
   font-size: 0.875rem; 
   opacity: 0.9; 
 }
+
 
 /* === Updated CSS for Gradient "Wave" Effect (Your Existing Code - Unchanged) === */
 .blob-card::before {
