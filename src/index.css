@@ -294,41 +294,54 @@
   max-width: 300px; 
   min-height: 280px; 
   background: hsl(var(--card)); 
-  /* Ensures the background does not go under the border area, making border-image more distinct */
-  background-clip: padding-box; 
+  background-clip: padding-box; /* Important for border-image clarity */
   display: flex;
   flex-direction: column; 
   align-items: center;
   justify-content: center;
   font-size: 1rem; 
   font-weight: bold;
-  border-radius: 15px; 
+  border-radius: 15px; /* Matches desired rounded glow */
   cursor: pointer;
-  overflow: visible; /* Allow box-shadow (glow) to extend outside */
+  overflow: visible; /* CRUCIAL: Allow box-shadow (glow) to extend outside */
   padding: 1.5rem; 
+  
+  /* Updated box-shadow for a more pronounced and blended blue-to-green static glow */
   box-shadow: 
-    0 4px 6px hsla(0, 0%, 0%, 0.15), /* Original shadow for depth */
-    0 0 20px 5px hsla(200, 100%, 60%, 0.55), /* Brighter Blue glow */
-    0 0 30px 10px hsla(140, 80%, 70%, 0.35);  /* Softer, wider Green glow */
-  transition: all 0.3s ease-in-out;
+    0 4px 6px hsla(0, 0%, 0%, 0.1), /* Original shadow for depth */
+    
+    /* Blue component of the glow */
+    0 0 25px 8px hsla(200, 100%, 55%, 0.45), /* Hue 200 (Blue), Sat 100%, Light 55%, Alpha 0.45 */
+                                             /* Blur 25px, Spread 8px */
+    /* Green component of the glow */
+    0 0 25px 8px hsla(140, 80%, 60%, 0.45),  /* Hue 140 (Green), Sat 80%, Light 60%, Alpha 0.45 */
+                                             /* Blur 25px, Spread 8px */
+    /* Wider, softer, slightly blended tealish aura to help merge and enhance floating */
+    0 0 45px 18px hsla(170, 90%, 60%, 0.25); /* Hue 170 (Teal), Sat 90%, Light 60%, Alpha 0.25 */
+                                             /* Blur 45px, Spread 18px */
+  transition: all 0.3s ease-in-out; /* For other hover effects, not the glow */
 
   /* === Spinning gradient border with Blue-to-Green palette === */
-  --border-line-thickness: 4px;
+  --border-line-thickness: 4px; /* Thickness of the spinning line */
+  
+  /* Gradient colors for the spinning line itself */
   --line-color-start: hsl(200, 100%, 50%); /* Vibrant Azure/Cyan-Blue */
   --line-color-end: hsl(140, 80%, 60%);   /* Bright Minty/Yellowish-Green */
-  --line-segment-length: 100deg;
+  
+  /* How long the colored segment of the line is */
+  --line-segment-length: 120deg; /* Made the line segment even longer */
   
   border: var(--border-line-thickness) solid transparent;
   border-image-slice: 1;
   border-image-source: conic-gradient(
     from var(--border-angle),
     transparent 0deg,
-    var(--line-color-start) 0deg,
-    var(--line-color-end) var(--line-segment-length),
-    transparent var(--line-segment-length),
-    transparent 360deg
+    var(--line-color-start) 0deg,                             /* Start of line (Blue) */
+    var(--line-color-end) var(--line-segment-length),         /* End of line (Green) */
+    transparent var(--line-segment-length),                   /* Transition to transparent */
+    transparent 360deg                                        /* Rest of the circle is transparent */
   );
-  animation: spin-around-border 5s linear infinite;
+  animation: spin-around-border 8s linear infinite; /* Kept the slower animation */
   /* === End of styles for spinning border === */
 }
 
@@ -372,7 +385,7 @@
 .testimonial-card-hover-effect .testimonial-content-front,
 .testimonial-card-hover-effect .testimonial-content-back {
   position: relative;
-  z-index: 2; 
+  z-index: 2; /* Ensures content is above pseudo-elements and border effects */
   width: 100%;
   height: 100%;
   display: flex;
