@@ -307,9 +307,9 @@
   overflow: visible; /* Allow box-shadow (glow) to extend outside */
   padding: 1.5rem; 
   box-shadow: 
-    0 4px 6px hsla(0, 0%, 0%, 0.1), /* Original shadow for depth */
-    0 0 20px 5px hsla(200, 100%, 60%, 0.5), /* Brighter Blue glow */
-    0 0 30px 10px hsla(140, 80%, 70%, 0.3);  /* Softer, wider Green glow */
+    0 4px 6px hsla(0, 0%, 0%, 0.15), /* Original shadow for depth */
+    0 0 20px 5px hsla(200, 100%, 60%, 0.55), /* Brighter Blue glow */
+    0 0 30px 10px hsla(140, 80%, 70%, 0.35);  /* Softer, wider Green glow */
   transition: all 0.3s ease-in-out;
 
   /* === Spinning gradient border with Blue-to-Green palette === */
@@ -328,7 +328,7 @@
     transparent var(--line-segment-length),
     transparent 360deg
   );
-  animation: spin-around-border 8s linear infinite;
+  animation: spin-around-border 5s linear infinite;
   /* === End of styles for spinning border === */
 }
 
