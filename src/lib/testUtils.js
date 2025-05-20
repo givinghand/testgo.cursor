@@ -1,4 +1,3 @@
-
 import { supabase } from '@/lib/supabaseClient';
 
 const DEFAULT_QUESTIONS_LGS = 12;
@@ -15,18 +14,23 @@ async function fetchQuestionsPool() {
   }
 
   try {
+    // Temporarily skip Supabase storage fetch attempt until bucket is configured
+    throw new Error('Skipping Supabase storage fetch'); // Force using local fallback
+
+    /* Commented out until Supabase storage bucket is properly configured
     const { data, error } = await supabase.storage
-      .from('test-assets') // Supabase Storage'daki bucket adınız
-      .download('questions.json'); // Bucket içindeki dosya yolunuz
+      .from('test-assets')
+      .download('questions.json');
 
     if (error) {
       console.warn("Supabase'den sorular çekilemedi, yerel yedek kullanılıyor:", error.message);
-      throw error; // Hata fırlatıp catch bloğuna düşmesini sağla
+      throw error;
     }
     
     const jsonData = JSON.parse(await data.text());
     questionsPool = jsonData;
     return questionsPool;
+    */
 
   } catch (supabaseError) {
     try {
@@ -161,4 +165,3 @@ const createFallbackTest = (examId, subExamId, subjectId, topicId, isPracticeTes
     totalTime: (isPracticeTest ? (totalQuestions * 1.5) : totalQuestions) * 60,
   };
 };
-
