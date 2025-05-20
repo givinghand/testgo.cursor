@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -7,7 +8,7 @@ import { fadeIn, staggerContainer } from "@/utils/animations.jsx";
 const studentTestimonials = [
   {
     name: "Ayşe Yılmaz",
-    title: "Tıp Fakültesi Kazananı",
+    title: "Tıp Fakültesi Öğrencisi",
     exam: "YKS",
     image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c3R1ZGVudCUyMHNtaWxpbmd8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "TESTGO sayesinde TYT'de ilk 1000'e girmeyi başardım. Özellikle eksik konu analizleri ve kişiselleştirilmiş çalışma programı çok faydalı oldu. Deneme sınavları gerçek sınavla birebirdi!",
@@ -15,7 +16,7 @@ const studentTestimonials = [
   },
   {
     name: "Mehmet Kaya",
-    title: "İTÜ Yazılım Mühendisliği Kazananı",
+    title: "Mühendislik Öğrencisi",
     exam: "YKS",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMHN0dWRlbnR8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "Deneme sınavları ve detaylı analizler sayesinde zayıf olduğum konuları tespit edip, çalışmalarımı ona göre yönlendirdim. Sonuç olarak hedeflediğim bölüme yerleştim. TESTGO'ya teşekkürler!",
@@ -23,11 +24,11 @@ const studentTestimonials = [
   },
   {
     name: "Zeynep Demir",
-    title: "Baykar Havacılık Teknik Lisesi Kazananı",
+    title: "LGS Öğrencisi",
     exam: "LGS",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmVtYWxlJTIwc3R1ZGVudHx8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "İnteraktif testler ve anında geri bildirimler öğrenme sürecimi çok hızlandırdı. Ayrıca mobil uyumlu olması her yerde çalışabilmemi sağladı. TESTGO ile çalışmak çok keyifli.",
-    rating: 5,
+    rating: 4,
   },
 ];
 
@@ -62,20 +63,8 @@ const TestimonialCard = ({ testimonial }) => {
 
 export function StudentTestimonialsSection() {
   return (
-    // MODIFICATION: Added mx-auto and a max-width to the <section> element.
-    // You can adjust max-w-7xl (which is 1280px) to other Tailwind max-width utilities
-    // like max-w-screen-xl, max-w-6xl, etc., depending on your desired width.
-    <section className="py-16 md:py-24 bg-card mx-auto max-w-7xl">
-      {/* 
-        MODIFICATION: The inner div no longer strictly needs "container" or "mx-auto" 
-        if the section itself is handling the max-width and centering.
-        Keeping px-6 for consistent horizontal padding. You could also use "w-full" here
-        if you want its children to truly fill the (now centered and max-width) section.
-        Or, if your 'container' class adds specific responsive padding you like, you can use:
-        <div className="container px-6"> 
-        Just remove the mx-auto from it.
-      */}
-      <div className="w-full px-6"> {/* Or simply "px-6" if no other container logic is needed */}
+    <section className="py-16 md:py-24 bg-card">
+      <div className="container mx-auto px-6">
         <motion.div
           className="text-center mb-12 md:mb-16"
           variants={fadeIn}

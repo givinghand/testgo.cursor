@@ -39,7 +39,7 @@ export function HowItWorksSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">4 Adımda <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">3 Adımda <span className="text-primary">TEST</span><span className="text-[hsl(var(--secondary))]">GO</span></h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Basit adımlarla nasıl çalıştığımızı keşfedin ve öğrenme potansiyelinizi en üst düzeye çıkarın.
           </p>
@@ -61,7 +61,7 @@ export function HowItWorksSection() {
               <div className="blob-card h-full w-full">
                 <div className="blob-animated"></div>
                 <div className="blob-card-bg"></div>
-                <div className="blob-card-content flex flex-col items-center text-center h-full">
+                <div className="blob-card-content flex flex-col items-center text-center">
                   <CardHeader className="items-center p-6 pb-3">
                     <div className="p-5 bg-primary/10 rounded-full mb-5 inline-flex">
                       {step.icon}
@@ -75,6 +75,11 @@ export function HowItWorksSection() {
                   </CardContent>
                 </div>
               </div>
+              {index < steps.length - 1 && (
+                <div className="hidden lg:flex items-center justify-center mt-8 w-full">
+                  <ArrowRight className="h-8 w-8 text-primary/50" />
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>

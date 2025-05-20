@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -20,6 +20,8 @@ import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { FaqPage } from "@/pages/FaqPage";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/contexts/AuthContext"; 
+import { useEffect } from "react";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -76,7 +78,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

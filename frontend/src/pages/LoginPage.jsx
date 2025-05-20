@@ -7,33 +7,38 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogIn, Mail, Lock } from "lucide-react";
+import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function LoginPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { signIn, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === "kullanici@testgo.com" && password === "sifre123") {
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", email); 
+    setIsLoading(true);
+    try {
+      await signIn(email, password);
       toast({
         title: "Giriş Başarılı!",
         description: "TESTGO'ya hoş geldiniz.",
         className: "bg-green-500 text-white",
       });
       navigate("/"); 
-    } else {
+    } catch (error) {
       toast({
         title: "Giriş Başarısız!",
-        description: "E-posta veya şifre hatalı. Lütfen tekrar deneyin.",
+        description: error.message || "E-posta veya şifre hatalı. Lütfen tekrar deneyin.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,6 +75,7 @@ export function LoginPage() {
                     className="pl-12 h-11 text-base focus:ring-primary focus:border-primary"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading || authLoading}
                   />
                 </div>
               </div>
@@ -85,6 +91,7 @@ export function LoginPage() {
                     className="pl-12 h-11 text-base focus:ring-primary focus:border-primary"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading || authLoading}
                   />
                 </div>
               </div>
@@ -95,6 +102,7 @@ export function LoginPage() {
                     checked={rememberMe}
                     onCheckedChange={setRememberMe}
                     className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                    disabled={isLoading || authLoading}
                   />
                   <Label htmlFor="remember-me" className="text-sm font-normal text-muted-foreground cursor-pointer">Beni Hatırla</Label>
                 </div>
@@ -102,7 +110,8 @@ export function LoginPage() {
                   Şifremi Unuttum?
                 </Link>
               </div>
-              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-base font-semibold py-3 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-base font-semibold py-3 shadow-md hover:shadow-lg transition-shadow duration-300" disabled={isLoading || authLoading}>
+                {(isLoading || authLoading) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Giriş Yap
               </Button>
             </form>

@@ -1,15 +1,20 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, UserCircle, LogOut, Check } from "lucide-react"; // Check ikonu eklendi (gerçi burada kullanılmıyor ama UserStatusPage için lazım)
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, LogOut, User, Settings, ShieldCheck, Library } from "lucide-react"; // BookUser yerine Library kullanıldı
 import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils"; // cn import edildi
+import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 const navLinks = [
+  { href: "/", label: "Ana Sayfa" },
   { href: "/test-coz", label: "Test Çöz" },
   { href: "/konu-calis", label: "Konu Çalış" },
   { href: "/denemeler", label: "Denemeler" },
@@ -19,38 +24,35 @@ const navLinks = [
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, profile, signOut, loading } = useAuth();
 
-  useEffect(() => {
-    const authStatus = localStorage.getItem("isAuthenticated");
-    setIsAuthenticated(authStatus === "true");
-
-    const handleStorageChange = () => {
-      const newAuthStatus = localStorage.getItem("isAuthenticated");
-      setIsAuthenticated(newAuthStatus === "true");
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-  
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("userEmail");
-    setIsAuthenticated(false);
-    setIsMobileMenuOpen(false); 
-    toast({
-      title: "Çıkış Yapıldı",
-      description: "Başarıyla çıkış yaptınız. Tekrar bekleriz!",
-      className: "bg-primary text-primary-foreground",
-    });
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setIsMobileMenuOpen(false);
+      toast({
+        title: "Çıkış Yapıldı",
+        description: "Başarıyla çıkış yaptınız. Tekrar bekleriz!",
+        className: "bg-primary text-primary-foreground",
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Çıkış Hatası",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
-
+  
+  const getAvatarFallback = (fullName) => {
+    if (!fullName) return "K";
+    const names = fullName.split(' ');
+    if (names.length === 1) return names[0].substring(0, 2).toUpperCase();
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase();
+  };
 
   return (
     <motion.header
@@ -61,6 +63,9 @@ export function Navbar() {
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center space-x-2">
+          <motion.div whileHover={{ rotate: [0, 10, -10, 0], scale: 1.1 }}>
+            <img src="https://images.unsplash.com/photo-1580428354768-03a028646bc8" alt="TESTGO Logo" className="h-10 w-10" /> 
+          </motion.div>
           <span className="text-2xl font-extrabold tracking-tight text-foreground">
              <span className="text-primary">TEST</span><span className="text-secondary">GO</span>
           </span>
@@ -70,7 +75,7 @@ export function Navbar() {
           <NavigationMenuList>
             {navLinks.map((link) => (
               <NavigationMenuItem key={link.href}>
-                <NavLink to={link.href} className={({ isActive }) => cn(navigationMenuTriggerStyle(), isActive && "bg-accent text-accent-foreground font-semibold")}>
+                <NavLink to={link.href} className={({ isActive }) => cn(navigationMenuTriggerStyle(), "text-base", isActive && "bg-accent text-accent-foreground font-semibold")}>
                   {link.label}
                 </NavLink>
               </NavigationMenuItem>
@@ -79,15 +84,58 @@ export function Navbar() {
         </NavigationMenu>
 
         <div className="hidden md:flex items-center space-x-3">
-          {isAuthenticated ? (
-            <>
-              <Button variant="ghost" size="icon" onClick={() => navigate("/durumum")} aria-label="Profilim">
-                <UserCircle className="h-6 w-6 text-primary" />
+          {loading ? (
+            <div className="flex items-center space-x-2 p-2 rounded-md">
+              <LoadingSpinner size="sm" />
+              <span className="text-sm text-muted-foreground">Yükleniyor...</span>
+            </div>
+          ) : user ? (
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" onClick={() => navigate("/durumum")} className="flex items-center space-x-2 px-3 py-2 h-auto">
+                  <Library className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-medium">Hesabım</span>
               </Button>
-              <Button variant="outline" onClick={handleLogout} className="border-destructive text-destructive hover:bg-destructive/10 hover:text-destructive">
-                <LogOut className="mr-2 h-4 w-4"/> Çıkış Yap
-              </Button>
-            </>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
+                    <Avatar className="h-9 w-9">
+                      <AvatarImage src={profile?.avatar_url || ''} alt={profile?.full_name || user?.email} />
+                      <AvatarFallback>{getAvatarFallback(profile?.full_name || user?.email)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{profile?.full_name || user.email}</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {profile?.is_premium ? "Premium Üye" : "Standart Üye"}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/durumum")}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profilim</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/ayarlar")}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Ayarlar</span>
+                  </DropdownMenuItem>
+                  {!profile?.is_premium && (
+                    <DropdownMenuItem onClick={() => navigate("/premium-uye-ol")} className="text-primary hover:!text-primary focus:!text-primary">
+                      <ShieldCheck className="mr-2 h-4 w-4" />
+                      <span>Premium'a Geç</span>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Çıkış Yap</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           ) : (
             <>
               <Button variant="ghost" asChild>
@@ -141,10 +189,10 @@ export function Navbar() {
               ))}
             </nav>
             <div className="mt-auto p-6 border-t space-y-4">
-             {isAuthenticated ? (
+             {loading ? <p className="text-center text-muted-foreground">Yükleniyor...</p> : user ? (
                 <>
                   <Button variant="outline" onClick={() => { navigate("/durumum"); setIsMobileMenuOpen(false); }} className="w-full justify-start text-left">
-                    <UserCircle className="mr-2 h-5 w-5 text-primary" /> Profilim
+                    <User className="mr-2 h-5 w-5 text-primary" /> Profilim
                   </Button>
                   <Button variant="destructive" onClick={handleLogout} className="w-full">
                      <LogOut className="mr-2 h-5 w-5"/> Çıkış Yap

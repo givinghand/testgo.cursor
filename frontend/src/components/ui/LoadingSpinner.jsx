@@ -1,18 +1,16 @@
 
-import React from "react";
-import { Loader2 } from "lucide-react";
+import React from 'react';
+import { Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-export function LoadingSpinner({ size = "md" }) {
+export function LoadingSpinner({ size = "md", className }) {
   const sizeClasses = {
     sm: "h-6 w-6",
-    md: "h-12 w-12",
-    lg: "h-20 w-20",
+    md: "h-10 w-10",
+    lg: "h-16 w-16",
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] text-center">
-      <Loader2 className={`${sizeClasses[size]} animate-spin text-primary mb-4`} />
-      <p className="text-lg text-muted-foreground">Yükleniyor, lütfen bekleyin...</p>
-    </div>
+    <Loader2 className={cn("animate-spin text-primary", sizeClasses[size], className)} />
   );
 }

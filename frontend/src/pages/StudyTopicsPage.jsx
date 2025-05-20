@@ -92,6 +92,7 @@ export function StudyTopicsPage() {
             <Card className={`hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden group relative border-2 ${exam.borderColor} hover:border-secondary card-hover`}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300 z-10"></div>
               <img-replace src={exam.image} alt={exam.name} class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
+              Sınav kategorisi için görsel: {exam.name}
               <CardHeader className="relative z-20 flex flex-col items-center justify-center text-center p-6 h-48 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                  <div className={`p-3 rounded-full ${exam.bgColor} mb-3 shadow-md`}>{React.cloneElement(exam.icon, { className: exam.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
                 <CardTitle className="text-2xl font-bold text-white group-hover:text-secondary transition-colors duration-300">{exam.name}</CardTitle>
@@ -122,6 +123,7 @@ export function StudyTopicsPage() {
               >
                 <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group overflow-hidden relative border hover:border-primary card-hover">
                   <img-replace src={subExam.image} alt={subExam.name} class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
+                  {subExam.name} için görsel
                   <CardContent className="p-6 flex flex-col items-center text-center relative z-10">
                     <div className="p-3 rounded-full bg-primary/10 mb-3">{React.cloneElement(subExam.icon, { className: subExam.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
                     <h3 className="text-xl font-semibold text-foreground mb-2">{subExam.name}</h3>
@@ -162,6 +164,7 @@ export function StudyTopicsPage() {
               >
                 <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group overflow-hidden relative border hover:border-primary card-hover">
                   <img-replace src={subject.image} alt={subject.name} class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
+                  {subject.name} dersi için görsel
                   <CardContent className="p-6 flex flex-col items-center text-center relative z-10">
                     <div className="p-3 rounded-full bg-primary/10 mb-3">{React.cloneElement(subject.icon, { className: subject.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
                     <h3 className="text-xl font-semibold text-foreground mb-2">{subject.name}</h3>

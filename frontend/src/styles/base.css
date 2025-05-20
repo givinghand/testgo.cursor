@@ -1,0 +1,76 @@
+
+@tailwind base;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White */
+    --foreground: 210 10% 23%; /* Dark Blue-Gray / Anthracite */
+    --card: 181 49% 96%; /* Very Light Verdigris */
+    --card-foreground: 210 10% 23%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 10% 23%;
+    --primary: 181 49% 44%; /* Verdigris (#38A3A5) */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 152 54% 57%; /* Emerald (#57CC99) */
+    --secondary-foreground: 152 54% 15%; /* Darker Emerald for text */
+    --muted: 180 20% 96%; /* Very Light Cyan/Gray */
+    --muted-foreground: 180 10% 45%; /* Medium Cyan/Gray */
+    --accent: 138 78% 71%; /* Light Green (#80ED99) */
+    --accent-foreground: 138 60% 25%; /* Darker Light Green for text */
+    --destructive: 339 65% 44%; /* Tyrian Purple (#661432) */
+    --destructive-foreground: 0 0% 100%; /* White */
+    --border: 180 20% 88%; /* Light Cyan/Gray Border */
+    --input: 180 20% 88%;
+    --ring: 181 49% 44%; /* Verdigris */
+    --radius: 0.5rem;
+
+    --brand-purple: 339 65% 24%;
+    --brand-teal: 181 49% 44%;
+    --brand-white: 0 0% 100%;
+    --brand-emerald: 152 54% 57%;
+    --brand-light-green: 138 78% 71%;
+    --anthracite-gray: 210 10% 23%; 
+    --anthracite-gray-light: 210 10% 30%; 
+    --anthracite-gray-lighter: 210 10% 40%; 
+  }
+
+  .dark {
+    --background: 200 15% 12%; 
+    --foreground: 180 10% 85%; 
+    --card: 181 49% 18%; 
+    --card-foreground: 180 10% 85%;
+    --popover: 200 15% 10%;
+    --popover-foreground: 180 10% 85%;
+    --primary: 181 49% 50%; 
+    --primary-foreground: 0 0% 100%; 
+    --secondary: 152 54% 50%; 
+    --secondary-foreground: 0 0% 100%;
+    --muted: 200 15% 25%; 
+    --muted-foreground: 180 10% 60%; 
+    --accent: 138 78% 65%; 
+    --accent-foreground: 138 60% 20%;
+    --destructive: 339 65% 55%; 
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 15% 25%;
+    --input: 200 15% 25%;
+    --ring: 181 49% 50%;
+    --anthracite-gray: 210 10% 70%; 
+    --anthracite-gray-light: 210 10% 60%;
+    --anthracite-gray-lighter: 210 10% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Nunito', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; 
+  }
+}

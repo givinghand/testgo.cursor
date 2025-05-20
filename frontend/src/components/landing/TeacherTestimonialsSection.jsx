@@ -28,7 +28,7 @@ const teacherTestimonials = [
     experience: "LGS Hazırlık Uzmanı",
     image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWFsZSUyMHRlYWNoZXJ8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "LGS'ye hazırlanan öğrencilerim için TESTGO denemeleri vazgeçilmez oldu. Gerçek sınav formatına yakınlığı ve detaylı soru çözümleri, öğrencilerin eksiklerini kapatmasında büyük rol oynuyor.",
-    rating: 5,
+    rating: 4,
   },
 ];
 
@@ -61,21 +61,9 @@ const TestimonialCard = ({ testimonial }) => {
 };
 
 export function TeacherTestimonialsSection() {
-   return (
-    // MODIFICATION: Added mx-auto and a max-width to the <section> element.
-    // You can adjust max-w-7xl (which is 1280px) to other Tailwind max-width utilities
-    // like max-w-screen-xl, max-w-6xl, etc., depending on your desired width.
-    <section className="py-16 md:py-24 bg-card mx-auto max-w-7xl">
-      {/* 
-        MODIFICATION: The inner div no longer strictly needs "container" or "mx-auto" 
-        if the section itself is handling the max-width and centering.
-        Keeping px-6 for consistent horizontal padding. You could also use "w-full" here
-        if you want its children to truly fill the (now centered and max-width) section.
-        Or, if your 'container' class adds specific responsive padding you like, you can use:
-        <div className="container px-6"> 
-        Just remove the mx-auto from it.
-      */}
-      <div className="w-full px-6"> {/* Or simply "px-6" if no other container logic is needed */}
+  return (
+    <section className="py-16 md:py-24 bg-secondary/10">
+      <div className="container mx-auto px-6">
         <motion.div
           className="text-center mb-12 md:mb-16"
           variants={fadeIn}

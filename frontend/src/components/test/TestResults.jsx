@@ -1,11 +1,15 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle, XCircle, Award, TrendingUp, Clock, Brain, Star, ListChecks, Eye } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { CheckCircle, XCircle, Award, TrendingUp, Clock, Brain, Star, ListChecks, FolderLock as LockIcon, RotateCcw, Home } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabaseClient";
+import { useToast } from "@/components/ui/use-toast";
 
 const ConfettiPiece = ({ x, y, rotation, color }) => {
   return (
@@ -52,7 +56,7 @@ const ConfettiExplosion = ({ count = 100 }) => {
   );
 };
 
-const QuestionReviewModal = ({ question, selectedAnswer, isOpen, onOpenChange }) => {
+const QuestionReviewModal = ({ question, selectedAnswer, isOpen, onOpenChange, isPremium }) => {
   if (!question) return null;
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -60,10 +64,10 @@ const QuestionReviewModal = ({ question, selectedAnswer, isOpen, onOpenChange })
         <DialogHeader>
           <DialogTitle className="text-primary">Soru İnceleme: Soru {question.id}</DialogTitle>
         </DialogHeader>
-        <div className="py-4 space-y-4">
+        <div className="py-4 space-y-4 max-h-[70vh] overflow-y-auto">
           {question.image && (
             <div className="mb-3 sm:mb-4 rounded-md overflow-hidden max-h-48 sm:max-h-64 flex justify-center items-center bg-muted">
-              <img-replace src={question.image} alt={`Soru ${question.id} için görsel`} class="object-contain max-h-full max-w-full" />
+              <img src={question.image} alt={`Soru ${question.id} için görsel`} className="object-contain max-h-full max-w-full" />
             </div>
           )}
           <p className="text-foreground font-medium">{question.text}</p>
@@ -84,30 +88,107 @@ const QuestionReviewModal = ({ question, selectedAnswer, isOpen, onOpenChange })
               </div>
             ))}
           </div>
-          <Card className="bg-primary/5 border-primary/20 mt-4">
-            <CardContent className="p-4">
-              <h4 className="font-semibold text-primary mb-1">Açıklama:</h4>
-              <p className="text-sm text-muted-foreground">{question.explanation}</p>
-            </CardContent>
-          </Card>
+          {isPremium ? (
+            <Card className="bg-primary/5 border-primary/20 mt-4">
+              <CardContent className="p-4">
+                <h4 className="font-semibold text-primary mb-1">Açıklama:</h4>
+                <p className="text-sm text-muted-foreground">{question.explanation}</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="bg-muted/50 border-border mt-4 relative overflow-hidden">
+              <div className="absolute inset-0 bg-background/70 backdrop-blur-sm flex flex-col items-center justify-center z-10 p-2">
+                <LockIcon className="h-8 w-8 text-primary mb-2"/>
+                <p className="text-sm font-semibold text-foreground text-center">Detaylı açıklamalar için Premium'a geçin.</p>
+                <Button asChild size="sm" className="mt-2 text-xs">
+                   <Link to="/premium-uye-ol">Premium'a Yükselt</Link>
+                </Button>
+              </div>
+              <CardContent className="p-4 blur-sm select-none">
+                <h4 className="font-semibold text-primary mb-1">Açıklama:</h4>
+                <p className="text-sm text-muted-foreground">{question.explanation}</p>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
+const BlurredOverlay = ({ message, actionText, actionLink }) => (
+    <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 p-4 rounded-lg">
+      <LockIcon className="h-10 w-10 text-primary mb-3"/>
+      <p className="text-lg font-semibold text-foreground mb-3 text-center">{message}</p>
+      {actionLink && actionText && (
+         <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+           <Link to={actionLink}>{actionText}</Link>
+         </Button>
+      )}
+    </div>
+  );
 
-export function TestResults({ testData, selectedAnswers, calculateScore, timeLeft, totalTime, timeTaken }) {
+export function TestResults({ testData, selectedAnswers, calculateScore, timeTaken, examParams }) {
+  const { user, loading: authLoading, checkUserPremiumStatus } = useAuth();
+  const isPremium = !authLoading && user ? checkUserPremiumStatus() : false;
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
   const score = calculateScore();
   const totalQuestions = testData.questions.length;
   const wrongAnswersCount = totalQuestions - score - (totalQuestions - Object.keys(selectedAnswers).length);
   const emptyAnswers = totalQuestions - Object.keys(selectedAnswers).length;
   const accuracy = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
-  const timeSaved = totalTime - timeTaken;
   const timePerQuestion = totalQuestions > 0 ? Math.round(timeTaken / totalQuestions) : 0;
 
   const [reviewQuestion, setReviewQuestion] = useState(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isSavingResult, setIsSavingResult] = useState(false);
+
+  const saveTestResult = useCallback(async () => {
+    if (!user || isSavingResult) return;
+    setIsSavingResult(true);
+    try {
+      const { data, error } = await supabase
+        .from('user_test_results')
+        .insert([{
+          user_id: user.id,
+          test_name: testData.title,
+          exam_id: examParams.examId,
+          subject_id: examParams.subjectId,
+          topic_id: examParams.topicId,
+          sub_exam_id: examParams.subExamId, // YKS için AYT/TYT
+          score: score,
+          total_questions: totalQuestions,
+          time_taken: timeTaken,
+          answers: selectedAnswers,
+          taken_at: new Date().toISOString(),
+        }]);
+
+      if (error) throw error;
+      toast({
+        title: "Sonuçlar Kaydedildi!",
+        description: "Test sonuçlarınız başarıyla profilinize kaydedildi.",
+        className: "bg-green-500 text-white"
+      });
+    } catch (error) {
+      console.error("Error saving test result:", error);
+      toast({
+        title: "Sonuç Kaydedilemedi",
+        description: "Test sonuçları kaydedilirken bir hata oluştu: " + error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setIsSavingResult(false);
+    }
+  }, [user, testData, selectedAnswers, score, totalQuestions, timeTaken, examParams, toast, isSavingResult]);
+
+  useEffect(() => {
+    if(user && testData){ // Test verisi ve kullanıcı varsa kaydetmeyi dene
+        saveTestResult();
+    }
+  }, [user, testData, saveTestResult]);
+
 
   const handleQuestionReview = (question) => {
     setReviewQuestion(question);
@@ -120,19 +201,19 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
   let performanceIcon = <Star className="h-6 w-6 mr-2" />;
 
   if (accuracy >= 90) {
-    performanceMessage = "Çok Başarılı!";
+    performanceMessage = "Mükemmel!";
     performanceColor = "text-green-500";
     performanceIcon = <Award className="h-6 w-6 mr-2 text-green-500" />;
   } else if (accuracy >= 70) {
-    performanceMessage = "Başarılı!";
+    performanceMessage = "Çok İyi!";
     performanceColor = "text-sky-500";
     performanceIcon = <TrendingUp className="h-6 w-6 mr-2 text-sky-500" />;
-  } else if (accuracy >= 55) {
-    performanceMessage = "Daha da geliştirebilirsin.";
+  } else if (accuracy >= 50) {
+    performanceMessage = "İyi Yoldasın!";
     performanceColor = "text-yellow-500";
     performanceIcon = <Brain className="h-6 w-6 mr-2 text-yellow-500" />;
   } else {
-    performanceMessage = "Konuya çalışıp tekrar denemelisin.";
+    performanceMessage = "Daha Çok Çalışmalısın.";
     performanceColor = "text-red-500";
     performanceIcon = <XCircle className="h-6 w-6 mr-2 text-red-500" />;
   }
@@ -155,11 +236,18 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
             <CardDescription className="text-muted-foreground">{testData.title}</CardDescription>
           </CardHeader>
           <CardContent className="py-6 px-4 sm:px-6">
-            <div className="mb-6 p-4 border border-border rounded-lg bg-background">
+            <div className="mb-6 p-4 border border-border rounded-lg bg-background relative">
+              {!isPremium && (
+                 <BlurredOverlay 
+                  message="Detaylı soru analizi için Premium üyeliğe geçin!"
+                  actionText="Premium'a Yükselt"
+                  actionLink="/premium-uye-ol"
+                />
+              )}
               <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center">
                 <ListChecks className="h-5 w-5 mr-2 text-primary" /> Soru Analizi
               </h3>
-              <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
+              <div className={`grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2 ${!isPremium ? 'blur-sm select-none pointer-events-none' : ''}`}>
                 {testData.questions.map((q, index) => {
                   const isCorrect = selectedAnswers[q.id] === q.correctAnswer;
                   const isAnswered = selectedAnswers.hasOwnProperty(q.id);
@@ -174,8 +262,9 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
                       variant="outline"
                       size="icon"
                       className={`h-9 w-9 text-xs font-semibold rounded-md transition-all ${buttonClass}`}
-                      onClick={() => handleQuestionReview(q)}
+                      onClick={() => isPremium && handleQuestionReview(q)}
                       title={`Soru ${index + 1} ${isAnswered ? (isCorrect ? '(Doğru)' : '(Yanlış)') : '(Boş)'}`}
+                      disabled={!isPremium}
                     >
                       {index + 1}
                     </Button>
@@ -244,12 +333,6 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
                     <TrendingUp className="h-4 w-4 mr-2 text-primary" />
                     <span>Soru Başına Süre: {timePerQuestion} sn</span>
                   </div>
-                  {timeSaved > 0 && (
-                    <div className="flex items-center justify-center md:justify-start col-span-1 md:col-span-2">
-                       <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                      <span>Artan Süre: {Math.floor(timeSaved / 60)} dk {timeSaved % 60} sn</span>
-                    </div>
-                  )}
                 </div>
               </motion.div>
               
@@ -258,10 +341,17 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
               </p>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col sm:flex-row justify-center gap-3 p-4 sm:p-6 bg-muted/50 border-t">
-            <Button onClick={() => window.location.reload()} variant="outline" className="w-full sm:w-auto">Yeniden Başla</Button>
+          <CardFooter className="flex flex-col sm:flex-row justify-center items-center gap-3 p-4 sm:p-6 bg-muted/50 border-t">
+            <Button onClick={() => navigate(0)} variant="outline" className="w-full sm:w-auto">
+              <RotateCcw className="mr-2 h-4 w-4" /> Yeniden Başla
+            </Button>
             <Button asChild className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground">
-              <a href="/test-coz">Yeni Test Seç</a>
+              <Link to="/test-coz">
+                <Home className="mr-2 h-4 w-4" /> Yeni Test Seç
+              </Link>
+            </Button>
+             <Button onClick={() => navigate("/durumum")} variant="secondary" className="w-full sm:w-auto">
+                <ListChecks className="mr-2 h-4 w-4" /> Durumumu Gör
             </Button>
           </CardFooter>
         </Card>
@@ -272,6 +362,7 @@ export function TestResults({ testData, selectedAnswers, calculateScore, timeLef
           selectedAnswer={selectedAnswers[reviewQuestion.id]}
           isOpen={isReviewModalOpen}
           onOpenChange={setIsReviewModalOpen}
+          isPremium={isPremium}
         />
       )}
     </div>

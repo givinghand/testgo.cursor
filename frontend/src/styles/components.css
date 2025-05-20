@@ -1,0 +1,23 @@
+
+@tailwind components;
+
+@layer components {
+  .card {
+    @apply bg-card shadow-md;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--secondary) / 0.7) 50%, hsl(var(--accent) / 0.5) 100%);
+}
+
+.progress-gradient {
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+}
+
+.glass-effect {
+  background: hsla(var(--card) / 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid hsla(var(--border) / 0.2);
+}

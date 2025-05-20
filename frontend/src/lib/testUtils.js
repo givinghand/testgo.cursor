@@ -1,43 +1,164 @@
 
-export const generateTestData = (examId, subjectId, topicId, isPracticeTest = false) => {
+import { supabase } from '@/lib/supabaseClient';
+
+const DEFAULT_QUESTIONS_LGS = 12;
+const DEFAULT_QUESTIONS_YKS = 15;
+const DEFAULT_QUESTIONS_OTHER = 10; // Diğer sınavlar için varsayılan soru sayısı
+
+const FALLBACK_QUESTIONS_POOL_URL = '/questions.json'; // Yerel yedek sorular
+
+let questionsPool = null; // Soru havuzunu cache'lemek için
+
+async function fetchQuestionsPool() {
+  if (questionsPool) {
+    return questionsPool;
+  }
+
+  try {
+    const { data, error } = await supabase.storage
+      .from('test-assets') // Supabase Storage'daki bucket adınız
+      .download('questions.json'); // Bucket içindeki dosya yolunuz
+
+    if (error) {
+      console.warn("Supabase'den sorular çekilemedi, yerel yedek kullanılıyor:", error.message);
+      throw error; // Hata fırlatıp catch bloğuna düşmesini sağla
+    }
+    
+    const jsonData = JSON.parse(await data.text());
+    questionsPool = jsonData;
+    return questionsPool;
+
+  } catch (supabaseError) {
+    try {
+      const response = await fetch(FALLBACK_QUESTIONS_POOL_URL);
+      if (!response.ok) {
+        throw new Error(`Yerel sorular yüklenemedi: ${response.statusText}`);
+      }
+      const jsonData = await response.json();
+      questionsPool = jsonData;
+      console.info("Yerel yedek sorular başarıyla yüklendi.");
+      return questionsPool;
+    } catch (localError) {
+      console.error("Hem Supabase hem de yerel sorular yüklenemedi:", localError.message);
+      return { lgs: {}, yks: {}, kpss_lisans: {}, kpss_onlisans: {}, yds: {}, yokdil: {} }; // Boş havuz döndür
+    }
+  }
+}
+
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+export const generateTestData = async (examId, subExamId, subjectId, topicId, isPracticeTest = false) => {
+  const pool = await fetchQuestionsPool();
+  
+  let examSpecificPool;
+  if (examId === 'yks' && subExamId) {
+    examSpecificPool = pool.yks?.[subExamId.toLowerCase()];
+  } else {
+    examSpecificPool = pool[examId?.toLowerCase()];
+  }
+
+  if (!examSpecificPool) {
+    console.warn(`Sınav ID'si için soru bulunamadı: ${examId} ${subExamId || ''}`);
+    return createFallbackTest(examId, subExamId, subjectId, topicId, isPracticeTest);
+  }
+  
+  const subjectPool = examSpecificPool[subjectId?.toLowerCase()];
+  if (!subjectPool) {
+    console.warn(`Ders ID'si için soru bulunamadı: ${subjectId} (Sınav: ${examId} ${subExamId || ''})`);
+    return createFallbackTest(examId, subExamId, subjectId, topicId, isPracticeTest);
+  }
+
+  let topicSpecificQuestions = subjectPool[topicId?.toLowerCase()];
+  if (!topicSpecificQuestions || topicSpecificQuestions.length === 0) {
+    // Konuya özel soru yoksa, o dersteki tüm sorulardan rastgele seç
+    topicSpecificQuestions = Object.values(subjectPool).flat();
+    if (topicSpecificQuestions.length === 0) {
+       console.warn(`Konu/Ders için soru bulunamadı: ${topicId}/${subjectId} (Sınav: ${examId} ${subExamId || ''})`);
+       return createFallbackTest(examId, subExamId, subjectId, topicId, isPracticeTest);
+    }
+  }
+
+  let numQuestions;
+  if (examId === 'lgs') {
+    numQuestions = DEFAULT_QUESTIONS_LGS;
+  } else if (examId === 'yks') {
+    numQuestions = DEFAULT_QUESTIONS_YKS;
+  } else {
+    numQuestions = isPracticeTest ? 20 : DEFAULT_QUESTIONS_OTHER;
+  }
+  
+  const selectedQuestions = shuffleArray([...topicSpecificQuestions]).slice(0, numQuestions);
+
+  if (selectedQuestions.length === 0) {
+    console.warn(`Seçilecek yeterli soru bulunamadı: ${topicId}/${subjectId} (Sınav: ${examId} ${subExamId || ''})`);
+    return createFallbackTest(examId, subExamId, subjectId, topicId, isPracticeTest, selectedQuestions.length > 0 ? selectedQuestions.length : undefined);
+  }
+
+
+  const formattedQuestions = selectedQuestions.map((q, index) => ({
+    id: q.id || index + 1,
+    text: q.text,
+    image: q.image || null,
+    options: q.options.map(opt => typeof opt === 'string' ? { id: opt.charAt(0), text: opt.substring(3) } : opt ), // Eğer seçenekler string ise objeye çevir
+    correctAnswer: q.correctAnswer,
+    explanation: q.explanation || "Bu soru için detaylı açıklama henüz eklenmemiştir."
+  }));
+  
+  const baseTitle = topicId.replace(/-/g, ' ');
+  const subjectTitle = subjectId.replace(/-/g, ' ');
+  const examTitle = (subExamId ? `${examId.toUpperCase()}-${subExamId.toUpperCase()}` : examId.toUpperCase());
+
+  return {
+    title: `${subjectTitle.replace(/\b\w/g, l => l.toUpperCase())} - ${baseTitle.replace(/\b\w/g, l => l.toUpperCase())}`,
+    description: `Bu test ${baseTitle} konusundaki bilgilerinizi ölçmektedir. ${examTitle} sınavına yönelik hazırlanmıştır.`,
+    questions: formattedQuestions,
+    totalTime: (isPracticeTest ? (numQuestions * 1.5) : numQuestions) * 60, // Soru başına 1 veya 1.5 dk
+  };
+};
+
+// Yedek test oluşturma fonksiyonu
+const createFallbackTest = (examId, subExamId, subjectId, topicId, isPracticeTest, numQs) => {
   const questions = [];
-  const totalQuestions = isPracticeTest ? 20 : 10; // Practice tests have more questions
-  const imageFrequency = isPracticeTest ? 4 : 3;
+  let totalQuestions = numQs;
+   if (numQs === undefined) {
+    if (examId === 'lgs') totalQuestions = DEFAULT_QUESTIONS_LGS;
+    else if (examId === 'yks') totalQuestions = DEFAULT_QUESTIONS_YKS;
+    else totalQuestions = isPracticeTest ? 20 : DEFAULT_QUESTIONS_OTHER;
+   }
+
 
   const baseTitle = topicId.replace(/-/g, ' ');
   const subjectTitle = subjectId.replace(/-/g, ' ');
-  const examTitle = examId.replace(/-/g, ' ');
+  const examTitle = (subExamId ? `${examId.toUpperCase()}-${subExamId.toUpperCase()}` : examId.toUpperCase());
 
   for (let i = 1; i <= totalQuestions; i++) {
-    const questionText = `${baseTitle} konusu ile ilgili ${i}. örnek soru. Bu soru ${subjectTitle} dersi kapsamındadır. ${examTitle} sınavına hazırlık için önemlidir. Cevabınız nedir? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
     const options = [
-      { id: "A", text: `Seçenek A - Soru ${i} için oldukça uzun bir metin içeren bir seçenek. Bu seçenek, metnin nasıl kaydırılacağını veya sığdırılacağını test etmek için burada.` },
-      { id: "B", text: `Seçenek B - Soru ${i} için farklı bir metin.` },
-      { id: "C", text: `Seçenek C - Soru ${i}. Lorem ipsum dolor sit amet.` },
-      { id: "D", text: `Seçenek D - Soru ${i}. Consectetur adipiscing elit.` },
+      { id: "A", text: `Yedek Seçenek A - Soru ${i}` },
+      { id: "B", text: `Yedek Seçenek B - Soru ${i}` },
+      { id: "C", text: `Yedek Seçenek C - Soru ${i}` },
+      { id: "D", text: `Yedek Seçenek D - Soru ${i}` },
     ];
-    const correctAnswer = options[Math.floor(Math.random() * 4)].id;
-    const explanation = `${i}. sorunun detaylı açıklaması burada yer alacak. Doğru cevap ${correctAnswer} çünkü... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
-    
-    let questionImage = null;
-    if (i % imageFrequency === 0) {
-      const imageKeywords = `${topicId.split('-')[0]},${subjectId},education,study,question${i},abstract`;
-      questionImage = `https://source.unsplash.com/400x250/?${imageKeywords}&random=${Math.random()}`;
-    }
-
     questions.push({
       id: i,
-      text: questionText,
-      image: questionImage,
+      text: `Bu bir yedek sorudur. ${baseTitle} konusu ile ilgili ${i}. örnek soru. ${subjectTitle} dersi kapsamındadır.`,
+      image: null,
       options: options,
-      correctAnswer: correctAnswer,
-      explanation: explanation
+      correctAnswer: options[0].id,
+      explanation: "Bu soru için bir açıklama bulunmamaktadır çünkü yedek soru havuzundan gelmektedir."
     });
   }
   return {
-    title: `${subjectTitle.toUpperCase()} - ${baseTitle.replace(/\b\w/g, l => l.toUpperCase())}`,
-    description: `Bu test ${baseTitle} konusundaki bilgilerinizi ölçmektedir. ${examTitle.toUpperCase()} sınavına yönelik hazırlanmıştır.`,
+    title: `${subjectTitle.toUpperCase()} - ${baseTitle.replace(/\b\w/g, l => l.toUpperCase())} (Yedek Test)`,
+    description: `Bu test için özel sorular bulunamadı, genel yedek sorular gösterilmektedir. ${examTitle} sınavına yönelik hazırlanmıştır.`,
     questions: questions,
-    totalTime: (isPracticeTest ? 25 : 15) * 60, // Practice tests have more time
+    totalTime: (isPracticeTest ? (totalQuestions * 1.5) : totalQuestions) * 60,
   };
 };
+
