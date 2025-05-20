@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Award, TrendingUp, Users, FileText, CheckCircle, BookOpen, Brain, GraduationCap, Globe, BookCopy, Lightbulb, Atom, FlaskConical, Leaf, Landmark, Map, Scroll, Drama, HelpCircle, Sigma as SquareSigma, Compass, Edit, Briefcase } from 'lucide-react';
 
@@ -69,12 +68,12 @@ export const yksTytSubjects = [
   { 
     id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-500" />, 
     image: "https://images.unsplash.com/photo-1569014999900-6ea12c359560?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGlzdG9yeSUyMGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60",
-    topics: ["Tarih Bilimi", "İlk Çağ Uygarlıklar", "İlk ve Orta Çağlarda Türk Dünyası", "İslam Medeniyetinin Doğuşu ve İlk İslam Devletleri", "Türklerin İslamiyet’i Kabulü ve İlk Türk İslam Devletleri", "Orta Çağda Dünya", "Yerleşme ve Devletleşme Sürecinde Selçuklu Türkiye’si", "Beylikten Devlete Osmanlı", "Devletleşme Sürecinde Savaşçılar ve Askerler", "Beylikten Devlete Osmanlı Medeniyeti", "Dünya Gücü Osmanlı", "Sultan ve Osmanlı Merkez Teşkilatı", "Klasik Çağda Osmanlı Toplum Düzeni"]
+    topics: ["Tarih Bilimi", "İlk Çağ Uygarlıklar", "İlk ve Orta Çağlarda Türk Dünyası", "İslam Medeniyetinin Doğuşu ve İlk İslam Devletleri", "Türklerin İslamiyet'i Kabulü ve İlk Türk İslam Devletleri", "Orta Çağda Dünya", "Yerleşme ve Devletleşme Sürecinde Selçuklu Türkiye'si", "Beylikten Devlete Osmanlı", "Devletleşme Sürecinde Savaşçılar ve Askerler", "Beylikten Devlete Osmanlı Medeniyeti", "Dünya Gücü Osmanlı", "Sultan ve Osmanlı Merkez Teşkilatı", "Klasik Çağda Osmanlı Toplum Düzeni"]
   },
   { 
     id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-500" />, 
     image: "https://images.unsplash.com/photo-1580600147977-9b9f5c50f6b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2VvZ3JhcGh5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60",
-    topics: ["Doğa ve İnsan", "Dünyanın Şekli ve Hareketleri", "Dünyanın Günlük ve Yıllık Hareketleri", "Coğrafi Konum", "Harita Bilgisi", "İklim Bilgisi (Atmosfer ve Sıcaklık)", "İklim Bilgisi (Basınç ve Rüzgarlar)", "İklim Bilgisi (Nemlilik ve Yağış)", "Büyük İklim Tipleri", "Türkiye’nin İklimi", "İç Kuvvetler", "Dış Kuvvetler", "Türkiye’nin Yer Şekilleri", "Yeryüzünde ve Türkiye’de Sular", "Doğal Afetler", "Çevre ve Toplum", "Dünyada Nüfus", "Türkiye’de Nüfus", "Dünyada Göç", "Türkiye’de Göç", "Dünyada ve Türkiye’de Yerleşmeler", "Ekonomik Faaliyetlerin Sınıflandırılması", "Dünyayı Birbirine Bağlayan Ağlar", "Bölgeler ve Ülkeler"]
+    topics: ["Doğa ve İnsan", "Dünyanın Şekli ve Hareketleri", "Dünyanın Günlük ve Yıllık Hareketleri", "Coğrafi Konum", "Harita Bilgisi", "İklim Bilgisi (Atmosfer ve Sıcaklık)", "İklim Bilgisi (Basınç ve Rüzgarlar)", "İklim Bilgisi (Nemlilik ve Yağış)", "Büyük İklim Tipleri", "Türkiye'nin İklimi", "İç Kuvvetler", "Dış Kuvvetler", "Türkiye'nin Yer Şekilleri", "Yeryüzünde ve Türkiye'de Sular", "Doğal Afetler", "Çevre ve Toplum", "Dünyada Nüfus", "Türkiye'de Nüfus", "Dünyada Göç", "Türkiye'de Göç", "Dünyada ve Türkiye'de Yerleşmeler", "Ekonomik Faaliyetlerin Sınıflandırılması", "Dünyayı Birbirine Bağlayan Ağlar", "Bölgeler ve Ülkeler"]
   },
   { 
     id: "felsefe", name: "Felsefe", icon: <Brain className="h-8 w-8 text-purple-500" />, 
@@ -102,7 +101,7 @@ export const yksAytSubjects = [
   {
     id: "fizik", name: "Fizik", icon: <Atom className="h-8 w-8 text-indigo-600" />,
     image: "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGh5c2ljc3xlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
-    topics: ["Vektörler", "Kuvvet, Tork ve Denge", "Kütle Merkezi", "Basit Makineler", "Hareket", "Newton’un Hareket Yasaları", "İş, Güç ve Enerji II", "Atışlar", "İtme ve Momentum", "Elektrik Alan ve Potensiyel", "Paralel Levhalar ve Sığa", "Manyetik Alan ve Manyetik Kuvvet", "İndüksiyon, Alternatif Akım ve Transformatörler", "Çembersel Hareket", "Dönme, Yuvarlanma ve Açısal Momentum", "Kütle Çekim ve Kepler Yasaları", "Basit Harmonik Hareket", "Dalga Mekaniği ve Elektromanyetik Dalgalar", "Atom Modelleri", "Büyük Patlama ve Parçacık Fiziği", "Radyoaktivite", "Özel Görelilik", "Kara Cisim Işıması", "Fotoelektrik Olay ve Compton Olayı", "Modern Fiziğin Teknolojideki Uygulamaları"]
+    topics: ["Vektörler", "Kuvvet, Tork ve Denge", "Kütle Merkezi", "Basit Makineler", "Hareket", "Newton'un Hareket Yasaları", "İş, Güç ve Enerji II", "Atışlar", "İtme ve Momentum", "Elektrik Alan ve Potensiyel", "Paralel Levhalar ve Sığa", "Manyetik Alan ve Manyetik Kuvvet", "İndüksiyon, Alternatif Akım ve Transformatörler", "Çembersel Hareket", "Dönme, Yuvarlanma ve Açısal Momentum", "Kütle Çekim ve Kepler Yasaları", "Basit Harmonik Hareket", "Dalga Mekaniği ve Elektromanyetik Dalgalar", "Atom Modelleri", "Büyük Patlama ve Parçacık Fiziği", "Radyoaktivite", "Özel Görelilik", "Kara Cisim Işıması", "Fotoelektrik Olay ve Compton Olayı", "Modern Fiziğin Teknolojideki Uygulamaları"]
   },
   {
     id: "kimya", name: "Kimya", icon: <FlaskConical className="h-8 w-8 text-green-600" />,
@@ -117,12 +116,12 @@ export const yksAytSubjects = [
   {
     id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-600" />,
     image: "https://images.unsplash.com/photo-1461360370896-922624d1d240?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGlzdG9yeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
-    topics: ["Tarih ve Zaman", "İnsanlığın İlk Dönemleri", "Orta Çağ’da Dünya", "İlk ve Orta Çağlarda Türk Dünyası", "İslam Medeniyetinin Doğuşu", "Türklerin İslamiyet’i Kabulü ve İlk Türk İslam Devletleri", "Yerleşme ve Devletleşme Sürecinde Selçuklu Türkiyesi", "Beylikten Devlete Osmanlı Siyaseti", "Devletleşme Sürecinde Savaşçılar ve Askerler", "Beylikten Devlete Osmanlı Medeniyeti", "Dünya Gücü Osmanlı", "Sultan ve Osmanlı Merkez Teşkilatı", "Klasik Çağda Osmanlı Toplum Düzeni", "Değişen Dünya Dengeleri Karşısında Osmanlı Siyaseti", "Değişim Çağında Avrupa ve Osmanlı", "Uluslararası İlişkilerde Denge Stratejisi (1774-1914)", "Devrimler Çağında Değişen Devlet-Toplum İlişkileri", "Sermaye ve Emek", "XIX. ve XX. Yüzyılda Değişen Gündelik Hayat", "XX. Yüzyıl Başlarında Osmanlı Devleti ve Dünya", "Milli Mücadele", "Atatürkçülük ve Türk İnkılabı", "İki Savaş Arasındaki Dönemde Türkiye ve Dünya", "II. Dünya Savaşı Sürecinde Türkiye ve Dünya", "II. Dünya Savaşı Sonrasında Türkiye ve Dünya", "Toplumsal Devrim Çağında Dünya ve Türkiye", "XXI. Yüzyılın Eşiğinde Türkiye ve Dünya"]
+    topics: ["Tarih ve Zaman", "İnsanlığın İlk Dönemleri", "Orta Çağ'da Dünya", "İlk ve Orta Çağlarda Türk Dünyası", "İslam Medeniyetinin Doğuşu", "Türklerin İslamiyet'i Kabulü ve İlk Türk İslam Devletleri", "Yerleşme ve Devletleşme Sürecinde Selçuklu Türkiyesi", "Beylikten Devlete Osmanlı Siyaseti", "Devletleşme Sürecinde Savaşçılar ve Askerler", "Beylikten Devlete Osmanlı Medeniyeti", "Dünya Gücü Osmanlı", "Sultan ve Osmanlı Merkez Teşkilatı", "Klasik Çağda Osmanlı Toplum Düzeni", "Değişen Dünya Dengeleri Karşısında Osmanlı Siyaseti", "Değişim Çağında Avrupa ve Osmanlı", "Uluslararası İlişkilerde Denge Stratejisi (1774-1914)", "Devrimler Çağında Değişen Devlet-Toplum İlişkileri", "Sermaye ve Emek", "XIX. ve XX. Yüzyılda Değişen Gündelik Hayat", "XX. Yüzyıl Başlarında Osmanlı Devleti ve Dünya", "Milli Mücadele", "Atatürkçülük ve Türk İnkılabı", "İki Savaş Arasındaki Dönemde Türkiye ve Dünya", "II. Dünya Savaşı Sürecinde Türkiye ve Dünya", "II. Dünya Savaşı Sonrasında Türkiye ve Dünya", "Toplumsal Devrim Çağında Dünya ve Türkiye", "XXI. Yüzyılın Eşiğinde Türkiye ve Dünya"]
   },
   {
     id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-600" />,
     image: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2VvZ3JhcGh5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60",
-    topics: ["Ekosistem", "Biyoçeşitlilik", "Biyomlar", "Ekosistemin Unsurları", "Enerji Akışı ve Madde Döngüsü", "Ekstrem Doğa Olayları", "Küresel İklim Değişimi", "Nüfus Politikaları", "Türkiye’de Nüfus ve Yerleşme", "Ekonomik Faaliyetler ve Doğal Kaynaklar", "Göç ve Şehirleşme", "Türkiye Ekonomisi", "Türkiye’nin Ekonomi Politikaları", "Türkiye Ekonomisinin Sektörel Dağılımı", "Türkiye’de Tarım", "Türkiye’de Hayvancılık", "Türkiye’de Madenler ve Enerji Kaynakları", "Türkiye’de Sanayi", "Türkiye’de Ulaşım", "Türkiye’de Ticaret ve Turizm", "Geçmişten Geleceğe Şehir ve Ekonomi", "Türkiye’nin İşlevsel Bölgeleri ve Kalkınma Projeleri", "Hizmet Sektörünün Ekonomideki Yeri", "Küresel Ticaret", "Bölgeler ve Ülkeler", "İlk Uygarlıklar", "Kültür Bölgeleri ve Türk Kültürü", "Sanayileşme Süreci: Almanya", "Tarım ve Ekonomi İlişkisi Fransa – Somali", "Ülkeler Arası Etkileşim", "Jeopolitik Konum", "Çatışma Bölgeleri", "Küresel ve Bölgesel Örgütler", "Çevre ve Toplum", "Çevre Sorunları ve Türleri", "Madenler ve Enerji Kaynaklarının Çevreye Etkisi", "Doğal Kaynakların Sürdürülebilir Kullanımı", "Ekolojik Ayak İzi", "Doğal Çevrenin Sınırlılığı", "Çevre Politikaları", "Çevresel Örgütler", "Çevre Anlaşmaları", "Doğal Afetler"]
+    topics: ["Ekosistem", "Biyoçeşitlilik", "Biyomlar", "Ekosistemin Unsurları", "Enerji Akışı ve Madde Döngüsü", "Ekstrem Doğa Olayları", "Küresel İklim Değişimi", "Nüfus Politikaları", "Türkiye'de Nüfus ve Yerleşme", "Ekonomik Faaliyetler ve Doğal Kaynaklar", "Göç ve Şehirleşme", "Türkiye Ekonomisi", "Türkiye'nin Ekonomi Politikaları", "Türkiye Ekonomisinin Sektörel Dağılımı", "Türkiye'de Tarım", "Türkiye'de Hayvancılık", "Türkiye'de Madenler ve Enerji Kaynakları", "Türkiye'de Sanayi", "Türkiye'de Ulaşım", "Türkiye'de Ticaret ve Turizm", "Geçmişten Geleceğe Şehir ve Ekonomi", "Türkiye'nin İşlevsel Bölgeleri ve Kalkınma Projeleri", "Hizmet Sektörünün Ekonomideki Yeri", "Küresel Ticaret", "Bölgeler ve Ülkeler", "İlk Uygarlıklar", "Kültür Bölgeleri ve Türk Kültürü", "Sanayileşme Süreci: Almanya", "Tarım ve Ekonomi İlişkisi Fransa – Somali", "Ülkeler Arası Etkileşim", "Jeopolitik Konum", "Çatışma Bölgeleri", "Küresel ve Bölgesel Örgütler", "Çevre ve Toplum", "Çevre Sorunları ve Türleri", "Madenler ve Enerji Kaynaklarının Çevreye Etkisi", "Doğal Kaynakların Sürdürülebilir Kullanımı", "Ekolojik Ayak İzi", "Doğal Çevrenin Sınırlılığı", "Çevre Politikaları", "Çevresel Örgütler", "Çevre Anlaşmaları", "Doğal Afetler"]
   },
   {
     id: "edebiyat", name: "Türk Dili ve Edebiyatı", icon: <Scroll className="h-8 w-8 text-purple-600" />,
@@ -132,12 +131,12 @@ export const yksAytSubjects = [
   {
     id: "felsefe", name: "Felsefe Grubu", icon: <Brain className="h-8 w-8 text-pink-600" />,
     image: "https://images.unsplash.com/photo-1505664194779-8beace626db1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGhpbG9zb3BoeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
-    topics: ["Felsefe’nin Konusu", "Bilgi Felsefesi", "Varlık Felsefesi", "Ahlak Felsefesi", "Sanat Felsefesi", "Din Felsefesi", "Siyaset Felsefesi", "Bilim Felsefesi", "İlk Çağ Felsefesi", "MÖ 6. Yüzyıl – MS 2. Yüzyıl Felsefesi", "MS 2. Yüzyıl – MS 15. Yüzyıl Felsefesi", "15. Yüzyıl – 17. Yüzyıl Felsefesi", "18. Yüzyıl – 19. Yüzyıl Felsefesi", "20. Yüzyıl Felsefesi", "Mantığa Giriş", "Klasik Mantık", "Mantık ve Dil", "Sembolik Mantık", "Psikoloji Bilimini Tanıyalım", "Psikolojinin Temel Süreçleri", "Öğrenme Bellek Düşünme", "Ruh Sağlığının Temelleri", "Sosyolojiye Giriş", "Birey ve Toplum", "Toplumsal Yapı", "Toplumsal Değişme ve Gelişme", "Toplum ve Kültür", "Toplumsal Kurumlar"]
+    topics: ["Felsefe'nin Konusu", "Bilgi Felsefesi", "Varlık Felsefesi", "Ahlak Felsefesi", "Sanat Felsefesi", "Din Felsefesi", "Siyaset Felsefesi", "Bilim Felsefesi", "İlk Çağ Felsefesi", "MÖ 6. Yüzyıl – MS 2. Yüzyıl Felsefesi", "MS 2. Yüzyıl – MS 15. Yüzyıl Felsefesi", "15. Yüzyıl – 17. Yüzyıl Felsefesi", "18. Yüzyıl – 19. Yüzyıl Felsefesi", "20. Yüzyıl Felsefesi", "Mantığa Giriş", "Klasik Mantık", "Mantık ve Dil", "Sembolik Mantık", "Psikoloji Bilimini Tanıyalım", "Psikolojinin Temel Süreçleri", "Öğrenme Bellek Düşünme", "Ruh Sağlığının Temelleri", "Sosyolojiye Giriş", "Birey ve Toplum", "Toplumsal Yapı", "Toplumsal Değişme ve Gelişme", "Toplum ve Kültür", "Toplumsal Kurumlar"]
   },
   {
     id: "din-kulturu", name: "Din Kültürü ve Ahlak Bilgisi", icon: <HelpCircle className="h-8 w-8 text-yellow-600" />,
     image: "https://images.unsplash.com/photo-1541535503160-11959c267c10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmVsaWdpb3VzJTIwdGV4dHxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
-    topics: ["Dünya ve Ahiret", "Kur’an’a Göre Hz. Muhammed", "Kur’an’da Bazı Kavramlar", "İnançla İlgili Meseleler", "Yahudilik ve Hristiyanlık", "İslam ve Bilim", "Anadolu’da İslam", "İslam Düşüncesinde Tasavvufi Yorumlar", "Güncel Dini Meseleler", "Hint ve Çin Dinleri"]
+    topics: ["Dünya ve Ahiret", "Kur'an'a Göre Hz. Muhammed", "Kur'an'da Bazı Kavramlar", "İnançla İlgili Meseleler", "Yahudilik ve Hristiyanlık", "İslam ve Bilim", "Anadolu'da İslam", "İslam Düşüncesinde Tasavvufi Yorumlar", "Güncel Dini Meseleler", "Hint ve Çin Dinleri"]
   }
 ];
 
@@ -165,8 +164,8 @@ export const yokdilSosyalSubjects = [...yokdilFenSubjects].map(subject => ({ ...
 
 
 export const kpssLisansGenelKulturSubjects = [
-  { id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-500" />, topics: ["İslamiyet’ten Önceki Türk Devletleri", "İlk Müslüman Türk Devletleri", "Osmanlı Devleti Siyasi", "Osmanlı Devleti Kültür ve Uygarlık", "Kurtuluş Savaşı Hazırlık Dönemi", "Kurtuluş Savaşı Cepheleri", "Devrim Tarihi", "Atatürk Dönemi İç ve Dış Politika", "Atatürk İlkeleri Konusu", "Çağdaş Türk ve Dünya Tarihi"], image: "https://images.unsplash.com/photo-1550034182-0a8a77c5c996?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGlzdG9yeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"},
-  { id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-500" />, topics: ["Türkiye Coğrafi Konumu", "Türkiye’nin Yer şekilleri Su Örtüsü", "Türkiye’nin İklimi Ve Bitki Örtüsü", "Toprak Ve Doğa Çevre", "Türkiye’nin Beşeri Coğrafyası", "Tarım Konusu", "Madenler Ve Enerji Kaynakları", "Sanayi Konusu", "Ulaşım Konusu", "Turizm Konusu"], image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2VvZ3JhcGh5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60"},
+  { id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-500" />, topics: ["İslamiyet'ten Önceki Türk Devletleri", "İlk Müslüman Türk Devletleri", "Osmanlı Devleti Siyasi", "Osmanlı Devleti Kültür ve Uygarlık", "Kurtuluş Savaşı Hazırlık Dönemi", "Kurtuluş Savaşı Cepheleri", "Devrim Tarihi", "Atatürk Dönemi İç ve Dış Politika", "Atatürk İlkeleri Konusu", "Çağdaş Türk ve Dünya Tarihi"], image: "https://images.unsplash.com/photo-1550034182-0a8a77c5c996?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGlzdG9yeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"},
+  { id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-500" />, topics: ["Türkiye Coğrafi Konumu", "Türkiye'nin Yer şekilleri Su Örtüsü", "Türkiye'nin İklimi Ve Bitki Örtüsü", "Toprak Ve Doğa Çevre", "Türkiye'nin Beşeri Coğrafyası", "Tarım Konusu", "Madenler Ve Enerji Kaynakları", "Sanayi Konusu", "Ulaşım Konusu", "Turizm Konusu"], image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2VvZ3JhcGh5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60"},
   { id: "vatandaslik", name: "Vatandaşlık", icon: <Users className="h-8 w-8 text-indigo-500" />, topics: ["Hukuka Giriş", "Genel Esaslar", "Yasama", "Yürütme", "İdari Yapı", "Güncel Olaylar"], image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2l0aXplbnNoaXB8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60"},
   { id: "guncel-bilgiler", name: "Güncel Bilgiler", icon: <TrendingUp className="h-8 w-8 text-green-500" />, topics: [], image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bmV3c3xlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"}
 ];
@@ -178,7 +177,7 @@ export const kpssLisansGenelYetenekSubjects = [
 
 export const kpssOnlisansGenelKulturSubjects = [
   { id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-600" />, topics: ["İslamiyet Öncesi Türk Tarihi", "Türk-İslam Tarihi", "İlk Müslüman Türk Devletleri", "Anadolu Selçuklu Devleti Siyasi Tarihi", "Osmanlı Devleti Kültür ve Medeniyeti", "Osmanlı Devleti Kuruluş, Yükselme, Duraklama Dönemleri", "Osmanlı Devleti Gerileme ve Dağılma Dönemleri", "Trablusgarp Savaşı (1911-1912)", "I. ve II. Balkan Savaşları", "I. Dünya Savaşı", "Kurtuluş Savaşına Hazırlık Dönemi", "Kurtuluş Savaşı Muharebeler ve Antlaşmalar Dönemi", "Atatürk İlke ve İnkılapları", "Atatürk Dönemi Türk Dış Politikası", "Çağdaş Türk ve Dünya Tarihi"], image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhpc3Rvcnl8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60"},
-  { id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-600" />, topics: ["Türkiye’nin Coğrafi Konumu ve Yer Şekilleri", "Türkiye’nin İklimi ve Bitki Örtüsü", "Türkiye’de Nüfus, Yerleşme ve Göç", "Türkiye’nin Ekonomik Coğrafyası", "Türkiye’nin Coğrafi Bölgeleri"], image: "https://images.unsplash.com/photo-1528184039020-bd9917616771?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGdlb2dyYXBoeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"},
+  { id: "cografya", name: "Coğrafya", icon: <Map className="h-8 w-8 text-cyan-600" />, topics: ["Türkiye'nin Coğrafi Konumu ve Yer Şekilleri", "Türkiye'nin İklimi ve Bitki Örtüsü", "Türkiye'de Nüfus, Yerleşme ve Göç", "Türkiye'nin Ekonomik Coğrafyası", "Türkiye'nin Coğrafi Bölgeleri"], image: "https://images.unsplash.com/photo-1528184039020-bd9917616771?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGdlb2dyYXBoeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"},
   { id: "vatandaslik", name: "Vatandaşlık", icon: <Users className="h-8 w-8 text-indigo-600" />, topics: ["Hukukun Temel Kavramları", "Genel Esaslar", "Temel Haklar", "Yasama", "Yürütme", "Yargı", "Anayasal Gelişmeler", "İdare Hukuku", "Uluslararası Örgütler"], image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2l0aXplbnNoaXB8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60"},
   { id: "guncel-bilgiler", name: "Güncel Bilgiler", icon: <TrendingUp className="h-8 w-8 text-green-600" />, topics: [], image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmV3c3xlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60"}
 ];
@@ -192,40 +191,44 @@ export const examFlowData = {
   lgs: {
     name: "LGS",
     icon: <GraduationCap className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-orange-500/10",
+    borderColor: "border-orange-500",
+    gradient: "bg-gradient-to-br from-orange-400 to-orange-600",
     image: "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2Nob29sJTIwY2hpbGRyZW58ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
     subjects: lgsSubjects
   },
   yks: {
     name: "YKS",
     icon: <Brain className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-teal-500/10",
+    borderColor: "border-teal-500",
+    gradient: "bg-gradient-to-br from-teal-400 to-teal-600",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dW5pdmVyc2l0eSUyMHN0dWRlbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
     subExams: [
       { id: "tyt", name: "TYT", subjects: yksTytSubjects, icon: <BookOpen className="h-8 w-8 text-sky-500" />, image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0dWR5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
-      { id: "ayt", name: "AYT", subjects: yksAytSubjects, icon: <BookCopy className="h-8 w-8 text-amber-500" />, image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
+      { id: "ayt", name: "AYT", subjects: yksAytSubjects, icon: <BookCopy className="h-8 w-8 text-amber-500" />, image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0a W9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
     ]
   },
   "kpss-lisans": {
     name: "KPSS Lisans",
     icon: <Briefcase className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-yellow-500/10",
+    borderColor: "border-yellow-500",
+    gradient: "bg-gradient-to-br from-yellow-400 to-yellow-600",
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdvcmtpbmclMjBwcm9mZXNzaW9uYWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
     subExams: [
       { id: "genel-kultur", name: "Genel Kültür", subjects: kpssLisansGenelKulturSubjects, icon: <BookOpen className="h-8 w-8 text-red-500" />, image: "https://images.unsplash.com/photo-1513109209089-9430138987f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3N8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
       { id: "genel-yetenek", name: "Genel Yetenek", subjects: kpssLisansGenelYetenekSubjects, icon: <Lightbulb className="h-8 w-8 text-blue-500" />, image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWF0aGVtYXRpY3N8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
     ]
   },
-   "kpss-onlisans": {
+  "kpss-onlisans": {
     name: "KPSS Önlisans",
     icon: <Briefcase className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-blue-700/10",
+    borderColor: "border-blue-700",
+    gradient: "bg-gradient-to-br from-blue-600 to-blue-800",
     image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHByb2Zlc3Npb25hbHN8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
-     subExams: [
+    subExams: [
       { id: "genel-kultur", name: "Genel Kültür", subjects: kpssOnlisansGenelKulturSubjects, icon: <BookOpen className="h-8 w-8 text-red-600" />, image: "https://images.unsplash.com/photo-1560420026-993b164b7a82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
       { id: "genel-yetenek", name: "Genel Yetenek", subjects: kpssOnlisansGenelYetenekSubjects, icon: <Lightbulb className="h-8 w-8 text-blue-600" />, image: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3R1ZHl8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
     ]
@@ -233,16 +236,18 @@ export const examFlowData = {
   yds: {
     name: "YDS",
     icon: <Globe className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-rose-500/10",
+    borderColor: "border-rose-500",
+    gradient: "bg-gradient-to-br from-rose-400 to-rose-600",
     image: "https://images.unsplash.com/photo-1516410529446-21e7e7565119?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2xvYmFsJTIwY29tbXVuaWNhdGlvbnxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=300&q=60",
     subjects: ydsSubjects
   },
   yokdil: {
     name: "YÖKDİL",
     icon: <BookCopy className="h-10 w-10 text-primary" />,
-    bgColor: "bg-primary/10",
-    borderColor: "border-primary",
+    bgColor: "bg-red-500/10",
+    borderColor: "border-red-500",
+    gradient: "bg-gradient-to-br from-red-400 to-red-600",
     image: "https://images.unsplash.com/photo-1491841550275-5fd78501832d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWNhZGVtaWN8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
     subExams: [
       { id: "fen-bilimleri", name: "Fen Bilimleri (İngilizce)", subjects: yokdilFenSubjects, icon: <FlaskConical className="h-8 w-8 text-green-500" />, image: "https://images.unsplash.com/photo-1627627256602-7909ad79d804?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2NpZW5jZXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60" },
@@ -258,14 +263,14 @@ export const examCategoriesData = Object.keys(examFlowData).map(key => ({
   icon: examFlowData[key].icon,
   bgColor: examFlowData[key].bgColor,
   borderColor: examFlowData[key].borderColor,
+  gradient: examFlowData[key].gradient,
   image: examFlowData[key].image,
   description: `${examFlowData[key].name} için özel olarak hazırlanmış içerikler ve testler.`
 }));
 
-
 export const sampleExams = [
   { id: "deneme1", title: "TESTGO Türkiye Geneli TYT Deneme Sınavı - 1", date: "25 Mayıs 2025", time: "10:00 - 12:15", participants: 12580, subject: "TYT" },
-  { id: "deneme2", title: "TESTGO AYT Matematik Denemesi - Özel Seri", date: "28 Mayıs 2025", time: "14:00 - 16:00", participants: 8750, subject: "AYT" }, // subject AYT Matematik'ten AYT'ye çevrildi
+  { id: "deneme2", title: "TESTGO AYT Matematik Denemesi - Özel Seri", date: "28 Mayıs 2025", time: "14:00 - 16:00", participants: 8750, subject: "AYT" },
   { id: "deneme3", title: "TESTGO LGS Son Prova Denemesi - 3", date: "1 Haziran 2025", time: "09:30 - 11:30", participants: 15200, subject: "LGS" },
   { id: "deneme4", title: "TESTGO KPSS Lisans Genel Yetenek Denemesi - 5", date: "5 Haziran 2025", time: "10:00 - 12:00", participants: 9500, subject: "KPSS-Lisans" },
   { id: "deneme5", title: "TESTGO YDS İngilizce Denemesi - Bahar Dönemi", date: "8 Haziran 2025", time: "14:00 - 17:00", participants: 7200, subject: "YDS" },
