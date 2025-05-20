@@ -1,4 +1,4 @@
-
+// src/pages/TestPage.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
@@ -10,7 +10,7 @@ import { QuestionNavigation } from "@/components/test/QuestionNavigation";
 import { generateTestData } from "@/lib/testUtils";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { LogIn, ShieldCheck, Construction, BookOpen, AlertTriangle } from "lucide-react";
+import { LogIn, ShieldCheck, Construction, BookOpen, AlertTriangle } from "lucide-react"; // LogIn might be unused now
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
@@ -23,6 +23,7 @@ export function TestPage() {
   const navigate = useNavigate();
   const isPracticeTest = location.pathname.includes("/deneme/");
   const { user, loading: authLoading, checkUserPremiumStatus } = useAuth();
+  // If user is null (not logged in), isPremium will be false.
   const isPremium = !authLoading && user ? checkUserPremiumStatus() : false;
 
   const [testData, setTestData] = useState(null);
@@ -57,13 +58,11 @@ export function TestPage() {
   }, []);
 
   useEffect(() => {
-    if (authLoading) return;
+    if (authLoading) return; // Still wait for auth to resolve
 
-    if (!user) {
-      navigate(`/giris?redirect=${location.pathname}`);
-      return;
-    }
-    
+    // REMOVED: The block that checked `if (!user)` and navigated to login.
+    // The page will now proceed even if the user is not logged in.
+
     if (UNDER_CONSTRUCTION_EXAMS.includes(examId?.toLowerCase())) {
       setShowConstructionModal(true);
       setIsLoading(false); 
@@ -105,11 +104,11 @@ export function TestPage() {
          setTimeout(() => setIsLoading(false), loadingDuration);
       }
     };
-    
+
     loadTest();
 
   }, [examId, subExamId, subjectId, topicId, isPracticeTest, user, authLoading, navigate, location.pathname, toast]);
-  
+
   useEffect(() => {
     if (!isLoading && !testCompleted && timeLeft > 0 && testData && startTime && !showConstructionModal && !testLoadError) {
       const timer = setTimeout(() => {
@@ -126,6 +125,7 @@ export function TestPage() {
     }
   }, [isLoading, timeLeft, testCompleted, toast, testData, finishTest, startTime, showConstructionModal, testLoadError]);
 
+  // This block handles the case where authentication is still in progress.
   if (authLoading) {
      return (
       <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
@@ -135,21 +135,9 @@ export function TestPage() {
     );
   }
 
-  if (!user && !authLoading) {
-    return (
-      <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
-          <LogIn className="h-20 w-20 text-primary mx-auto mb-6" />
-          <h1 className="text-3xl font-bold text-foreground mb-4">Testi Çözmek İçin Giriş Yapmalısın</h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
-            Bu içeriğe erişebilmek için lütfen hesabına giriş yap.
-          </p>
-          <Button size="lg" onClick={() => navigate(`/giris?redirect=${location.pathname}`)} className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3">
-            Hemen Giriş Yap
-          </Button>
-      </div>
-    );
-  }
-  
+  // REMOVED: The block that rendered "Login Required" UI if `!user && !authLoading`.
+  // The page will now attempt to load the test regardless of login state.
+
   if (showConstructionModal) {
     const studyPath = `/konu-calis/${examId}${subExamId ? `/${subExamId}` : ''}/${subjectId}/${topicId}`;
     return (
@@ -186,6 +174,8 @@ export function TestPage() {
   }
 
 
+  // This check remains. If the test is premium and the user isn't logged in (or isn't premium),
+  // they will see this message.
   if (!isPremium && testData?.isPremiumTest) { 
     return (
        <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
@@ -194,6 +184,12 @@ export function TestPage() {
           <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
             Bu testi çözebilmek için Premium üyeliğinizin olması gerekmektedir.
           </p>
+          {/* Optionally, you can offer login if !user, or always show premium upgrade */}
+          {!user ? (
+            <Button size="lg" onClick={() => navigate(`/giris?redirect=${location.pathname}`)} className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3 mr-2">
+              Giriş Yap
+            </Button>
+          ) : null}
           <Button size="lg" onClick={() => navigate("/premium-uye-ol")} className="bg-yellow-500 hover:bg-yellow-600 text-white text-lg px-8 py-3">
             Premium'a Yükselt
           </Button>
@@ -204,7 +200,7 @@ export function TestPage() {
   if (isLoading) {
     return <TestLoadingScreen duration={loadingDuration} />;
   }
-  
+
   if (testLoadError) {
     return (
       <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
