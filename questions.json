@@ -1,0 +1,89 @@
+{
+  "lgs": {
+    "turkce": {
+      "fiilimsiler": [
+        { "id": "lgs_tur_fiil_1", "text": "LGS Türkçe Fiilimsiler Soru 1: Aşağıdaki cümlelerin hangisinde isim-fiil kullanılmıştır?", "options": [{ "id": "A", "text": "Koşarak geldi."}, {"id": "B", "text": "Okumayı severim."}, {"id": "C", "text": "Gülen yüzü vardı."}, {"id": "D", "text": "Yapılacak işler birikti."}], "correctAnswer": "B", "explanation": "Okumayı kelimesindeki -ma eki isim-fiil ekidir." },
+        { "id": "lgs_tur_fiil_2", "text": "LGS Türkçe Fiilimsiler Soru 2: 'Görmeden inanmam.' cümlesindeki altı çizili sözcük türce nedir?", "options": [{ "id": "A", "text": "Sıfat-fiil"}, {"id": "B", "text": "Zarf-fiil"}, {"id": "C", "text": "İsim-fiil"}, {"id": "D", "text": "Fiil"}], "correctAnswer": "B", "explanation": "Görmeden kelimesindeki -meden eki zarf-fiil ekidir." }
+      ],
+      "cumlenin-ogeleri": [
+        { "id": "lgs_tur_oge_1", "text": "LGS Türkçe Cümlenin Öğeleri Soru 1: 'Annem dün pazardan taze meyveler aldı.' cümlesinin öznesi nedir?", "options": [{"id": "A", "text": "Annem"}, {"id": "B", "text": "dün"}, {"id": "C", "text": "pazardan"}, {"id": "D", "text": "taze meyveler"}], "correctAnswer": "A", "explanation": "Aldı yüklem. Alan kim? Annem. Özne."}
+      ]
+    },
+    "matematik": {
+      "carpanlar-katlar": [
+        { "id": "lgs_mat_car_1", "text": "LGS Matematik Çarpanlar Katlar Soru 1: 36 sayısının pozitif çarpan sayısı kaçtır?", "options": [{"id": "A", "text": "6"}, {"id": "B", "text": "8"}, {"id": "C", "text": "9"}, {"id": "D", "text": "12"}], "correctAnswer": "C", "explanation": "36 = 2^2 * 3^2. Çarpan sayısı = (2+1)*(2+1) = 9."}
+      ]
+    }
+  },
+
+
+
+
+
+  "yks": {
+    "tyt": {
+      "turkce": {
+        "sozcukte-anlam": [
+          { "id": "yks_tyt_tur_soz_1", "text": "YKS TYT Türkçe Sözcükte Anlam Soru 1: 'Kuru' sözcüğü hangisinde mecaz anlamda kullanılmıştır?", "options": [{"id": "A", "text": "Kuru dalları topladı."}, {"id": "B", "text": "Kuru bir anlatımı vardı."}, {"id": "C", "text": "Çamaşırlar kurudu."}, {"id": "D", "text": "Kuru ekmek yedi."}], "correctAnswer": "B", "explanation": "'Kuru bir anlatım' ifadesinde 'kuru' sözcüğü duygudan yoksun, etkisiz anlamında mecaz olarak kullanılmıştır."}
+        ]
+      },
+      "matematik": {
+        "temel-kavramlar": [
+          { "id": "yks_tyt_mat_tem_1", "text": "YKS TYT Matematik Temel Kavramlar Soru 1: İki basamaklı en küçük asal sayı ile iki basamaklı en büyük asal sayının toplamı kaçtır?", "options": [{"id": "A", "text": "108"}, {"id": "B", "text": "110"}, {"id": "C", "text": "106"}, {"id": "D", "text": "112"}], "correctAnswer": "A", "explanation": "İki basamaklı en küçük asal sayı 11, en büyüğü 97'dir. Toplamları 11 + 97 = 108."}
+        ]
+      }
+    },
+    "ayt": {
+      "matematik": {
+        "limit": [
+          { "id": "yks_ayt_mat_lim_1", "text": "YKS AYT Matematik Limit Soru 1: lim (x->2) (x^2 - 4)/(x-2) değeri kaçtır?", "options": [{"id": "A", "text": "0"}, {"id": "B", "text": "2"}, {"id": "C", "text": "4"}, {"id": "D", "text": "Tanımsız"}], "correctAnswer": "C", "explanation": "(x^2-4)/(x-2) = (x-2)(x+2)/(x-2) = x+2. x->2 için limit 2+2 = 4."}
+        ]
+      },
+      "edebiyat": {
+        "divan-edebiyati": [
+          { "id": "yks_ayt_edb_div_1", "text": "YKS AYT Edebiyat Divan Edebiyatı Soru 1: Aşağıdakilerden hangisi Divan edebiyatı nazım biçimlerinden biri değildir?", "options": [{"id": "A", "text": "Gazel"}, {"id": "B", "text": "Kaside"}, {"id": "C", "text": "Koşma"}, {"id": "D", "text": "Mesnevi"}], "correctAnswer": "C", "explanation": "Koşma, Halk edebiyatı nazım biçimidir."}
+        ]
+      }
+    }
+  },
+  
+
+
+  "kpss-lisans": {
+    "genel-kultur": {
+      "tarih": [
+        { "id": "kpss_l_gk_tar_1", "text": "KPSS Lisans Tarih Soru 1: Placeholder soru...", "options": [{"id":"A", "text":"A"}, {"id":"B", "text":"B"}], "correctAnswer": "A"}
+      ]
+    }
+  },
+
+
+
+  "kpss-onlisans": {
+     "genel-kultur": {
+      "tarih": [
+        { "id": "kpss_o_gk_tar_1", "text": "KPSS Önlisans Tarih Soru 1: Placeholder soru...", "options": [{"id":"A", "text":"A"}, {"id":"B", "text":"B"}], "correctAnswer": "A"}
+      ]
+    }
+  },
+
+
+
+  "yds": {
+    "ingilizce": {
+      "tense-preposition-dilbilgisi": [
+        { "id": "yds_ing_gra_1", "text": "YDS İngilizce Gramer Soru 1: Placeholder soru...", "options": [{"id":"A", "text":"A"}, {"id":"B", "text":"B"}], "correctAnswer": "A"}
+      ]
+    }
+  },
+
+
+
+  "yokdil": {
+    "saglik-bilimleri": {
+      "gramer-preposition-dilbilgisi": [
+         { "id": "yokdil_sag_gra_1", "text": "YÖKDİL Sağlık Gramer Soru 1: Placeholder soru...", "options": [{"id":"A", "text":"A"}, {"id":"B", "text":"B"}], "correctAnswer": "A"}
+      ]
+    }
+  }
+}
