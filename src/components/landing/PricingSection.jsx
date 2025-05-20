@@ -16,6 +16,7 @@ const plans = [
       "Sınırlı test çözme",
       "Temel sonuç görüntüleme",
       "Konu bazlı testler",
+      "Konu bazlı çalışma"
     ],
     cta: "Hemen Başla",
     link: "/uye-ol",
@@ -28,9 +29,9 @@ const plans = [
     price: "99.90₺",
     period: "/aylık",
     features: [
-      "Sınırsız test çözme",
+      "Sınırsız ücretsiz özellikler",
       "Detaylı puanlama sistemi",
-      "Başarımlar ve rozetler",
+      "Kazanımlar ve rozetler",
       "Genel ve özel sıralamalar",
       "Kişiselleştirilmiş tavsiyeler",
       "Detaylı performans analizleri",

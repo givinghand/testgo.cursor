@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "Premium üyelik sistemi ne işe yarar?",
-    answer: "Premium üyelik, TESTGO deneyiminizi bir üst seviyeye taşır. Sınırsız test çözme, detaylı puanlama, başarımlar, sıralamalar, kişiselleştirilmiş tavsiyeler ve kapsamlı performans analizleri gibi birçok gelişmiş özelliğe erişim sağlar.",
+    answer: "Premium üyelik, TESTGO deneyiminizi bir üst seviyeye taşır. Sınırsız test çözme, detaylı puanlama, kazanımlar, sıralamalar, kişiselleştirilmiş tavsiyeler ve kapsamlı performans analizleri gibi birçok gelişmiş özelliğe erişim sağlar.",
   },
   {
     question: "TC Kimlik ile giriş güvenli mi?",

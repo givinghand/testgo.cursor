@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -511,7 +510,7 @@ body {
   background-size: 300% 300%; /* Oversized background for the glow effect */
   
   opacity: 0.6; /* Overall opacity of the glowing layer. Adjust 0.4-0.8 for intensity. */
-  filter: blur(35px); /* Adjust blur for desired softness/spread of the glow.
+  filter: blur(105px); /* MODIFIED: Was blur(35px). Now 3 times larger for a more spread-out glow.
                          The overflow:hidden on .blob-card will clip this. */
   
   /* Animation for the glow to cycle around */

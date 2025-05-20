@@ -14,7 +14,7 @@ const benefits = [
   {
     icon: <Zap className="h-8 w-8 text-primary" />,
     title: "Rekabetle Motive Ol",
-    description: "Puanlar, başarımlar ve sıralamalarla öğrenmeyi oyunlaştır. Arkadaşlarınla yarış, zirveye oyna!",
+    description: "Puanlar, kazanımlar ve sıralamalarla öğrenmeyi oyunlaştır. Arkadaşlarınla yarış, zirveye oyna!",
   },
   {
     icon: <Target className="h-8 w-8 text-primary" />,
