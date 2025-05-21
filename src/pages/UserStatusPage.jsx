@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -240,16 +239,13 @@ export function UserStatusPage() {
 
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate("/giris?redirect=/durumum");
-    }
     if (user && !profile && !authLoading) { 
       fetchProfile(user.id);
     }
     if (user && !authLoading) {
       fetchUserTestResults();
     }
-  }, [user, authLoading, navigate, profile, fetchProfile, fetchUserTestResults]);
+  }, [user, authLoading, profile, fetchProfile, fetchUserTestResults]);
 
   const handleAvatarUpdate = (newAvatarUrl) => {
     setIsAvatarModalOpen(false);
@@ -268,13 +264,18 @@ export function UserStatusPage() {
      return (
       <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
           <LogIn className="h-20 w-20 text-primary mx-auto mb-6" />
-          <h1 className="text-3xl font-bold text-foreground mb-4">Durumunu Görüntülemek İçin Giriş Yap</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-4">Durumunu Görüntülemek İçin Giriş Yapmalısın</h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
-            Kişisel gelişimini ve test performansını takip etmek için lütfen hesabına giriş yap.
+            Kişisel gelişimini takip etmek, test performansını analiz etmek ve özel öneriler almak için üye girişi yapman gerekiyor.
           </p>
-          <Button size="lg" onClick={() => navigate("/giris?redirect=/durumum")} className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3">
-            Hemen Giriş Yap
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-[#2785E5] hover:bg-[#2785E5]/90 hover:scale-105 transition-all duration-200 text-white shadow-sm hover:shadow-md text-lg px-8 py-3">
+              <Link to="/giris?redirect=/durumum">Giriş Yap</Link>
+            </Button>
+            <Button asChild size="lg" className="bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient text-primary-foreground shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg px-8 py-3 hover:animate-none hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500">
+              <Link to="/uye-ol">Sen de Katıl</Link>
+            </Button>
+          </div>
       </div>
     );
   }

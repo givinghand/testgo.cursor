@@ -23,7 +23,7 @@ export const lgsSubjects = [
     topics: ["Kader İnancı", "Zekat ve sadaka", "Din ve Hayat", "Hz. Muhammed'in Örnekliği", "Kur'anı-ı Kerim ve Özellikleri"]
   },
   { 
-    id: "tarih", name: "T.C. İnkılap Tarihi ve Atatürkçülük", icon: <Landmark className="h-8 w-8 text-orange-500" />, 
+    id: "tarih", name: "Tarih", icon: <Landmark className="h-8 w-8 text-orange-500" />, 
     image: "https://images.unsplash.com/photo-1524041186354-96a0aac636a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGlzdG9yeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
     topics: ["Bir Kahraman Doğuyor", "Milli Uyanış-Bağımsızlık Yolunda Atılan Adımlar", "Milli Bir Destan-Ya İstiklal Ya Ölüm", "Atatürkçülük ve Çağdaşlaşan Türkiye", "Demokratikleşme Çabaları", "Atatürk Dönemi Türk dış Politikası", "Atatürk'ün Ölümü ve Sonrası"]
   },
@@ -129,12 +129,12 @@ export const yksAytSubjects = [
     topics: ["Anlam Bilgisi", "Dil Bilgisi", "Güzel Sanatlar ve Edebiyat", "Metinlerin Sınıflandırılması", "Şiir Bilgisi", "Edebi Sanatlar", "Türk Edebiyatı Dönemleri", "İslamiyet Öncesi Türk Edebiyatı ve Geçiş Dönemi", "Halk Edebiyatı", "Divan Edebiyatı", "Tanzimat Edebiyatı", "Servet-i Fünun Edebiyatı", "Fecr-i Ati Edebiyatı", "Milli Edebiyat", "Cumhuriyet Dönemi Edebiyatı", "Edebiyat Akımları", "Dünya Edebiyatı"]
   },
   {
-    id: "felsefe", name: "Felsefe Grubu", icon: <Brain className="h-8 w-8 text-pink-600" />,
+    id: "felsefe", name: "Felsefe", icon: <Brain className="h-8 w-8 text-pink-600" />,
     image: "https://images.unsplash.com/photo-1505664194779-8beace626db1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGhpbG9zb3BoeXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
     topics: ["Felsefe'nin Konusu", "Bilgi Felsefesi", "Varlık Felsefesi", "Ahlak Felsefesi", "Sanat Felsefesi", "Din Felsefesi", "Siyaset Felsefesi", "Bilim Felsefesi", "İlk Çağ Felsefesi", "MÖ 6. Yüzyıl – MS 2. Yüzyıl Felsefesi", "MS 2. Yüzyıl – MS 15. Yüzyıl Felsefesi", "15. Yüzyıl – 17. Yüzyıl Felsefesi", "18. Yüzyıl – 19. Yüzyıl Felsefesi", "20. Yüzyıl Felsefesi", "Mantığa Giriş", "Klasik Mantık", "Mantık ve Dil", "Sembolik Mantık", "Psikoloji Bilimini Tanıyalım", "Psikolojinin Temel Süreçleri", "Öğrenme Bellek Düşünme", "Ruh Sağlığının Temelleri", "Sosyolojiye Giriş", "Birey ve Toplum", "Toplumsal Yapı", "Toplumsal Değişme ve Gelişme", "Toplum ve Kültür", "Toplumsal Kurumlar"]
   },
   {
-    id: "din-kulturu", name: "Din Kültürü ve Ahlak Bilgisi", icon: <HelpCircle className="h-8 w-8 text-yellow-600" />,
+    id: "din-kulturu", name: "Din Kültürü", icon: <HelpCircle className="h-8 w-8 text-yellow-600" />,
     image: "https://images.unsplash.com/photo-1541535503160-11959c267c10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmVsaWdpb3VzJTIwdGV4dHxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60",
     topics: ["Dünya ve Ahiret", "Kur'an'a Göre Hz. Muhammed", "Kur'an'da Bazı Kavramlar", "İnançla İlgili Meseleler", "Yahudilik ve Hristiyanlık", "İslam ve Bilim", "Anadolu'da İslam", "İslam Düşüncesinde Tasavvufi Yorumlar", "Güncel Dini Meseleler", "Hint ve Çin Dinleri"]
   }
@@ -190,10 +190,10 @@ export const kpssOnlisansGenelYetenekSubjects = [
 export const examFlowData = {
   lgs: {
     name: "LGS",
-    icon: <GraduationCap className="h-10 w-10 text-primary" />,
-    bgColor: "bg-orange-500/10",
-    borderColor: "border-orange-500",
-    gradient: "bg-gradient-to-br from-orange-400 to-orange-600",
+    icon: <GraduationCap className="h-10 w-10 text-orange-400" />,
+    bgColor: "bg-orange-400",
+    borderColor: "border-orange-400",
+    gradient: "bg-orange-400",
     image: "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2Nob29sJTIwY2hpbGRyZW58ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
     subjects: lgsSubjects
   },
@@ -203,58 +203,85 @@ export const examFlowData = {
     bgColor: "bg-teal-500/10",
     borderColor: "border-teal-500",
     gradient: "bg-gradient-to-br from-teal-400 to-teal-600",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dW5pdmVyc2l0eSUyMHN0dWRlbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
-    subExams: [
-      { id: "tyt", name: "TYT", subjects: yksTytSubjects, icon: <BookOpen className="h-8 w-8 text-sky-500" />, image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0dWR5fGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
-      { id: "ayt", name: "AYT", subjects: yksAytSubjects, icon: <BookCopy className="h-8 w-8 text-amber-500" />, image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0a W9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
-    ]
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dW5pdmVyc2l0eXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=300&q=60",
+    subExams: {
+      tyt: {
+        name: "TYT",
+        subjects: yksTytSubjects
+      },
+      ayt: {
+        name: "AYT",
+        subjects: yksAytSubjects
+      }
+    }
   },
-  "kpss-lisans": {
+  kpssLisans: {
     name: "KPSS Lisans",
-    icon: <Briefcase className="h-10 w-10 text-primary" />,
+    icon: <Award className="h-10 w-10 text-red-500" />,
+    bgColor: "bg-red-500",
+    borderColor: "border-red-500",
+    gradient: "bg-red-500",
+    image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8dW5pdmVyc2l0eXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=300&q=60",
+    subExams: {
+      genelYetenek: {
+        name: "Genel Yetenek",
+        subjects: kpssLisansGenelYetenekSubjects
+      },
+      genelKultur: {
+        name: "Genel Kültür",
+        subjects: kpssLisansGenelKulturSubjects
+      }
+    }
+  },
+  kpssOnlisans: {
+    name: "KPSS Önlisans",
+    icon: <Award className="h-10 w-10 text-yellow-500" />,
     bgColor: "bg-yellow-500/10",
     borderColor: "border-yellow-500",
     gradient: "bg-gradient-to-br from-yellow-400 to-yellow-600",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdvcmtpbmclMjBwcm9mZXNzaW9uYWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
-    subExams: [
-      { id: "genel-kultur", name: "Genel Kültür", subjects: kpssLisansGenelKulturSubjects, icon: <BookOpen className="h-8 w-8 text-red-500" />, image: "https://images.unsplash.com/photo-1513109209089-9430138987f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3N8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
-      { id: "genel-yetenek", name: "Genel Yetenek", subjects: kpssLisansGenelYetenekSubjects, icon: <Lightbulb className="h-8 w-8 text-blue-500" />, image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWF0aGVtYXRpY3N8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
-    ]
-  },
-  "kpss-onlisans": {
-    name: "KPSS Önlisans",
-    icon: <Briefcase className="h-10 w-10 text-primary" />,
-    bgColor: "bg-blue-700/10",
-    borderColor: "border-blue-700",
-    gradient: "bg-gradient-to-br from-blue-600 to-blue-800",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHByb2Zlc3Npb25hbHN8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
-    subExams: [
-      { id: "genel-kultur", name: "Genel Kültür", subjects: kpssOnlisansGenelKulturSubjects, icon: <BookOpen className="h-8 w-8 text-red-600" />, image: "https://images.unsplash.com/photo-1560420026-993b164b7a82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
-      { id: "genel-yetenek", name: "Genel Yetenek", subjects: kpssOnlisansGenelYetenekSubjects, icon: <Lightbulb className="h-8 w-8 text-blue-600" />, image: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3R1ZHl8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
-    ]
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHVuaXZlcnNpdHl8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
+    subExams: {
+      genelYetenek: {
+        name: "Genel Yetenek",
+        subjects: kpssOnlisansGenelYetenekSubjects
+      },
+      genelKultur: {
+        name: "Genel Kültür",
+        subjects: kpssOnlisansGenelKulturSubjects
+      }
+    }
   },
   yds: {
     name: "YDS",
-    icon: <Globe className="h-10 w-10 text-primary" />,
-    bgColor: "bg-rose-500/10",
-    borderColor: "border-rose-500",
-    gradient: "bg-gradient-to-br from-rose-400 to-rose-600",
-    image: "https://images.unsplash.com/photo-1516410529446-21e7e7565119?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2xvYmFsJTIwY29tbXVuaWNhdGlvbnxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=300&q=60",
+    icon: <Globe className="h-10 w-10 text-[#7851a9]" />,
+    bgColor: "bg-[#7851a9]",
+    borderColor: "border-[#7851a9]",
+    gradient: "bg-[#7851a9]",
+    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGxhbmd1YWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
     subjects: ydsSubjects
   },
   yokdil: {
     name: "YÖKDİL",
-    icon: <BookCopy className="h-10 w-10 text-primary" />,
-    bgColor: "bg-red-500/10",
-    borderColor: "border-red-500",
-    gradient: "bg-gradient-to-br from-red-400 to-red-600",
-    image: "https://images.unsplash.com/photo-1491841550275-5fd78501832d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWNhZGVtaWN8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=300&q=60",
-    subExams: [
-      { id: "fen-bilimleri", name: "Fen Bilimleri (İngilizce)", subjects: yokdilFenSubjects, icon: <FlaskConical className="h-8 w-8 text-green-500" />, image: "https://images.unsplash.com/photo-1627627256602-7909ad79d804?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2NpZW5jZXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=200&q=60" },
-      { id: "saglik-bilimleri", name: "Sağlık Bilimleri (İngilizce)", subjects: yokdilSaglikSubjects, icon: <Leaf className="h-8 w-8 text-red-500" />, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGVhbHRofGVufDB8fDB8fHww&auto=format&fit=crop&w=200&q=60" },
-      { id: "sosyal-bilimler", name: "Sosyal Bilimler (İngilizce)", subjects: yokdilSosyalSubjects, icon: <Users className="h-8 w-8 text-blue-500" />, image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c29jaWFsJTIwc2NpZW5jZXN8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=200&q=60" },
-    ]
-  },
+    icon: <Globe className="h-10 w-10 text-green-400" />,
+    bgColor: "bg-green-400",
+    borderColor: "border-green-400",
+    gradient: "bg-green-400",
+    image: "https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxhbmd1YWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=300&q=60",
+    subExams: {
+      fen: {
+        name: "Fen Bilimleri",
+        subjects: yokdilFenSubjects
+      },
+      saglik: {
+        name: "Sağlık Bilimleri",
+        subjects: yokdilSaglikSubjects
+      },
+      sosyal: {
+        name: "Sosyal Bilimler",
+        subjects: yokdilSosyalSubjects
+      }
+    }
+  }
 };
 
 export const examCategoriesData = Object.keys(examFlowData).map(key => ({

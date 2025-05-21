@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"; // Removed Card import
@@ -11,7 +10,7 @@ const plans = [
   {
     name: "Ücretsiz Plan",
     price: "0₺",
-    period: "/her zaman",
+    period: "/daima",
     features: [
       "Sınırlı test çözme",
       "Temel sonuç görüntüleme",
@@ -22,7 +21,7 @@ const plans = [
     link: "/uye-ol",
     variant: "outline",
     popular: false,
-    blobColor: "linear-gradient(45deg, hsl(var(--secondary) / 0.7), hsl(var(--accent) / 0.7))",
+    blobColor: "linear-gradient(45deg, #B9275A, #8f1d45)",
   },
   {
     name: "Premium Plan",
@@ -81,24 +80,24 @@ export function PricingSection() {
                     </div>
                   )}
                   <CardHeader className="text-center pt-10 p-6">
-                    <CardTitle className={`text-2xl font-bold ${plan.name === "Premium Plan" ? 'text-primary' : 'text-foreground'}`}>{plan.name}</CardTitle>
-                    <div className="flex items-baseline justify-center my-4">
-                      <span className={`text-4xl font-extrabold ${plan.name === "Premium Plan" ? 'text-primary' : 'text-foreground'}`}>{plan.price}</span>
-                      <span className="text-muted-foreground ml-1">{plan.period}</span>
+                    <CardTitle className={`text-3xl font-extrabold mb-2 ${plan.name === "Premium Plan" ? 'text-primary' : plan.name === "Ücretsiz Plan" ? 'text-[#B9275A]' : 'text-foreground'}`}>{plan.name}</CardTitle>
+                    <div className="flex items-baseline justify-center my-2">
+                      <span className={`text-3xl font-bold ${plan.name === "Premium Plan" ? 'text-primary' : plan.name === "Ücretsiz Plan" ? 'text-[#B9275A]' : 'text-foreground'}`}>{plan.price}</span>
+                      <span className="text-sm text-foreground ml-1">{plan.period}</span>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow p-6 pt-0">
                     <ul className="space-y-3">
                       {plan.features.map((feature, fIndex) => (
                         <li key={fIndex} className="flex items-start">
-                          <Check className={`h-5 w-5 mr-2 mt-0.5 flex-shrink-0 ${plan.name === "Premium Plan" ? 'text-primary' : 'text-[hsl(var(--secondary))]'}`} />
-                          <span className="text-muted-foreground text-sm">{feature}</span>
+                          <Check className={`h-5 w-5 mr-2 mt-0.5 flex-shrink-0 ${plan.name === "Premium Plan" ? 'text-primary' : plan.name === "Ücretsiz Plan" ? 'text-[#B9275A]' : 'text-[hsl(var(--secondary))]'}`} />
+                          <span className="text-sm text-foreground">{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </CardContent>
                   <CardFooter className="mt-auto p-6">
-                    <Button asChild size="lg" className={`w-full text-base font-semibold ${plan.name === "Premium Plan" ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-secondary hover:bg-secondary/90 text-secondary-foreground'}`} variant={plan.variant === "outline" && plan.name !== "Premium Plan" ? "secondary" : plan.variant}>
+                    <Button asChild size="lg" className={`w-full text-base font-semibold ${plan.name === "Premium Plan" ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : plan.name === "Ücretsiz Plan" ? 'bg-[#B9275A] hover:bg-[#B9275A]/90 text-white' : 'bg-secondary hover:bg-secondary/90 text-secondary-foreground'}`} variant={plan.variant === "outline" && plan.name !== "Ücretsiz Plan" ? "secondary" : plan.variant}>
                       <Link to={plan.link}>{plan.cta} <TrendingUp className="ml-2 h-5 w-5"/></Link>
                     </Button>
                   </CardFooter>

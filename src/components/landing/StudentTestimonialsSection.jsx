@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,33 +27,37 @@ const studentTestimonials = [
     exam: "LGS",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmVtYWxlJTIwc3R1ZGVudHx8ZW58MHx8MHx8fDA&auto=format&fit=crop&w=100&q=60",
     quote: "İnteraktif testler ve anında geri bildirimler öğrenme sürecimi çok hızlandırdı. Ayrıca mobil uyumlu olması her yerde çalışabilmemi sağladı. TESTGO ile çalışmak çok keyifli.",
-    rating: 4,
+    rating: 5,
   },
 ];
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div className="testimonial-card-hover-effect">
-      <div className="testimonial-content-front">
-        <div className="stars">
-          {Array(5).fill(0).map((_, i) => (
-            <Star
-              key={i}
-              className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300'}`}
-            />
-          ))}
+    <div className="blob-card testimonial-card-hover-effect">
+      <div className="blob-animated" />
+      <div className="blob-card-bg" />
+      <div className="blob-card-content">
+        <div className="testimonial-content-front">
+          <Avatar className="avatar">
+            <AvatarImage src={testimonial.image} alt={testimonial.name} />
+            <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+          </Avatar>
+          <p className="name">{testimonial.name}</p>
+          <p className="title">{testimonial.exam} Sınavına TESTGO ile Hazırlandı</p>
+          <p className="title text-xs mt-1 opacity-80">{testimonial.title}</p>
         </div>
-        <p className="quote">"{testimonial.quote.substring(0, 100)}{testimonial.quote.length > 100 ? "..." : ""}"</p>
-        <span className="text-xs text-primary mt-auto">Detaylar için üzerine gelin</span>
-      </div>
-      <div className="testimonial-content-back">
-        <Avatar className="avatar">
-          <AvatarImage src={testimonial.image} alt={testimonial.name} />
-          <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-        </Avatar>
-        <p className="name">{testimonial.name}</p>
-        <p className="title">{testimonial.exam} Sınavına Hazırlanıyor</p>
-        <p className="title text-xs mt-1">{testimonial.title}</p>
+        <div className="testimonial-content-back">
+          <div className="stars">
+            {Array(5).fill(0).map((_, i) => (
+              <Star
+                key={i}
+                className={`${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300 fill-slate-100'}`}
+                strokeWidth={1.5}
+              />
+            ))}
+          </div>
+          <p className="quote">"{testimonial.quote}"</p>
+        </div>
       </div>
     </div>
   );
@@ -64,7 +67,7 @@ const TestimonialCard = ({ testimonial }) => {
 export function StudentTestimonialsSection() {
   return (
     <section className="py-16 md:py-24 bg-card">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <motion.div
           className="text-center mb-12 md:mb-16"
           variants={fadeIn}
@@ -80,14 +83,14 @@ export function StudentTestimonialsSection() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
           {studentTestimonials.map((testimonial, index) => (
-            <motion.div key={index} variants={fadeIn} className="flex">
+            <motion.div key={index} variants={fadeIn} className="w-full">
                <TestimonialCard testimonial={testimonial} />
             </motion.div>
           ))}

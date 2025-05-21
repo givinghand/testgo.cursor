@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -20,7 +19,11 @@ export function TopicsListPage() {
   let backLink = pageType === 'test' ? "/test-coz" : "/konu-calis";
 
   if (exam?.subExams && subExamId) {
-    const subExamDetails = exam.subExams.find(se => se.id === subExamId);
+    // Handle both array and object structures for subExams
+    const subExamDetails = Array.isArray(exam.subExams)
+      ? exam.subExams.find(se => se.id === subExamId)
+      : exam.subExams[subExamId];
+
     if (subExamDetails) {
       subject = subExamDetails.subjects.find(s => s.id === subjectId);
       pageTitlePrefix = `${exam.name} - ${subExamDetails.name}`;

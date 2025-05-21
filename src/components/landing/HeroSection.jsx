@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -10,19 +9,25 @@ const heroImageUrl = "https://storage.googleapis.com/hostinger-horizons-assets-p
 
 export function HeroSection() {
   return (
-    <section className="relative text-white py-28 md:py-40 overflow-hidden">
+    <section className="relative text-white min-h-screen overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroImageUrl} alt="TESTGO platformunu kullanan gülümseyen bir öğrenci" className="w-full h-full object-cover opacity-70" />
+        <img 
+          src={heroImageUrl} 
+          alt="TESTGO platformunu kullanan gülümseyen bir öğrenci" 
+          className="w-full h-full object-cover object-center opacity-70" 
+          style={{ minHeight: '100vh' }}
+        />
         <div className="absolute inset-0 hero-gradient opacity-50"></div>
         <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
       </div>
       
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      <div className="container mx-auto px-6 relative z-10 text-center h-screen flex flex-col justify-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.8, delay: 0.2 }}
+          className="max-w-5xl mx-auto"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-shadow-lg">
             Gelişimin Yeni Adı: <span className="block sm:inline">

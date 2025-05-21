@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -79,11 +78,11 @@ const ExamSubjectsContent = ({ examKey }) => {
       </p>
       {exam.subExams ? (
         <Accordion type="multiple" collapsible className="w-full space-y-3">
-          {exam.subExams.map((subExam, index) => (
-            <AccordionItem key={subExam.id} value={subExam.id} className="border border-border/50 rounded-lg overflow-hidden bg-card shadow-sm">
+          {Object.entries(exam.subExams).map(([subExamId, subExam]) => (
+            <AccordionItem key={subExamId} value={subExamId} className="border border-border/50 rounded-lg overflow-hidden bg-card shadow-sm">
               <AccordionTrigger className="p-4 hover:no-underline text-xl font-semibold text-primary bg-muted/30">
                  <div className="flex items-center">
-                   {React.cloneElement(subExam.icon, { className: "mr-3 h-6 w-6"})}
+                   <BookOpen className="mr-3 h-6 w-6" />
                    {subExam.name} Dersleri
                  </div>
               </AccordionTrigger>

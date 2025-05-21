@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "@/utils/animations";
@@ -9,25 +8,25 @@ const stats = [
     icon: <Edit3 className="h-10 w-10 text-primary" />,
     value: "250.000+",
     label: "Soru Çözüldü",
-    bgColor: "bg-primary/10",
+    bgColor: "bg-white",
   },
   {
     icon: <FileText className="h-10 w-10 text-secondary" />,
     value: "1.500+",
     label: "Deneme Sınavı",
-    bgColor: "bg-secondary/10",
+    bgColor: "bg-white",
   },
   {
     icon: <BookOpen className="h-10 w-10 text-accent" />,
     value: "800+",
     label: "Konu Anlatımı",
-    bgColor: "bg-accent/10",
+    bgColor: "bg-white",
   },
   {
     icon: <Users className="h-10 w-10 text-primary" />,
     value: "50.000+",
     label: "Aktif Kullanıcı",
-    bgColor: "bg-primary/10",
+    bgColor: "bg-white",
   },
 ];
 
@@ -60,12 +59,16 @@ export function StatsSection() {
         >
           {stats.map((stat, index) => (
             <motion.div key={index} variants={fadeIn} className="flex">
-              <div className="w-full text-center p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-background border border-border card-hover">
-                <div className={`w-20 h-20 rounded-full ${stat.bgColor} flex items-center justify-center mx-auto mb-6 shadow-md`}>
-                  {stat.icon}
+              <div className="blob-card w-full">
+                <div className="blob-animated"></div>
+                <div className="blob-card-bg"></div>
+                <div className="blob-card-content text-center p-6 md:p-8">
+                  <div className={`w-20 h-20 rounded-full ${stat.bgColor} flex items-center justify-center mx-auto mb-6 shadow-lg relative z-10 border border-border/20`}>
+                    {stat.icon}
+                  </div>
+                  <p className="text-4xl md:text-5xl font-bold text-primary mb-2 relative z-10">{stat.value}</p>
+                  <p className="text-muted-foreground relative z-10">{stat.label}</p>
                 </div>
-                <p className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</p>
-                <p className="text-muted-foreground">{stat.label}</p>
               </div>
             </motion.div>
           ))}

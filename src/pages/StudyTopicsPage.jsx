@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { ChevronRight, Folder, FileText } from "lucide-react";
+import { ChevronRight, Folder, FileText, BookOpen } from "lucide-react";
 import { examFlowData } from "@/data/examData";
 
 export function StudyTopicsPage() {
@@ -50,8 +49,11 @@ export function StudyTopicsPage() {
     const exam = examFlowData[currentExamId];
     if (exam.subExams) {
       if (!currentSubExamId) return [];
-      const subExam = exam.subExams.find(se => se.id === currentSubExamId);
-      return subExam ? subExam.subjects : [];
+      // Handle both array and object structures for subExams
+      const subExamDetails = Array.isArray(exam.subExams)
+        ? exam.subExams.find(se => se.id === currentSubExamId)
+        : exam.subExams[currentSubExamId];
+      return subExamDetails ? subExamDetails.subjects : [];
     }
     return exam.subjects || [];
   };
@@ -60,8 +62,11 @@ export function StudyTopicsPage() {
     if (!currentExamId) return "Ders Seçimi";
     const exam = examFlowData[currentExamId];
     if (exam.subExams && currentSubExamId) {
-      const subExam = exam.subExams.find(se => se.id === currentSubExamId);
-      return `${exam.name} - ${subExam?.name || ''} Dersleri`;
+      // Handle both array and object structures for subExams
+      const subExamDetails = Array.isArray(exam.subExams)
+        ? exam.subExams.find(se => se.id === currentSubExamId)
+        : exam.subExams[currentSubExamId];
+      return `${exam.name} - ${subExamDetails?.name || ''} Dersleri`;
     }
     return `${exam.name} Dersleri`;
   };
@@ -89,13 +94,12 @@ export function StudyTopicsPage() {
             transition={{ duration: 0.3, delay: index * 0.05 }}
             onClick={() => handleExamCategoryClick(Object.keys(examFlowData)[index])}
           >
-            <Card className={`hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden group relative border-2 ${exam.borderColor} hover:border-secondary card-hover`}>
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300 z-10"></div>
-              <img-replace src={exam.image} alt={exam.name} class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
-              Sınav kategorisi için görsel: {exam.name}
-              <CardHeader className="relative z-20 flex flex-col items-center justify-center text-center p-6 h-48 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                 <div className={`p-3 rounded-full ${exam.bgColor} mb-3 shadow-md`}>{React.cloneElement(exam.icon, { className: exam.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
-                <CardTitle className="text-2xl font-bold text-white group-hover:text-secondary transition-colors duration-300">{exam.name}</CardTitle>
+            <Card className={`hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden group relative border-2 ${exam.borderColor} hover:scale-110 hover:rotate-1 hover:border-2 card-hover`}>
+              <div className={`absolute inset-0 ${exam.gradient} opacity-80 group-hover:opacity-95 transition-all duration-500 z-10`}></div>
+              <img-replace src={exam.image} alt={exam.name} class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+              <CardHeader className="relative z-20 flex flex-col items-center justify-center text-center p-6 h-48">
+                <div className="p-3 rounded-full bg-white/90 shadow-lg mb-3 group-hover:scale-110 transition-transform duration-500">{React.cloneElement(exam.icon, { className: exam.icon.props.className })}</div>
+                <CardTitle className="text-2xl font-bold text-white drop-shadow-lg">{exam.name}</CardTitle>
               </CardHeader>
             </Card>
           </motion.div>
@@ -110,24 +114,26 @@ export function StudyTopicsPage() {
         <DialogContent className="sm:max-w-[500px] md:max-w-[600px] p-0">
           <DialogHeader className="p-6 bg-primary/10">
             <DialogTitle className="text-2xl font-bold text-primary">{examFlowData[currentExamId]?.name} - Sınav Türü Seçin</DialogTitle>
-            <DialogDescription className="text-muted-foreground">Lütfen TYT veya AYT seçimi yapın.</DialogDescription>
+            <DialogDescription className="text-muted-foreground">Lütfen sınav türünü seçin.</DialogDescription>
           </DialogHeader>
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 max-h-[70vh] overflow-y-auto">
-            {examFlowData[currentExamId]?.subExams?.map((subExam, index) => (
+            {Object.entries(examFlowData[currentExamId]?.subExams || {}).map(([subExamId, subExam], index) => (
               <motion.div
-                key={subExam.id}
+                key={subExamId}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                onClick={() => handleSubExamClick(subExam.id)}
+                onClick={() => handleSubExamClick(subExamId)}
               >
-                <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group overflow-hidden relative border hover:border-primary card-hover">
-                  <img-replace src={subExam.image} alt={subExam.name} class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
-                  {subExam.name} için görsel
+                <Card className={`hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden group relative border-2 ${examFlowData[currentExamId]?.borderColor} hover:scale-110 hover:rotate-1 hover:border-2 card-hover`}>
+                  <div className={`absolute inset-0 ${examFlowData[currentExamId]?.gradient} opacity-80 group-hover:opacity-95 transition-all duration-500 z-10`}></div>
+                  <img-replace src={subExam.image} alt={subExam.name} class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
                   <CardContent className="p-6 flex flex-col items-center text-center relative z-10">
-                    <div className="p-3 rounded-full bg-primary/10 mb-3">{React.cloneElement(subExam.icon, { className: subExam.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{subExam.name}</h3>
-                    <Button variant="ghost" className="text-primary group-hover:underline">
+                    <div className="p-3 rounded-full bg-white/90 shadow-lg mb-3 group-hover:scale-110 transition-transform duration-500">
+                      <BookOpen className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white drop-shadow-lg mb-2">{subExam.name}</h3>
+                    <Button variant="secondary" className="bg-white/90 hover:bg-white">
                       Dersleri Gör <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
                   </CardContent>
@@ -162,13 +168,13 @@ export function StudyTopicsPage() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 onClick={() => handleSubjectClick(subject.id)}
               >
-                <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group overflow-hidden relative border hover:border-primary card-hover">
-                  <img-replace src={subject.image} alt={subject.name} class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
-                  {subject.name} dersi için görsel
+                <Card className={`hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden group relative border-2 ${examFlowData[currentExamId]?.borderColor} hover:scale-110 hover:rotate-1 hover:border-2 card-hover`}>
+                  <div className={`absolute inset-0 ${examFlowData[currentExamId]?.gradient} opacity-80 group-hover:opacity-95 transition-all duration-500 z-10`}></div>
+                  <img-replace src={subject.image} alt={subject.name} class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
                   <CardContent className="p-6 flex flex-col items-center text-center relative z-10">
-                    <div className="p-3 rounded-full bg-primary/10 mb-3">{React.cloneElement(subject.icon, { className: subject.icon.props.className.replace(/text-\w+-\d+/, 'text-primary') })}</div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{subject.name}</h3>
-                    <Button variant="ghost" className="text-primary group-hover:underline">
+                    <div className="p-3 rounded-full bg-white/90 shadow-lg mb-3 group-hover:scale-110 transition-transform duration-500">{React.cloneElement(subject.icon, { className: subject.icon.props.className })}</div>
+                    <h3 className="text-xl font-semibold text-white drop-shadow-lg mb-2">{subject.name}</h3>
+                    <Button variant="secondary" className="bg-white/90 hover:bg-white">
                       Konuları Gör <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
                   </CardContent>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, CalendarCheck } from 'lucide-react';
@@ -9,7 +8,7 @@ export function ExamUpcomingBanner({ date }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="mb-10 p-5 bg-gradient-to-r from-primary/80 via-secondary/80 to-accent/80 rounded-xl shadow-lg text-center text-primary-foreground"
+      className="mb-10 p-5 bg-primary rounded-xl shadow-xl text-center text-primary-foreground border border-primary-foreground/10"
     >
       <div className="flex items-center justify-center mb-2">
         <CalendarCheck className="h-7 w-7 mr-3" />
