@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useToast } from "@/components/ui/use-toast";
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (email, password, fullName) => {
+  const signUp = async (email, password, fullName, tcKimlik) => {
     setLoading(true);
     const { data: { user: authUser, session }, error } = await supabase.auth.signUp({
       email,
@@ -86,6 +85,7 @@ export const AuthProvider = ({ children }) => {
       options: {
         data: {
           full_name: fullName,
+          tc_kimlik: tcKimlik,
           avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(fullName)}&backgroundColor=00897b,039be5,3949ab,e53935,f4511e,fb8c00&backgroundType=gradientLinear&fontSize=40`,
         }
       }
