@@ -56,14 +56,6 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-      <style jsx>{`
-        .text-shadow-lg {
-          text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-        }
-        .text-shadow-md {
-          text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-        }
-      `}</style>
     </section>
   );
 }

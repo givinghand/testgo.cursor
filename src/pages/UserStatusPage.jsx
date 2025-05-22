@@ -272,7 +272,7 @@ export function UserStatusPage() {
             <Button asChild size="lg" className="bg-[#2785E5] hover:bg-[#2785E5]/90 hover:scale-105 transition-all duration-200 text-white shadow-sm hover:shadow-md text-lg px-8 py-3">
               <Link to="/giris?redirect=/durumum">Giriş Yap</Link>
             </Button>
-            <Button asChild size="lg" className="bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient text-primary-foreground shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg px-8 py-3 hover:animate-none hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500">
+            <Button asChild size="lg" className="bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] text-primary-foreground shadow-md hover:shadow-xl transition-all duration-300 text-lg px-8 py-3 animate-pulse-glow hover:animate-pulse-glow-hover">
               <Link to="/uye-ol">Sen de Katıl</Link>
             </Button>
           </div>

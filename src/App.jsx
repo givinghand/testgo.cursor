@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LandingPage } from "@/pages/LandingPage";
@@ -19,7 +19,7 @@ import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { FaqPage } from "@/pages/FaqPage";
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/contexts/AuthContext"; 
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 
 function ScrollToTop() {
@@ -31,6 +31,23 @@ function ScrollToTop() {
 
   return null;
 }
+
+// Protected route wrapper
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>;
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
 
 function AppContent() {
   const location = useLocation();
@@ -66,6 +83,13 @@ function AppContent() {
           <Route path="/kvkk-gizlilik" element={<PrivacyPolicyPage />} />
           <Route path="/iletisim" element={<ContactPage />} />
           <Route path="/sss" element={<FaqPage />} />
+          
+          {/* Protected routes */}
+          <Route path="/account" element={
+            <ProtectedRoute>
+              <div>Account Page</div>
+            </ProtectedRoute>
+          } />
         </Routes>
       </main>
       {showFooter && <Footer />}
@@ -74,7 +98,7 @@ function AppContent() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <Router>
       <AuthProvider>
@@ -83,5 +107,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

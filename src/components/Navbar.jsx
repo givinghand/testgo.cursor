@@ -11,6 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { UserProfile } from './UserProfile';
 
 const navLinks = [
   { href: "/blog", label: "Blog" },
@@ -117,52 +118,7 @@ export function Navbar() {
                   <span className="text-sm text-muted-foreground">Yükleniyor...</span>
                 </div>
               ) : user ? (
-                <div className="flex items-center space-x-2">
-                  <Button variant="ghost" onClick={() => navigate("/durumum")} className="flex items-center space-x-2 px-3 py-2 h-auto bg-[#56CD95]/20 hover:bg-[#56CD95]/30">
-                      <Library className="h-5 w-5 text-primary" />
-                      <span className="text-lg font-bold">Hesabım</span>
-                  </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage src={profile?.avatar_url || ''} alt={profile?.full_name || user?.email} />
-                          <AvatarFallback>{getAvatarFallback(profile?.full_name || user?.email)}</AvatarFallback>
-                        </Avatar>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56" align="end" forceMount>
-                      <DropdownMenuLabel className="font-normal">
-                        <div className="flex flex-col space-y-1">
-                          <p className="text-sm font-medium leading-none">{profile?.full_name || user.email}</p>
-                          <p className="text-xs leading-none text-muted-foreground">
-                            {profile?.is_premium ? "Premium Üye" : "Standart Üye"}
-                          </p>
-                        </div>
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => navigate("/durumum")}>
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profilim</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate("/ayarlar")}>
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Ayarlar</span>
-                      </DropdownMenuItem>
-                      {!profile?.is_premium && (
-                        <DropdownMenuItem onClick={() => navigate("/premium-uye-ol")} className="text-primary hover:!text-primary focus:!text-primary">
-                          <ShieldCheck className="mr-2 h-4 w-4" />
-                          <span>Premium'a Geç</span>
-                        </DropdownMenuItem>
-                      )}
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={handleLogout}>
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Çıkış Yap</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                <UserProfile />
               ) : (
                 <>
                   <Button variant="ghost" asChild className="text-lg font-bold px-4 py-2 h-auto bg-[#2785E5] hover:brightness-110 hover:scale-105 transition-all duration-200 text-white shadow-md hover:shadow-lg border border-white/10">

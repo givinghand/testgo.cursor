@@ -68,104 +68,100 @@ export const AuthProvider = ({ children }) => {
       }
       setProfile(data || null);
     } catch (error) {
-      setProfile(null); // Ensure profile is null on error
+      setProfile(null);
       toast({
-        title: "Profil Yüklenemedi",
-        description: "Profil bilgileriniz getirilirken bir sorun oluştu: " + error.message,
+        title: "Profile Load Error",
+        description: "Error loading profile: " + error.message,
         variant: "destructive",
       });
     }
   };
 
-  const signUp = async (email, password, fullName, tcKimlik) => {
+  const signUp = async (email, password, fullName) => {
     setLoading(true);
-    const { data: { user: authUser, session }, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          tc_kimlik: tcKimlik,
-          avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(fullName)}&backgroundColor=00897b,039be5,3949ab,e53935,f4511e,fb8c00&backgroundType=gradientLinear&fontSize=40`,
+    try {
+      const { data: { user: authUser, session }, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(fullName)}`,
+          }
         }
-      }
-    });
+      });
 
-    if (error) {
-      setLoading(false);
-      throw error;
-    }
-    
-    if(authUser){
+      if (error) throw error;
+      
+      if (authUser) {
         await fetchProfile(authUser.id);
-    } else {
-        setProfile(null);
+      }
+      
+      return { user: authUser, session };
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
-    return { user: authUser, session };
   };
 
   const signIn = async (email, password) => {
     setLoading(true);
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      setLoading(false);
-      throw error;
-    }
-    if (data.user) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      
+      if (data.user) {
         await fetchProfile(data.user.id);
-    } else {
-        setProfile(null);
+      }
+      
+      return data;
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    return data;
   };
 
   const signOut = async () => {
-    setLoading(true);
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      setLoading(false);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      setUser(null);
+      setProfile(null);
+    } catch (error) {
       throw error;
     }
-    setUser(null);
-    setProfile(null);
-    setLoading(false);
   };
 
   const updateProfileAvatar = async (avatarUrl) => {
     if (!user) return;
-    setLoading(true);
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .update({ avatar_url: avatarUrl, updated_at: new Date() })
+        .update({ avatar_url: avatarUrl })
         .eq('id', user.id)
         .select()
         .single();
 
       if (error) throw error;
       
-      if(data) {
-        setProfile(prevProfile => ({ ...prevProfile, avatar_url: data.avatar_url }));
+      if (data) {
+        setProfile(prev => ({ ...prev, avatar_url: data.avatar_url }));
         toast({
-          title: "Avatar Güncellendi",
-          description: "Profil resminiz başarıyla değiştirildi.",
+          title: "Avatar Updated",
+          description: "Your profile picture has been updated successfully.",
         });
       }
     } catch (error) {
-      console.error('Error updating avatar:', error.message);
       toast({
-        title: "Avatar Güncellenemedi",
-        description: "Profil resmi güncellenirken bir hata oluştu.",
+        title: "Avatar Update Failed",
+        description: error.message,
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
   
@@ -173,10 +169,19 @@ export const AuthProvider = ({ children }) => {
     return profile?.is_premium || false;
   };
 
-
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signOut, updateProfileAvatar, fetchProfile, checkUserPremiumStatus }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ 
+      user, 
+      profile, 
+      loading, 
+      signUp, 
+      signIn, 
+      signOut, 
+      updateProfileAvatar, 
+      fetchProfile,
+      checkUserPremiumStatus
+    }}>
+      {children}
     </AuthContext.Provider>
   );
 };
